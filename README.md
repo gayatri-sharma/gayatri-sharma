@@ -1,6 +1,14 @@
 ### Hi there 👋, I am Gayatri Sharma Kurmatey
 ---
 
+ [[params.social]]
+    icon = "linkedin"
+    icon_pack = "fa"
+    link = "https://www.linkedin.com/in/gayatrikurmatey/"
+
+
+---
+
 Highly analytical, and reseach-oriented. Passionate about Data Science with knowledge in analytical methods, data visualization, and machine learning.
 
 ---
@@ -62,3 +70,7 @@ Business Intelligence: DAX Studio
 Automation: Power Apps, Power Automate, ChatGPT
 
 Project Management: JIRA, Confluence, Microsoft Project
+
+---
+
+
