@@ -66,4 +66,5 @@ Project Management: JIRA, Confluence, Microsoft Project
 
 ---
 
+🤔 I’m looking for help with full time opportunities as a Data Analyst, Business Intelligence Analyst, or Data Engineer
 
