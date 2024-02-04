@@ -44,3 +44,21 @@ Highly analytical, and reseach-oriented. Passionate about Data Science with know
 👯 I’m looking to collaborate on Astroinformations or Data Science Research Projects @ National Aeronautics and Space Administration - Jet Propulsion Laboratory, Ames Research Center
 
 ---
+
+#### SKILLS
+
+Programming: Python (NumPy, Pandas, Scikit-Learn, TensorFlow, OpenCV, Matplotlib, PyPDF2, Haystack, NLTK)
+
+Database: Microsoft SQL Server, MySQL, PL/SQL, SQLdbx, MariaDB, PostgreSQL
+
+Data Visualization: Tableau, Power BI (DAX, Power Query (M))
+
+Microsoft Excel: Pivot Tables, Macros, Advanced Functions
+
+Containerization: Docker
+
+Business Intelligence: DAX Studio
+
+Automation: Power Apps, Power Automate, ChatGPT
+
+Project Management: JIRA, Confluence, Microsoft Project
