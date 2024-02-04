@@ -1,11 +1,4 @@
 ### Hi there 👋, I am Gayatri Sharma Kurmatey
----
-
- [[params.social]]
-    icon = "linkedin"
-    icon_pack = "fa"
-    link = "https://www.linkedin.com/in/gayatrikurmatey/"
-
 
 ---
 
