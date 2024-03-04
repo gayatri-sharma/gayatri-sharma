@@ -18,6 +18,7 @@ Highly analytical, and reseach-oriented. Passionate about Data Science with know
 
 ---
 
+:woman_technologist: Open-Source Collaborator @ NASA, Glenn Research Center, Cleveland, Ohio https://www.nasa.gov/glenn/
 
 :woman_technologist: Data Analyst/ Business Intelligence Analyst @ Pacific Gas and Electric, San Ramon, California https://www.pge.com/
 
