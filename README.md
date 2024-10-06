@@ -17,8 +17,9 @@ Highly analytical, and reseach-oriented. Passionate about Data Science with know
 
 
 ---
+:woman_technologist:  Database Analyst @ Robert Half, Fremont Unified School District, Fremont, California https://fremontunified.org/
 
-:woman_technologist: Open-Source Collaborator @ NASA, Glenn Research Center, Cleveland, Ohio https://www.nasa.gov/glenn/
+:woman_technologist: Open-Source Collaborator @ NASA, Ames Research Center, Palo ALto, California https://www.nasa.gov/ames/
 
 :woman_technologist: Data Analyst/ Business Intelligence Analyst @ Pacific Gas and Electric, San Ramon, California https://www.pge.com/
 
@@ -61,5 +62,7 @@ Project Management: JIRA, Confluence, Microsoft Project
 
 ---
 
-🤔 I’m looking for help with full time opportunities as a Data Analyst, Business Intelligence Analyst, or Data Engineer
+Currently working as a Database Analyst, where I am instrumental in automating the systems employed by the Fremont Unified School District.
+
+I’m looking for help with full time opportunities as a Data Analyst, Business Intelligence Analyst, or Data Engineer
 
