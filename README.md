@@ -1,68 +1,131 @@
-### Hi there 👋, I am Gayatri Sharma Kurmatey
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gayatri Sharma Kurmatey | Data Engineer & Researcher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background: #004080;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    nav {
+      text-align: center;
+      padding: 1rem;
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #004080;
+      font-weight: bold;
+    }
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .button {
+      display: inline-block;
+      background: #004080;
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #004080;
+      color: white;
+    }
+  </style>
+</head>
+<body>
 
----
+  <header>
+    <h1>Gayatri Sharma Kurmatey</h1>
+    <p>Data Engineer • Researcher • NASA | Tesla | ISRO</p>
+  </header>
 
-Highly analytical, and reseach-oriented. Passionate about Data Science with knowledge in analytical methods, data visualization, and machine learning.
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
----
-<!--
-- 🔭 I’m currently working on ...
-- ⚡ Fun fact: ...
--->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I’m a data engineer and researcher with 6+ years of experience across NASA Ames, Tesla, ISRO, and Amazon. I work at the intersection of data science, automation, and bioinformatics, currently exploring graph-based protein embeddings and intelligent analytics solutions.</p>
+  </section>
 
-:woman_student: Data Science from The University of Texas at Dallas. https://www.utdallas.edu/
-       🥉 Honored as Scholar with Recognition
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <h3>🔬 NASA Ames Research</h3>
+        <p>Protein structure clustering using unsupervised Geometric GNNs and contact map graphs.</p>
+      </div>
+      <div class="card">
+        <h3>📊 Tesla Forecast Dashboards</h3>
+        <p>Built $1.3B CAPEX forecasting and real-time BOM dashboards using Power BI and Qlik.</p>
+      </div>
+      <div class="card">
+        <h3>🛰 ISRO Booking System</h3>
+        <p>Created a conflict-free real-time hall booking system with Java, MySQL, and Sybase.</p>
+      </div>
+      <div class="card">
+        <h3>🏢 FUSD Automation</h3>
+        <p>Developed Power Apps-based asset management workflows for HR/IT efficiency.</p>
+      </div>
+    </div>
+  </section>
 
-:woman_student: Computer Engineer from Jawaharlal Nehru Technological University, Hyderabad. https://jntuh.ac.in/
+  <section id="resume">
+    <h2>Resume</h2>
+    <a class="button" href="Resume_GayatriSharmaKurmatey.pdf" target="_blank">Download My Resume (PDF)</a>
+  </section>
 
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>📧 <a href="mailto:gkurmatey@gmail.com">gkurmatey@gmail.com</a></p>
+    <p>🔗 <a href="https://www.linkedin.com/in/gayatrikurmatey/" target="_blank">LinkedIn</a> |
+        <a href="https://github.com/gayatri-sharma" target="_blank">GitHub</a></p>
+  </section>
 
----
-:woman_technologist:  Database Analyst @ Robert Half, Fremont Unified School District, Fremont, California https://fremontunified.org/
+  <footer>
+    <p>&copy; 2025 Gayatri Sharma Kurmatey</p>
+  </footer>
 
-:woman_technologist: Open-Source Collaborator @ NASA, Ames Research Center, Palo ALto, California https://www.nasa.gov/ames/
-
-:woman_technologist: Data Analyst/ Business Intelligence Analyst @ Pacific Gas and Electric, San Ramon, California https://www.pge.com/
-
-:woman_technologist: Data Science Intern @ Tesla Motors, Fremont, California https://www.tesla.com/careers
-
-:woman_technologist: Data Scientist Intern @ Tango Analytics, Dallas, Texas https://tangoanalytics.com/
-
-:woman_technologist: Data Analyst Intern @ Indian Space Research Organisation (ISRO) - UR Rao Satellite Center https://www.ursc.gov.in/
-
-
----
-
-💬 Ask me about Python, SQL, Data Visualization (Tableau, PowerBI), Power Platforms (Power Applications, Power Automate), Data Analytics, Machine Learning, Researching
-
----
-
-🌱 I’m currently learning Machine Learning, Large Language Models (LLMs), Google Big Query
-  
-👯 I’m looking to collaborate on Astroinformations or Data Science Research Projects @ National Aeronautics and Space Administration - Jet Propulsion Laboratory, Ames Research Center
-
----
-
-#### SKILLS
-
-Programming: Python (NumPy, Pandas, Scikit-Learn, TensorFlow, OpenCV, Matplotlib, PyPDF2, Haystack, NLTK)
-
-Database: Microsoft SQL Server, MySQL, PL/SQL, SQLdbx, MariaDB, PostgreSQL
-
-Data Visualization: Tableau, Power BI (DAX, Power Query (M))
-
-Microsoft Excel: Pivot Tables, Macros, Advanced Functions
-
-Containerization: Docker
-
-Business Intelligence: DAX Studio
-
-Automation: Power Apps, Power Automate, ChatGPT
-
-Project Management: JIRA, Confluence, Microsoft Project
-
----
-
-Currently working as a Database Analyst, where I am instrumental in automating the systems employed by the Fremont Unified School District.
-
-I’m looking for help with full time opportunities as a Data Analyst, Business Intelligence Analyst, or Data Engineer
-
+</body>
+</html>
