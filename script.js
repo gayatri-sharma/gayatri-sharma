@@ -30,7 +30,7 @@ scene.add(stars);
 const group = new THREE.Group();
 scene.add(group);
 
-const palette = [0x43d7ff, 0x65f4b8, 0xffc857, 0xff6f61];
+const palette = [0xffcf6b, 0xff8f3d, 0xff4d8d, 0xa855f7];
 const nodeCount = 92;
 const nodes = [];
 const positions = new Float32Array(nodeCount * 3);
@@ -53,10 +53,10 @@ const pointGeometry = new THREE.BufferGeometry();
 pointGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
 const pointMaterial = new THREE.PointsMaterial({
-  color: 0xffffff,
-  size: 0.08,
+  color: 0xfff0d0,
+  size: 0.075,
   transparent: true,
-  opacity: 0.88,
+  opacity: 0.78,
   depthWrite: false,
 });
 
@@ -76,24 +76,31 @@ for (let i = 0; i < nodeCount; i += 1) {
 const lineGeometry = new THREE.BufferGeometry();
 lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
 const lineMaterial = new THREE.LineBasicMaterial({
-  color: 0x65f4b8,
+  color: 0xff8f3d,
   transparent: true,
-  opacity: 0.14,
+  opacity: 0.13,
 });
 group.add(new THREE.LineSegments(lineGeometry, lineMaterial));
 
 const ringGroup = new THREE.Group();
-const torusGeometry = new THREE.TorusGeometry(6.8, 0.018, 10, 180);
+const torusGeometry = new THREE.TorusGeometry(6.7, 0.022, 10, 180);
 palette.forEach((color, index) => {
   const ring = new THREE.Mesh(
     torusGeometry,
-    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.16 }),
+    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: index === 0 ? 0.28 : 0.18 }),
   );
-  ring.rotation.x = Math.PI / 2 + index * 0.28;
-  ring.rotation.y = index * 0.34;
-  ring.scale.setScalar(1 + index * 0.11);
+  ring.rotation.x = Math.PI / 2 + index * 0.22;
+  ring.rotation.y = -0.42 + index * 0.31;
+  ring.scale.set(1 + index * 0.09, 0.62 + index * 0.05, 1);
   ringGroup.add(ring);
 });
+
+const horizon = new THREE.Mesh(
+  new THREE.SphereGeometry(2.25, 48, 24),
+  new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.96 }),
+);
+horizon.position.set(0, 0, 0);
+ringGroup.add(horizon);
 group.add(ringGroup);
 
 const chips = ["ETL", "AI", "BI", "SQL", "ML", "GNN", "DAX", "RBAC"];
@@ -103,12 +110,12 @@ chips.forEach((label, index) => {
   canvas2d.width = 256;
   canvas2d.height = 96;
   const ctx = canvas2d.getContext("2d");
-  ctx.fillStyle = "rgba(0, 0, 0, 0.84)";
+  ctx.fillStyle = "rgba(5, 0, 8, 0.88)";
   ctx.strokeStyle = `#${palette[index % palette.length].toString(16).padStart(6, "0")}`;
   ctx.lineWidth = 5;
   ctx.fillRect(8, 8, 240, 80);
   ctx.strokeRect(8, 8, 240, 80);
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#fff8eb";
   ctx.font = "800 34px Inter, Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -118,7 +125,7 @@ chips.forEach((label, index) => {
   const material = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.8 });
   const sprite = new THREE.Sprite(material);
   const angle = (index / chips.length) * Math.PI * 2;
-  sprite.position.set(Math.cos(angle) * 8.2, Math.sin(angle) * 3.8, -2 + (index % 3) * 1.2);
+  sprite.position.set(Math.cos(angle) * 8.25, Math.sin(angle) * 3.65, -2 + (index % 3) * 1.2);
   sprite.scale.set(1.7, 0.64, 1);
   chipGroup.add(sprite);
 });

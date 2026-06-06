@@ -1,16 +1,17 @@
 :root {
   color-scheme: dark;
   --bg: #000000;
-  --bg-2: #050506;
-  --ink: #fffaf0;
-  --muted: #bfc3c7;
-  --line: rgba(255, 250, 240, 0.16);
-  --panel: rgba(5, 5, 6, 0.76);
-  --panel-strong: rgba(12, 12, 13, 0.9);
-  --cyan: #52e6ff;
-  --mint: #8ff7c7;
-  --gold: #f7c948;
-  --coral: #ff7b63;
+  --bg-2: #070209;
+  --ink: #fff8eb;
+  --muted: #c8bbc9;
+  --line: rgba(255, 218, 169, 0.17);
+  --panel: rgba(8, 5, 10, 0.78);
+  --panel-strong: rgba(16, 8, 19, 0.92);
+  --cyan: #c084fc;
+  --mint: #ff8f3d;
+  --gold: #ffcf6b;
+  --coral: #ff4d8d;
+  --plasma: #a855f7;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.58);
 }
 
@@ -25,11 +26,38 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #000;
+  background:
+    radial-gradient(circle at 70% 24%, rgba(109, 40, 217, 0.14), transparent 28rem),
+    radial-gradient(circle at 46% 44%, rgba(255, 127, 45, 0.08), transparent 24rem),
+    #000;
   color: var(--ink);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
   overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 62% 37%, #000 0 7rem, rgba(0, 0, 0, 0.72) 7.2rem, transparent 10.5rem),
+    conic-gradient(
+      from 18deg at 62% 37%,
+      transparent 0deg,
+      rgba(168, 85, 247, 0.2) 28deg,
+      rgba(255, 207, 107, 0.42) 52deg,
+      rgba(255, 77, 141, 0.2) 82deg,
+      transparent 126deg,
+      rgba(255, 143, 61, 0.34) 202deg,
+      rgba(168, 85, 247, 0.16) 248deg,
+      transparent 310deg
+    );
+  filter: blur(18px);
+  opacity: 0.82;
+  transform: rotate(-10deg) scale(1.08);
 }
 
 a {
@@ -54,8 +82,8 @@ a {
     radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.95) 0 1px, transparent 1.5px),
     radial-gradient(circle at 82% 24%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.6px),
     radial-gradient(circle at 46% 72%, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 64% 44%, rgba(255, 200, 87, 0.55) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 22% 86%, rgba(101, 244, 184, 0.48) 0 1px, transparent 1.4px);
+    radial-gradient(circle at 64% 44%, rgba(255, 207, 107, 0.56) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 22% 86%, rgba(168, 85, 247, 0.48) 0 1px, transparent 1.4px);
   background-position:
     0 0,
     34px 72px,
@@ -93,8 +121,8 @@ a {
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid rgba(247, 201, 72, 0.72);
-  background: rgba(247, 201, 72, 0.12);
+  border: 1px solid rgba(255, 207, 107, 0.72);
+  background: rgba(255, 143, 61, 0.12);
   color: var(--ink);
   font-weight: 800;
 }
@@ -122,26 +150,46 @@ main {
 .hero {
   min-height: 100svh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 31rem);
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 27rem);
   align-items: end;
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: 8rem clamp(1rem, 5vw, 5.5rem) 5rem;
+  position: relative;
+  isolation: isolate;
 }
 
 .hero-copy {
-  max-width: 58rem;
+  max-width: 54rem;
 }
 
-.intro-lockup {
-  display: flex;
+.identity-card {
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.1rem;
+  max-width: min(100%, 32rem);
+  margin-bottom: 1.5rem;
+  padding: 0.7rem 1rem 0.7rem 0.7rem;
+  border: 1px solid rgba(255, 207, 107, 0.28);
+  background:
+    linear-gradient(135deg, rgba(255, 143, 61, 0.16), rgba(168, 85, 247, 0.08)),
+    rgba(0, 0, 0, 0.58);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.62),
+    0 0 48px rgba(255, 143, 61, 0.13);
+  backdrop-filter: blur(16px);
+}
+
+.identity-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 800;
 }
 
 .eyebrow {
-  margin: 0 0 0.9rem;
-  color: var(--mint);
+  margin: 0 0 0.2rem;
+  color: var(--gold);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -157,15 +205,22 @@ p {
 
 h1 {
   margin: 0;
-  max-width: 12ch;
-  font-size: clamp(3.4rem, 8.8vw, 8.8rem);
-  line-height: 0.88;
+  max-width: 10.4ch;
+  font-size: clamp(3rem, 7.4vw, 7.35rem);
+  line-height: 0.94;
   letter-spacing: 0;
+  text-shadow:
+    0 0 38px rgba(255, 207, 107, 0.12),
+    0 12px 56px rgba(0, 0, 0, 0.92);
+}
+
+h1 span {
+  display: block;
 }
 
 .hero-title {
   margin: 1.4rem 0 0;
-  color: var(--gold);
+  color: #ffb35b;
   font-size: clamp(1.15rem, 2.4vw, 1.9rem);
   font-weight: 800;
 }
@@ -203,7 +258,7 @@ h1 {
 }
 
 .button.primary {
-  background: linear-gradient(135deg, var(--gold), #fff0a6);
+  background: linear-gradient(135deg, #ffcf6b, #ff8f3d 54%, #ff4d8d);
   color: #090909;
   border-color: transparent;
 }
@@ -216,17 +271,17 @@ h1 {
 .portrait-frame {
   position: relative;
   margin: 0;
-  width: clamp(5.8rem, 9vw, 7.4rem);
-  aspect-ratio: 0.82;
+  width: clamp(5.4rem, 8vw, 6.8rem);
+  aspect-ratio: 1;
   flex: 0 0 auto;
   overflow: hidden;
-  border: 1px solid rgba(247, 201, 72, 0.42);
-  border-radius: 999px 999px 1.1rem 1.1rem;
+  border: 1px solid rgba(255, 207, 107, 0.5);
+  border-radius: 50%;
   background: #000;
   box-shadow:
     0 16px 46px rgba(0, 0, 0, 0.72),
-    0 0 0 6px rgba(255, 250, 240, 0.05),
-    0 0 42px rgba(247, 201, 72, 0.2);
+    0 0 0 6px rgba(255, 143, 61, 0.08),
+    0 0 52px rgba(255, 77, 141, 0.18);
 }
 
 .portrait-frame::before {
@@ -254,49 +309,13 @@ h1 {
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center 18%;
-  filter: saturate(1.04) contrast(1.08);
+  object-position: center 20%;
+  filter: saturate(1.06) contrast(1.08) brightness(0.96);
 }
 
 .hero-showcase {
   display: grid;
   gap: 1rem;
-}
-
-.profile-card {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid rgba(247, 201, 72, 0.24);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent),
-    var(--panel);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
-}
-
-.profile-card p {
-  margin: 0;
-  color: var(--ink);
-  font-weight: 800;
-}
-
-.profile-card span {
-  display: block;
-  margin-top: 0.25rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.profile-card a {
-  display: inline-flex;
-  margin-top: 0.8rem;
-  color: var(--gold);
-  font-size: 0.88rem;
-  font-weight: 800;
 }
 
 .hero-panel {
@@ -317,7 +336,7 @@ h1 {
 
 .metric {
   display: block;
-  color: var(--gold);
+  color: #ffcf6b;
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 800;
   line-height: 1;
@@ -489,7 +508,7 @@ footer {
   padding: 1.1rem;
   border: 1px solid rgba(255, 250, 240, 0.14);
   background:
-    linear-gradient(180deg, rgba(247, 201, 72, 0.08), transparent 46%),
+    linear-gradient(180deg, rgba(255, 143, 61, 0.1), transparent 46%),
     var(--panel);
   box-shadow: var(--shadow);
   backdrop-filter: blur(16px);
@@ -517,15 +536,15 @@ footer {
 }
 
 .skill-card:nth-child(3n + 1) .skill-list span:nth-child(3n + 1) {
-  border-color: rgba(247, 201, 72, 0.38);
+  border-color: rgba(255, 207, 107, 0.42);
 }
 
 .skill-card:nth-child(3n + 2) .skill-list span:nth-child(3n + 1) {
-  border-color: rgba(82, 230, 255, 0.34);
+  border-color: rgba(255, 77, 141, 0.38);
 }
 
 .skill-card:nth-child(3n) .skill-list span:nth-child(3n + 1) {
-  border-color: rgba(143, 247, 199, 0.34);
+  border-color: rgba(168, 85, 247, 0.38);
 }
 
 .credentials h2 {
@@ -631,13 +650,13 @@ footer {
 
   .hero {
     min-height: auto;
-    padding-top: 3rem;
+    padding: 3rem 1.25rem 5rem;
     overflow: hidden;
   }
 
   .hero-copy,
   .hero-summary {
-    max-width: calc(100vw - 2rem);
+    max-width: 100%;
   }
 
   h1 {
@@ -650,13 +669,18 @@ footer {
     font-size: 1.15rem;
   }
 
-  .intro-lockup {
-    align-items: flex-start;
-    flex-direction: column;
+  .identity-card {
+    grid-template-columns: auto minmax(0, 1fr);
+    width: 100%;
+    padding-right: 0.75rem;
+  }
+
+  .identity-card .eyebrow {
+    font-size: 0.68rem;
   }
 
   .portrait-frame {
-    width: 6.2rem;
+    width: 5.6rem;
   }
 
   .button {
