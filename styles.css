@@ -243,11 +243,11 @@ main {
 }
 
 .eyebrow {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.7rem;
   color: var(--gold);
-  font-size: clamp(0.88rem, 1.1vw, 1rem);
-  font-weight: 800;
-  letter-spacing: 0.2em;
+  font-size: clamp(1.02rem, 1.25vw, 1.18rem);
+  font-weight: 900;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -410,8 +410,8 @@ h1 {
 
 h2 {
   margin: 0;
-  font-size: clamp(2rem, 3vw, 3.05rem);
-  line-height: 1.08;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
+  line-height: 1.12;
   letter-spacing: 0;
 }
 
@@ -458,12 +458,12 @@ footer {
 }
 
 .roles-section .eyebrow {
-  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  font-size: clamp(1.02rem, 1.25vw, 1.18rem);
 }
 
 .roles-section .section-heading h2 {
-  max-width: 20ch;
-  font-size: clamp(2rem, 3vw, 3.05rem);
+  max-width: 24ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
 }
 
 .roles-list,
@@ -510,12 +510,12 @@ footer {
 }
 
 .experience-section .eyebrow {
-  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  font-size: clamp(1.02rem, 1.25vw, 1.18rem);
 }
 
 .experience-section .section-heading h2 {
-  max-width: 22ch;
-  font-size: clamp(2rem, 3vw, 3.05rem);
+  max-width: 26ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
 }
 
 .experience-row {
@@ -622,9 +622,9 @@ footer {
 }
 
 .recommendations-section .section-heading h2 {
-  max-width: 20ch;
-  font-size: clamp(2rem, 3vw, 3.05rem);
-  line-height: 1.1;
+  max-width: 24ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
+  line-height: 1.12;
 }
 
 .recommendations-flow {
@@ -819,8 +819,8 @@ footer {
 }
 
 .research-section .section-heading h2 {
-  max-width: 23ch;
-  font-size: clamp(2rem, 3vw, 3.05rem);
+  max-width: 26ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
 }
 
 .skills-grid {
@@ -831,8 +831,8 @@ footer {
 }
 
 .skills-section h2 {
-  max-width: 23ch;
-  font-size: clamp(2rem, 3vw, 3.05rem);
+  max-width: 26ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
 }
 
 .skill-group {
@@ -900,8 +900,8 @@ footer {
 }
 
 .contact h2 {
-  max-width: 22ch;
-  font-size: clamp(2rem, 3vw, 3.05rem);
+  max-width: 25ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
   margin-bottom: 2rem;
 }
 
