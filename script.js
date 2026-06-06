@@ -8,6 +8,25 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.set(0, 0, 18);
 
+const starCount = 520;
+const starPositions = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount; i += 1) {
+  starPositions[i * 3] = (Math.random() - 0.5) * 70;
+  starPositions[i * 3 + 1] = (Math.random() - 0.5) * 44;
+  starPositions[i * 3 + 2] = -18 - Math.random() * 32;
+}
+const starGeometry = new THREE.BufferGeometry();
+starGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+const starMaterial = new THREE.PointsMaterial({
+  color: 0xffffff,
+  size: 0.035,
+  transparent: true,
+  opacity: 0.72,
+  depthWrite: false,
+});
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
+
 const group = new THREE.Group();
 scene.add(group);
 
@@ -34,10 +53,10 @@ const pointGeometry = new THREE.BufferGeometry();
 pointGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
 const pointMaterial = new THREE.PointsMaterial({
-  color: 0xcdf7ff,
+  color: 0xffffff,
   size: 0.08,
   transparent: true,
-  opacity: 0.94,
+  opacity: 0.88,
   depthWrite: false,
 });
 
@@ -57,9 +76,9 @@ for (let i = 0; i < nodeCount; i += 1) {
 const lineGeometry = new THREE.BufferGeometry();
 lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePositions, 3));
 const lineMaterial = new THREE.LineBasicMaterial({
-  color: 0x43d7ff,
+  color: 0x65f4b8,
   transparent: true,
-  opacity: 0.2,
+  opacity: 0.14,
 });
 group.add(new THREE.LineSegments(lineGeometry, lineMaterial));
 
@@ -68,7 +87,7 @@ const torusGeometry = new THREE.TorusGeometry(6.8, 0.018, 10, 180);
 palette.forEach((color, index) => {
   const ring = new THREE.Mesh(
     torusGeometry,
-    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.22 }),
+    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.16 }),
   );
   ring.rotation.x = Math.PI / 2 + index * 0.28;
   ring.rotation.y = index * 0.34;
@@ -84,12 +103,12 @@ chips.forEach((label, index) => {
   canvas2d.width = 256;
   canvas2d.height = 96;
   const ctx = canvas2d.getContext("2d");
-  ctx.fillStyle = "rgba(7, 17, 29, 0.76)";
+  ctx.fillStyle = "rgba(0, 0, 0, 0.84)";
   ctx.strokeStyle = `#${palette[index % palette.length].toString(16).padStart(6, "0")}`;
   ctx.lineWidth = 5;
   ctx.fillRect(8, 8, 240, 80);
   ctx.strokeRect(8, 8, 240, 80);
-  ctx.fillStyle = "#f7fbff";
+  ctx.fillStyle = "#ffffff";
   ctx.font = "800 34px Inter, Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -138,6 +157,8 @@ function animate() {
   ringGroup.rotation.z = elapsed * 0.075 * speed;
   ringGroup.rotation.x = Math.sin(elapsed * 0.22) * 0.12;
   chipGroup.rotation.y = -elapsed * 0.045 * speed;
+  stars.rotation.y = elapsed * 0.012 * speed + pointerX * 0.018;
+  stars.rotation.x = pointerY * 0.01;
 
   const positionAttr = pointGeometry.attributes.position;
   for (let i = 0; i < nodeCount; i += 1) {
