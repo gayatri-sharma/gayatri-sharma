@@ -150,7 +150,7 @@ main {
 .hero {
   min-height: 100svh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem);
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 23rem);
   align-items: center;
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: 7rem clamp(1rem, 5vw, 5.5rem) 4.5rem;
@@ -159,7 +159,7 @@ main {
 }
 
 .hero-copy {
-  max-width: 48rem;
+  max-width: 44rem;
 }
 
 .hero-kicker {
@@ -177,10 +177,7 @@ main {
 }
 
 .hero-identity {
-  display: grid;
-  grid-template-columns: clamp(7.5rem, 13vw, 12rem) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(1rem, 2.8vw, 2rem);
+  max-width: 43rem;
 }
 
 .eyebrow {
@@ -201,17 +198,13 @@ p {
 
 h1 {
   margin: 0;
-  max-width: 11ch;
-  font-size: clamp(2.45rem, 4.9vw, 5.1rem);
-  line-height: 0.98;
+  max-width: 14ch;
+  font-size: clamp(2.4rem, 4.1vw, 4.35rem);
+  line-height: 1.02;
   letter-spacing: 0;
   text-shadow:
     0 0 38px rgba(255, 207, 107, 0.12),
     0 12px 56px rgba(0, 0, 0, 0.92);
-}
-
-h1 span {
-  display: block;
 }
 
 .hero-title {
@@ -266,18 +259,17 @@ h1 span {
 
 .portrait-frame {
   position: relative;
-  margin: 0;
-  width: 100%;
-  aspect-ratio: 0.86;
-  flex: 0 0 auto;
+  margin: 0 auto 1.1rem;
+  width: clamp(9.5rem, 18vw, 14rem);
+  aspect-ratio: 1;
   overflow: hidden;
   border: 0;
-  border-radius: 46% 54% 48% 52% / 48% 42% 58% 52%;
-  background: radial-gradient(circle at center, rgba(255, 207, 107, 0.12), transparent 70%);
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255, 207, 107, 0.16), transparent 70%);
   box-shadow:
-    0 18px 54px rgba(0, 0, 0, 0.68),
-    0 0 74px rgba(255, 143, 61, 0.2);
-  transform: translateY(-0.25rem);
+    0 18px 54px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 207, 107, 0.22),
+    0 0 74px rgba(255, 143, 61, 0.22);
 }
 
 .portrait-frame::before {
@@ -287,8 +279,10 @@ h1 span {
   z-index: 1;
   border-radius: inherit;
   background:
-    radial-gradient(circle at 52% 40%, transparent 48%, rgba(0, 0, 0, 0.22) 72%),
-    linear-gradient(135deg, rgba(255, 207, 107, 0.18), transparent 45%, rgba(168, 85, 247, 0.12));
+    radial-gradient(circle at 52% 40%, transparent 55%, rgba(0, 0, 0, 0.26) 78%),
+    conic-gradient(from 18deg, rgba(255, 207, 107, 0.4), transparent 22%, rgba(168, 85, 247, 0.24), transparent 64%, rgba(255, 77, 141, 0.28));
+  mix-blend-mode: screen;
+  opacity: 0.72;
   pointer-events: none;
 }
 
@@ -298,7 +292,7 @@ h1 span {
   inset: auto 0 0;
   z-index: 1;
   height: 42%;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.92));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.76));
   pointer-events: none;
 }
 
@@ -308,13 +302,14 @@ h1 span {
   display: block;
   object-fit: cover;
   object-position: center 20%;
-  filter: saturate(1.12) contrast(1.08) brightness(1.1);
-  mask-image: radial-gradient(circle at 54% 38%, #000 0 64%, rgba(0, 0, 0, 0.88) 78%, transparent 100%);
+  filter: saturate(1.1) contrast(1.05) brightness(1.14);
+  mask-image: radial-gradient(circle at 54% 38%, #000 0 72%, rgba(0, 0, 0, 0.88) 83%, transparent 100%);
 }
 
 .hero-showcase {
   display: grid;
   gap: 1rem;
+  align-self: center;
 }
 
 .hero-panel {
@@ -690,9 +685,9 @@ footer {
   }
 
   h1 {
-    max-width: 8ch;
-    font-size: clamp(2.05rem, 10vw, 2.65rem);
-    line-height: 0.98;
+    max-width: 100%;
+    font-size: clamp(2.1rem, 9.4vw, 2.8rem);
+    line-height: 1.04;
   }
 
   .hero-title {
@@ -700,8 +695,9 @@ footer {
   }
 
   .hero-summary {
-    font-size: 1rem;
-    line-height: 1.42;
+    font-size: 0.96rem;
+    line-height: 1.45;
+    max-width: 96%;
   }
 
   .hero-kicker {
@@ -714,8 +710,13 @@ footer {
   }
 
   .hero-identity {
-    grid-template-columns: 5.7rem minmax(0, 1fr);
-    gap: 0.9rem;
+    max-width: 100%;
+  }
+
+  .portrait-frame {
+    width: 8.2rem;
+    margin-left: 0;
+    margin-right: auto;
   }
 
   .skill-group,

@@ -21,7 +21,7 @@ const starMaterial = new THREE.PointsMaterial({
   color: 0xffffff,
   size: 0.035,
   transparent: true,
-  opacity: 0.72,
+  opacity: 0.6,
   depthWrite: false,
 });
 const stars = new THREE.Points(starGeometry, starMaterial);
@@ -133,11 +133,21 @@ group.add(chipGroup);
 
 let pointerX = 0;
 let pointerY = 0;
+let scrollProgress = 0;
+let targetScrollProgress = 0;
 
 window.addEventListener("pointermove", (event) => {
   pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
   pointerY = (event.clientY / window.innerHeight - 0.5) * 2;
 });
+
+function updateScrollProgress() {
+  const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+  targetScrollProgress = Math.min(window.scrollY / maxScroll, 1);
+}
+
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
+updateScrollProgress();
 
 function resize() {
   const width = window.innerWidth;
@@ -157,15 +167,23 @@ const clock = new THREE.Clock();
 function animate() {
   const elapsed = clock.getElapsedTime();
   const speed = reducedMotion ? 0.05 : 1;
+  scrollProgress += (targetScrollProgress - scrollProgress) * 0.06;
+  const scrollOrbit = scrollProgress * Math.PI * 2.1;
 
-  group.rotation.y = elapsed * 0.055 * speed + pointerX * 0.12;
-  group.rotation.x = -0.13 + pointerY * 0.06;
-  points.rotation.z = elapsed * 0.028 * speed;
-  ringGroup.rotation.z = elapsed * 0.075 * speed;
-  ringGroup.rotation.x = Math.sin(elapsed * 0.22) * 0.12;
-  chipGroup.rotation.y = -elapsed * 0.045 * speed;
-  stars.rotation.y = elapsed * 0.012 * speed + pointerX * 0.018;
-  stars.rotation.x = pointerY * 0.01;
+  group.position.x = Math.sin(scrollOrbit) * 1.15;
+  group.position.y = Math.cos(scrollOrbit * 0.72) * 0.55 - scrollProgress * 0.5;
+  group.rotation.y = elapsed * 0.045 * speed + pointerX * 0.12 + scrollProgress * 1.45;
+  group.rotation.x = -0.13 + pointerY * 0.06 + Math.sin(scrollOrbit) * 0.16;
+  points.rotation.z = elapsed * 0.024 * speed + scrollProgress * 0.52;
+  ringGroup.rotation.z = elapsed * 0.07 * speed + scrollProgress * 3.4;
+  ringGroup.rotation.x = Math.sin(elapsed * 0.22 + scrollProgress * 3) * 0.14;
+  ringGroup.rotation.y = Math.cos(scrollOrbit * 0.8) * 0.18;
+  chipGroup.rotation.y = -elapsed * 0.04 * speed - scrollProgress * 1.2;
+  chipGroup.rotation.z = Math.sin(scrollOrbit) * 0.08;
+  stars.rotation.y = elapsed * 0.006 * speed + pointerX * 0.012 + scrollProgress * 0.36;
+  stars.rotation.x = pointerY * 0.008 - scrollProgress * 0.08;
+  starMaterial.opacity = 0.46 + Math.sin(elapsed * 0.9) * 0.08 + Math.sin(elapsed * 1.7 + scrollProgress * 8) * 0.04;
+  lineMaterial.opacity = 0.11 + Math.sin(elapsed * 0.6 + scrollProgress * 5) * 0.03;
 
   const positionAttr = pointGeometry.attributes.position;
   for (let i = 0; i < nodeCount; i += 1) {
