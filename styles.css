@@ -383,6 +383,36 @@ footer {
   line-height: 1.7;
 }
 
+.education-section {
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+}
+
+.education-list {
+  display: grid;
+  gap: 0;
+  max-width: 78rem;
+  border-top: 1px solid rgba(255, 177, 0, 0.16);
+}
+
+.education-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  gap: 1.5rem;
+  align-items: center;
+  padding: clamp(1.1rem, 2.5vw, 1.65rem) 0;
+  border-bottom: 1px solid rgba(255, 177, 0, 0.16);
+}
+
+.education-row h3 {
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.8vw, 1.55rem);
+}
+
+.education-credentials {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+}
+
 .timeline {
   position: relative;
   display: grid;
@@ -580,7 +610,9 @@ footer {
   }
 
   .role-card,
-  .experience-row {
+  .experience-row,
+  .education-row,
+  .education-credentials {
     grid-template-columns: 1fr;
     gap: 0.85rem;
   }
