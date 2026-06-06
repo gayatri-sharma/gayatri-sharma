@@ -357,6 +357,17 @@ footer {
   border-top: 1px solid rgba(255, 177, 0, 0.16);
 }
 
+.experience-section .eyebrow {
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  margin-bottom: 0.65rem;
+}
+
+.experience-section .section-heading h2 {
+  max-width: 20ch;
+  font-size: clamp(2.15rem, 4vw, 4.35rem);
+  line-height: 1.03;
+}
+
 .experience-row {
   display: grid;
   grid-template-columns: minmax(13rem, 0.34fr) minmax(0, 1fr);
