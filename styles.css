@@ -186,7 +186,8 @@ main {
 .skill-group,
 .education-row,
 .credentials > div,
-.certifications article {
+.certifications article,
+.recommendation-card {
   transition:
     border-color 220ms ease,
     background 220ms ease,
@@ -202,7 +203,8 @@ main {
 .skill-group:hover,
 .education-row:hover,
 .credentials > div:hover,
-.certifications article:hover {
+.certifications article:hover,
+.recommendation-card:hover {
   border-color: rgba(255, 176, 0, 0.38);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34), 0 0 32px rgba(255, 176, 0, 0.045);
 }
@@ -619,6 +621,75 @@ footer {
   line-height: 1.5;
 }
 
+.recommendations-section .section-heading h2 {
+  max-width: 18ch;
+  font-size: clamp(2.4rem, 6vw, 5.6rem);
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  border: 1px solid rgba(255, 176, 0, 0.18);
+  background: rgba(255, 176, 0, 0.16);
+}
+
+.recommendation-card {
+  min-height: 17rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding: clamp(1.15rem, 2.1vw, 1.7rem);
+  background:
+    radial-gradient(circle at 16% 0%, rgba(255, 176, 0, 0.06), transparent 34%),
+    rgba(2, 2, 2, 0.86);
+  border: 0;
+}
+
+.recommendation-card.featured {
+  grid-column: span 2;
+}
+
+.recommendation-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+.recommendation-meta h3 {
+  margin: 0 0 0.35rem;
+  color: var(--ink);
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  line-height: 1.05;
+}
+
+.recommendation-meta p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.recommendation-meta span {
+  flex: 0 0 auto;
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.recommendation-card blockquote {
+  margin: 0;
+  color: rgba(246, 239, 230, 0.84);
+  font-size: clamp(0.98rem, 1.25vw, 1.14rem);
+  line-height: 1.58;
+}
+
 .timeline {
   position: relative;
   display: grid;
@@ -827,9 +898,14 @@ footer {
   .experience-row,
   .education-row,
   .education-credentials,
-  .certifications {
+  .certifications,
+  .recommendations-grid {
     grid-template-columns: 1fr;
     gap: 0.85rem;
+  }
+
+  .recommendation-card.featured {
+    grid-column: auto;
   }
 
   .skills-grid {
