@@ -27,6 +27,116 @@ const starMaterial = new THREE.PointsMaterial({
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
+function makeRadialTexture(stops, size = 512) {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = size;
+  textureCanvas.height = size;
+  const ctx = textureCanvas.getContext("2d");
+  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  stops.forEach(([offset, color]) => gradient.addColorStop(offset, color));
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.needsUpdate = true;
+  return texture;
+}
+
+function makeDiskTexture(size = 1024) {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = size;
+  textureCanvas.height = size;
+  const ctx = textureCanvas.getContext("2d");
+  const center = size / 2;
+  const outer = size * 0.46;
+  const inner = size * 0.15;
+  const image = ctx.createImageData(size, size);
+
+  for (let y = 0; y < size; y += 1) {
+    for (let x = 0; x < size; x += 1) {
+      const dx = x - center;
+      const dy = y - center;
+      const r = Math.sqrt(dx * dx + dy * dy);
+      const angle = Math.atan2(dy, dx);
+      const band = Math.max(0, 1 - Math.abs(r - size * 0.3) / (size * 0.16));
+      const hot = Math.max(0, 1 - Math.abs(r - size * 0.23) / (size * 0.07));
+      const swirl = 0.5 + 0.5 * Math.sin(angle * 7 + r * 0.035);
+      const alpha =
+        r > inner && r < outer
+          ? Math.min(255, (band * 165 + hot * 90) * (0.65 + swirl * 0.45))
+          : 0;
+      const idx = (y * size + x) * 4;
+      image.data[idx] = 255;
+      image.data[idx + 1] = 112 + hot * 95;
+      image.data[idx + 2] = 35 + swirl * 70;
+      image.data[idx + 3] = alpha;
+    }
+  }
+
+  ctx.putImageData(image, 0, 0);
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const blackHoleGroup = new THREE.Group();
+blackHoleGroup.position.set(2.7, -0.2, -2.2);
+scene.add(blackHoleGroup);
+
+const glowTexture = makeRadialTexture([
+  [0, "rgba(255, 230, 158, 0.55)"],
+  [0.2, "rgba(255, 145, 61, 0.36)"],
+  [0.48, "rgba(168, 85, 247, 0.14)"],
+  [1, "rgba(0, 0, 0, 0)"],
+]);
+const glow = new THREE.Sprite(
+  new THREE.SpriteMaterial({
+    map: glowTexture,
+    transparent: true,
+    opacity: 0.72,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  }),
+);
+glow.scale.set(13.5, 13.5, 1);
+blackHoleGroup.add(glow);
+
+const disk = new THREE.Mesh(
+  new THREE.PlaneGeometry(13.5, 13.5, 1, 1),
+  new THREE.MeshBasicMaterial({
+    map: makeDiskTexture(),
+    transparent: true,
+    opacity: 0.92,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+  }),
+);
+disk.rotation.x = 1.22;
+disk.rotation.z = -0.1;
+disk.scale.y = 0.42;
+blackHoleGroup.add(disk);
+
+const horizon = new THREE.Mesh(
+  new THREE.SphereGeometry(1.68, 64, 32),
+  new THREE.MeshBasicMaterial({ color: 0x000000 }),
+);
+horizon.scale.set(1, 1, 0.95);
+horizon.position.z = 0.03;
+blackHoleGroup.add(horizon);
+
+const photonRing = new THREE.Mesh(
+  new THREE.TorusGeometry(1.82, 0.055, 14, 180),
+  new THREE.MeshBasicMaterial({
+    color: 0xffcf6b,
+    transparent: true,
+    opacity: 0.72,
+    blending: THREE.AdditiveBlending,
+  }),
+);
+photonRing.rotation.x = 1.22;
+photonRing.scale.y = 0.42;
+blackHoleGroup.add(photonRing);
+
 const group = new THREE.Group();
 scene.add(group);
 
@@ -83,7 +193,7 @@ const lineMaterial = new THREE.LineBasicMaterial({
 group.add(new THREE.LineSegments(lineGeometry, lineMaterial));
 
 const ringGroup = new THREE.Group();
-const torusGeometry = new THREE.TorusGeometry(6.7, 0.022, 10, 180);
+const torusGeometry = new THREE.TorusGeometry(7.2, 0.014, 10, 180);
 palette.forEach((color, index) => {
   const ring = new THREE.Mesh(
     torusGeometry,
@@ -95,12 +205,6 @@ palette.forEach((color, index) => {
   ringGroup.add(ring);
 });
 
-const horizon = new THREE.Mesh(
-  new THREE.SphereGeometry(2.25, 48, 24),
-  new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.96 }),
-);
-horizon.position.set(0, 0, 0);
-ringGroup.add(horizon);
 group.add(ringGroup);
 
 const chips = ["ETL", "AI", "BI", "SQL", "ML", "GNN", "DAX", "RBAC"];
@@ -172,6 +276,12 @@ function animate() {
 
   group.position.x = Math.sin(scrollOrbit) * 1.15;
   group.position.y = Math.cos(scrollOrbit * 0.72) * 0.55 - scrollProgress * 0.5;
+  blackHoleGroup.position.x = 2.6 + Math.sin(scrollOrbit * 0.8) * 0.65;
+  blackHoleGroup.position.y = -0.15 + Math.cos(scrollOrbit * 0.62) * 0.32 - scrollProgress * 0.42;
+  blackHoleGroup.rotation.z = Math.sin(scrollOrbit) * 0.12;
+  disk.rotation.z = -0.1 + elapsed * 0.028 * speed + scrollProgress * 2.3;
+  photonRing.rotation.z = elapsed * 0.04 * speed + scrollProgress * 2.8;
+  glow.material.opacity = 0.62 + Math.sin(elapsed * 0.65) * 0.08;
   group.rotation.y = elapsed * 0.045 * speed + pointerX * 0.12 + scrollProgress * 1.45;
   group.rotation.x = -0.13 + pointerY * 0.06 + Math.sin(scrollOrbit) * 0.16;
   points.rotation.z = elapsed * 0.024 * speed + scrollProgress * 0.52;

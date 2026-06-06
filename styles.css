@@ -26,38 +26,11 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at 70% 24%, rgba(109, 40, 217, 0.14), transparent 28rem),
-    radial-gradient(circle at 46% 44%, rgba(255, 127, 45, 0.08), transparent 24rem),
-    #000;
+  background: #000;
   color: var(--ink);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
   overflow-x: hidden;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 62% 37%, #000 0 7rem, rgba(0, 0, 0, 0.72) 7.2rem, transparent 10.5rem),
-    conic-gradient(
-      from 18deg at 62% 37%,
-      transparent 0deg,
-      rgba(168, 85, 247, 0.2) 28deg,
-      rgba(255, 207, 107, 0.42) 52deg,
-      rgba(255, 77, 141, 0.2) 82deg,
-      transparent 126deg,
-      rgba(255, 143, 61, 0.34) 202deg,
-      rgba(168, 85, 247, 0.16) 248deg,
-      transparent 310deg
-    );
-  filter: blur(18px);
-  opacity: 0.82;
-  transform: rotate(-10deg) scale(1.08);
 }
 
 a {
@@ -96,7 +69,7 @@ a {
     260px 260px,
     310px 310px,
     360px 360px;
-  opacity: 0.66;
+  opacity: 0.34;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.4));
 }
 
