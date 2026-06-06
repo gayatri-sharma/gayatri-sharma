@@ -542,6 +542,14 @@ footer {
   background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.04), transparent);
 }
 
+.education-summary {
+  max-width: 58rem;
+  margin: 0 0 clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--muted);
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  line-height: 1.65;
+}
+
 .education-list {
   display: grid;
   gap: 0;
