@@ -51,26 +51,9 @@ a {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.95) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 82% 24%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 46% 72%, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 64% 44%, rgba(255, 82, 0, 0.42) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 22% 86%, rgba(255, 176, 0, 0.3) 0 1px, transparent 1.4px);
-  background-position:
-    0 0,
-    34px 72px,
-    88px 12px,
-    130px 96px,
-    8px 150px;
-  background-size:
-    180px 180px,
-    220px 220px,
-    260px 260px,
-    310px 310px,
-    360px 360px;
-  opacity: 0.22;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.4));
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.035), transparent 28rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 28%, rgba(0, 0, 0, 0.18));
 }
 
 .site-header {
