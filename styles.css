@@ -274,7 +274,6 @@ h3 {
   font-size: 1.12rem;
 }
 
-.impact-grid,
 .research-grid,
 .credentials {
   display: grid;
@@ -282,69 +281,106 @@ h3 {
   gap: 1rem;
 }
 
-.impact-grid article,
 .research-grid article,
 .credentials > div,
-.timeline-card {
+.timeline-card,
+.role-card,
+.experience-row {
   border: 1px solid var(--line);
   background: var(--panel);
   box-shadow: var(--shadow);
   backdrop-filter: blur(16px);
 }
 
-.impact-grid article,
 .research-grid article,
 .credentials > div {
   min-height: 16rem;
   padding: clamp(1rem, 2.4vw, 1.4rem);
 }
 
-.impact-grid article span {
-  color: var(--coral);
-  font-weight: 800;
-}
-
-.impact-grid p,
 .research-grid p,
 .credentials p,
 .timeline-card p,
+.role-card p,
+.experience-row p,
 footer {
   color: var(--muted);
 }
 
-.stats-band {
+.roles-section {
+  background: linear-gradient(180deg, transparent, rgba(255, 177, 0, 0.035), transparent);
+}
+
+.roles-list,
+.experience-list {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
-  padding-top: clamp(2rem, 5vw, 4rem);
-  padding-bottom: clamp(2rem, 5vw, 4rem);
+  max-width: 78rem;
 }
 
-.stats-band div {
-  min-height: 8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1rem 1.25rem;
-  border: 0;
-  border-left: 1px solid rgba(255, 106, 0, 0.24);
-  background: rgba(0, 0, 0, 0.28);
+.role-card {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.1rem, 2.6vw, 1.8rem) 0;
+  border-width: 1px 0 0;
+  background: linear-gradient(90deg, rgba(255, 177, 0, 0.055), rgba(10, 8, 6, 0.22));
+  box-shadow: none;
+}
+
+.role-card:last-child,
+.experience-row:last-child {
+  border-bottom-width: 1px;
+}
+
+.role-index {
+  color: var(--gold);
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.role-card h3 {
   color: var(--ink);
+  font-size: clamp(1.25rem, 2vw, 1.85rem);
 }
 
-.stats-band div:last-child {
-  border-right: 1px solid rgba(255, 106, 0, 0.24);
+.role-card p {
+  max-width: 62rem;
+  font-size: 1.02rem;
+  line-height: 1.78;
 }
 
-.stats-band strong {
-  font-size: clamp(1.45rem, 2.4vw, 2.15rem);
-  line-height: 1.08;
+.strengths {
+  margin-bottom: 0;
 }
 
-.stats-band span {
-  margin-top: 0.55rem;
-  color: var(--muted);
-  font-weight: 700;
+.strengths strong {
+  color: var(--gold);
+}
+
+.experience-list {
+  border-top: 1px solid rgba(255, 177, 0, 0.16);
+}
+
+.experience-row {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.34fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.8rem);
+  padding: clamp(1.1rem, 2.5vw, 1.65rem) 0;
+  border-width: 0 0 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.025));
+  box-shadow: none;
+}
+
+.experience-row h3 {
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+}
+
+.experience-row > p {
+  margin-top: 0;
+  line-height: 1.7;
 }
 
 .timeline {
@@ -400,6 +436,19 @@ footer {
   margin: 0.25rem 0 0.8rem;
   color: var(--gold);
   font-weight: 800;
+}
+
+.experience-row .company {
+  margin-bottom: 0.35rem;
+}
+
+.experience-date {
+  margin: 0;
+  color: var(--mint);
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .research-section {
@@ -525,11 +574,15 @@ footer {
     max-width: 100%;
   }
 
-  .impact-grid,
   .research-grid,
-  .credentials,
-  .stats-band {
+  .credentials {
     grid-template-columns: 1fr;
+  }
+
+  .role-card,
+  .experience-row {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 
   .skills-grid {
@@ -543,10 +596,6 @@ footer {
     padding-left: 0;
     padding-right: 0;
     border-right: 0;
-  }
-
-  .stats-band div {
-    min-height: 8rem;
   }
 
   .timeline::before {
@@ -630,6 +679,12 @@ footer {
   .skill-group:nth-child(even) {
     grid-template-columns: 1fr;
     gap: 0.65rem;
+  }
+
+  .role-card p,
+  .experience-row > p {
+    font-size: 0.95rem;
+    line-height: 1.58;
   }
 
   .button {
