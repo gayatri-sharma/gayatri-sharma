@@ -45,6 +45,31 @@ const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
 const depthSections = [...document.querySelectorAll(".hero, .section, .contact")];
+const motionItems = [
+  ...document.querySelectorAll(
+    ".section-heading, .hero-identity, .hero-summary, .hero-actions, .hero-showcase, .role-card, .experience-row, .research-grid article, .skill-group, .education-row, .recognition-intro, .education-credentials > div, .certifications article, .contact .eyebrow, .contact h2, .contact-actions",
+  ),
+];
+const navLinks = [...document.querySelectorAll("nav a[href^='#']")];
+
+motionItems.forEach((item, index) => {
+  item.classList.add("motion-item");
+  item.style.setProperty("--stagger", String(index % 6));
+});
+
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+      });
+    },
+    { rootMargin: "-8% 0px -10% 0px", threshold: 0.1 },
+  );
+  motionItems.forEach((item) => revealObserver.observe(item));
+} else {
+  motionItems.forEach((item) => item.classList.add("is-visible"));
+}
 
 function createMeteorTexture() {
   const textureCanvas = document.createElement("canvas");
@@ -174,6 +199,10 @@ function spawnShootingStar(elapsed, boosted = false) {
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const clock = new THREE.Clock();
 
+if (reducedMotion) {
+  motionItems.forEach((item) => item.classList.add("is-visible"));
+}
+
 function updateDepthSections() {
   if (reducedMotion) return;
   const viewportCenter = window.innerHeight * 0.52;
@@ -188,6 +217,29 @@ function updateDepthSections() {
     section.style.setProperty("--depth-z", (inView ? (1 - Math.abs(clamped)) * 34 : -24).toFixed(2));
     section.style.setProperty("--depth-tilt", (clamped * -1.8).toFixed(2));
     section.style.opacity = inView ? String(Math.max(0.72, 1 - Math.abs(clamped) * 0.18)) : "0.7";
+  });
+
+  motionItems.forEach((item) => {
+    const rect = item.getBoundingClientRect();
+    const itemCenter = rect.top + rect.height * 0.5;
+    const distance = (itemCenter - viewportCenter) / window.innerHeight;
+    const clamped = Math.max(-1, Math.min(1, distance));
+    const focus = Math.abs(clamped) < 0.28 && rect.bottom > 0 && rect.top < window.innerHeight;
+    item.style.setProperty("--item-drift", (clamped * -10).toFixed(2));
+    item.style.setProperty("--item-depth", (focus ? 12 : -8).toFixed(2));
+    item.classList.toggle("is-in-focus", focus);
+  });
+
+  let activeId = "";
+  depthSections.forEach((section) => {
+    if (!section.id) return;
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.48 && rect.bottom > window.innerHeight * 0.25) {
+      activeId = section.id;
+    }
+  });
+  navLinks.forEach((link) => {
+    link.classList.toggle("is-active", link.getAttribute("href") === `#${activeId}`);
   });
 }
 

@@ -92,6 +92,7 @@ nav {
 }
 
 nav a {
+  position: relative;
   transition: color 180ms ease;
 }
 
@@ -99,10 +100,55 @@ nav a:hover {
   color: var(--ink);
 }
 
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.45rem;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 220ms ease;
+}
+
+nav a.is-active {
+  color: var(--ink);
+}
+
+nav a.is-active::after {
+  transform: scaleX(1);
+}
+
 main {
   position: relative;
   perspective: 1100px;
   transform-style: preserve-3d;
+}
+
+.motion-item {
+  --item-drift: 18;
+  --item-depth: -18;
+  opacity: 0;
+  transform: translate3d(0, calc(var(--item-drift) * 1px), calc(var(--item-depth) * 1px)) scale(0.985);
+  filter: blur(5px);
+  transition:
+    opacity 620ms ease,
+    filter 620ms ease,
+    transform 620ms cubic-bezier(0.2, 0.75, 0.18, 1);
+  transition-delay: calc(var(--stagger, 0) * 55ms);
+  will-change: transform, opacity, filter;
+}
+
+.motion-item.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, calc(var(--item-drift, 0) * 1px), calc(var(--item-depth, 0) * 1px)) scale(1);
+}
+
+.motion-item.is-in-focus {
+  filter: drop-shadow(0 18px 42px rgba(255, 176, 0, 0.055));
 }
 
 .hero {
@@ -815,5 +861,16 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .hero,
+  .section,
+  .contact,
+  .motion-item,
+  .motion-item.is-visible {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
