@@ -46,16 +46,18 @@ scene.add(stars);
 
 const shootingStars = Array.from({ length: 5 }, () => {
   const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(6), 3));
-  const material = new THREE.LineBasicMaterial({
-    color: 0xffffff,
+  geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(12), 3));
+  const material = new THREE.PointsMaterial({
+    color: 0xfff3d6,
+    size: 0.055,
     transparent: true,
     opacity: 0,
+    depthWrite: false,
   });
-  const line = new THREE.Line(geometry, material);
-  scene.add(line);
+  const points = new THREE.Points(geometry, material);
+  scene.add(points);
   return {
-    line,
+    points,
     active: false,
     start: 0,
     duration: 1,
@@ -111,14 +113,14 @@ function spawnShootingStar(elapsed, boosted = false) {
 
   meteor.active = true;
   meteor.start = elapsed;
-  meteor.duration = boosted ? 0.75 + Math.random() * 0.35 : 0.95 + Math.random() * 0.65;
+  meteor.duration = boosted ? 0.55 + Math.random() * 0.25 : 0.7 + Math.random() * 0.45;
   meteor.x = -28 + Math.random() * 50;
   meteor.y = 15 + Math.random() * 14;
   meteor.z = -12 - Math.random() * 12;
-  meteor.length = boosted ? 9 + Math.random() * 4 : 6 + Math.random() * 4;
-  meteor.speed = boosted ? 18 + Math.random() * 8 : 13 + Math.random() * 7;
+  meteor.length = boosted ? 4.2 + Math.random() * 1.8 : 2.8 + Math.random() * 1.6;
+  meteor.speed = boosted ? 11 + Math.random() * 5 : 8 + Math.random() * 4;
   meteor.angle = -0.52 - Math.random() * 0.32;
-  meteor.line.material.opacity = 0;
+  meteor.points.material.opacity = 0;
 }
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -153,10 +155,10 @@ function animate() {
 
   if (!reducedMotion && elapsed > nextShootingStarAt) {
     spawnShootingStar(elapsed);
-    nextShootingStarAt = elapsed + 2.6 + Math.random() * 3.8;
+    nextShootingStarAt = elapsed + 5.5 + Math.random() * 5.5;
   }
 
-  if (!reducedMotion && Math.abs(scrollVelocity) > 8 && Math.random() < 0.05) {
+  if (!reducedMotion && Math.abs(scrollVelocity) > 10 && Math.random() < 0.018) {
     spawnShootingStar(elapsed, true);
   }
 
@@ -166,25 +168,23 @@ function animate() {
     const progress = age / meteor.duration;
     if (progress >= 1) {
       meteor.active = false;
-      meteor.line.material.opacity = 0;
+      meteor.points.material.opacity = 0;
       return;
     }
 
     const distance = meteor.speed * progress;
     const headX = meteor.x + Math.cos(meteor.angle) * distance;
     const headY = meteor.y + Math.sin(meteor.angle) * distance;
-    const tailX = headX - Math.cos(meteor.angle) * meteor.length;
-    const tailY = headY - Math.sin(meteor.angle) * meteor.length;
-    const opacity = Math.sin(progress * Math.PI) * 0.82;
-    const arr = meteor.line.geometry.attributes.position.array;
-    arr[0] = tailX;
-    arr[1] = tailY;
-    arr[2] = meteor.z;
-    arr[3] = headX;
-    arr[4] = headY;
-    arr[5] = meteor.z;
-    meteor.line.geometry.attributes.position.needsUpdate = true;
-    meteor.line.material.opacity = opacity;
+    const opacity = Math.sin(progress * Math.PI) * (meteor.duration < 0.75 ? 0.2 : 0.16);
+    const arr = meteor.points.geometry.attributes.position.array;
+    for (let i = 0; i < 4; i += 1) {
+      const fadeOffset = (i / 3) * meteor.length;
+      arr[i * 3] = headX - Math.cos(meteor.angle) * fadeOffset;
+      arr[i * 3 + 1] = headY - Math.sin(meteor.angle) * fadeOffset;
+      arr[i * 3 + 2] = meteor.z;
+    }
+    meteor.points.geometry.attributes.position.needsUpdate = true;
+    meteor.points.material.opacity = opacity;
   });
 
   renderer.render(scene, camera);
