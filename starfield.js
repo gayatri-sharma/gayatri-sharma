@@ -47,7 +47,7 @@ scene.add(stars);
 const depthSections = [...document.querySelectorAll(".hero, .section, .contact")];
 const motionItems = [
   ...document.querySelectorAll(
-    ".section-heading, .hero-identity, .hero-summary, .hero-actions, .hero-showcase, .role-card, .experience-row, .research-grid article, .skill-group, .education-summary, .education-row, .recognition-intro, .education-credentials > div, .certifications article, .recommendation-spotlight, .recommendation-card, .contact .eyebrow, .contact h2",
+    ".section-heading, .hero-identity, .hero-summary, .hero-actions, .hero-showcase, .role-card, .experience-row, .research-grid article, .skill-group, .education-summary, .education-row, .recognition-intro, .education-credentials > div, .certifications article",
   ),
 ];
 const navLinks = [...document.querySelectorAll("nav a[href^='#']")];
@@ -211,15 +211,8 @@ function updateDepthSections() {
   const viewportCenter = window.innerHeight * 0.52;
   depthSections.forEach((section) => {
     const rect = section.getBoundingClientRect();
-    const sectionCenter = rect.top + rect.height * 0.5;
-    const distance = (sectionCenter - viewportCenter) / window.innerHeight;
-    const clamped = Math.max(-1.2, Math.min(1.2, distance));
     const inView = rect.bottom > -120 && rect.top < window.innerHeight + 120;
-
-    section.style.setProperty("--depth-shift", (clamped * -18).toFixed(2));
-    section.style.setProperty("--depth-z", (inView ? (1 - Math.abs(clamped)) * 34 : -24).toFixed(2));
-    section.style.setProperty("--depth-tilt", (clamped * -1.8).toFixed(2));
-    section.style.opacity = inView ? String(Math.max(0.72, 1 - Math.abs(clamped) * 0.18)) : "0.7";
+    section.style.opacity = inView ? "1" : "0.92";
   });
 
   motionItems.forEach((item) => {

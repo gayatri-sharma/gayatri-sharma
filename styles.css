@@ -388,13 +388,9 @@ h1 {
 .section {
   padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 5.5rem);
   scroll-margin-top: 6rem;
-  transform: translate3d(0, calc(var(--depth-shift, 0) * 1px), calc(var(--depth-z, 0) * 1px))
-    rotateX(calc(var(--depth-tilt, 0) * 1deg));
-  transform-origin: 50% 20%;
-  transition:
-    opacity 220ms ease,
-    transform 120ms linear;
-  will-change: transform, opacity;
+  transform: none;
+  transition: opacity 220ms ease;
+  will-change: opacity;
 }
 
 .section-heading {
@@ -794,6 +790,18 @@ footer {
 .recommendation-spotlight blockquote li {
   color: rgba(255, 243, 231, 0.82);
 }
+
+.recommendations-section,
+.recommendations-section .motion-item,
+.contact,
+.contact .motion-item {
+  transform: none !important;
+  opacity: 1;
+  filter: none;
+}
+
+.recommendations-section {
+  padding-bottom: clamp(5rem, 8vw, 7rem);
 }
 
 .timeline {
