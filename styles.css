@@ -243,10 +243,7 @@ main {
   padding: clamp(9rem, 13vh, 10.25rem) clamp(1rem, 5vw, 5.5rem) 4.5rem;
   position: relative;
   isolation: isolate;
-  transform: translate3d(0, calc(var(--depth-shift, 0) * 1px), calc(var(--depth-z, 0) * 1px))
-    rotateX(calc(var(--depth-tilt, 0) * 1deg));
-  transition: transform 120ms linear;
-  will-change: transform;
+  transform: none;
 }
 
 .hero-copy {
