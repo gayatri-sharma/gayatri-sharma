@@ -187,6 +187,7 @@ main {
 .education-row,
 .credentials > div,
 .certifications article,
+.recommendation-spotlight,
 .recommendation-card {
   transition:
     border-color 220ms ease,
@@ -204,6 +205,7 @@ main {
 .education-row:hover,
 .credentials > div:hover,
 .certifications article:hover,
+.recommendation-spotlight:hover,
 .recommendation-card:hover {
   border-color: rgba(255, 176, 0, 0.38);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34), 0 0 32px rgba(255, 176, 0, 0.045);
@@ -625,37 +627,83 @@ footer {
   line-height: 1.1;
 }
 
-.recommendations-grid {
+.recommendations-flow {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
+  grid-template-columns: minmax(20rem, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.2rem, 3vw, 2rem);
+  align-items: start;
   margin-top: clamp(2rem, 4vw, 3rem);
-  border: 1px solid rgba(255, 176, 0, 0.18);
-  background: rgba(255, 176, 0, 0.16);
+}
+
+.recommendation-spotlight,
+.recommendation-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, rgba(255, 176, 0, 0.055), transparent 42%),
+    rgba(2, 2, 2, 0.62);
+  border: 1px solid rgba(255, 176, 0, 0.14);
+  border-radius: 8px;
+  backdrop-filter: blur(14px);
+}
+
+.recommendation-spotlight {
+  min-height: 32rem;
+  justify-content: flex-end;
+  gap: clamp(1.4rem, 3vw, 2.2rem);
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+}
+
+.recommendation-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -30% -18%;
+  height: 18rem;
+  background: radial-gradient(circle, rgba(255, 176, 0, 0.16), transparent 66%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.quote-mark {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.4rem;
+  margin: 0;
+  color: rgba(255, 176, 0, 0.12);
+  font-family: Georgia, serif;
+  font-size: clamp(7rem, 14vw, 13rem);
+  line-height: 0.72;
+}
+
+.recommendation-list {
+  display: grid;
+  gap: 0.8rem;
 }
 
 .recommendation-card {
-  min-height: 15.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1.4rem;
-  padding: clamp(1.15rem, 2.1vw, 1.7rem);
-  background:
-    radial-gradient(circle at 16% 0%, rgba(255, 176, 0, 0.06), transparent 34%),
-    rgba(2, 2, 2, 0.86);
-  border: 0;
-}
-
-.recommendation-card.featured {
-  grid-column: span 2;
+  display: grid;
+  grid-template-columns: minmax(11rem, 0.34fr) minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 1.7rem);
+  align-items: start;
+  padding: clamp(1rem, 1.8vw, 1.35rem);
 }
 
 .recommendation-meta {
   display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.recommendation-spotlight .recommendation-meta {
+  flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
   gap: 1.2rem;
-  align-items: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 .recommendation-meta h3 {
@@ -673,7 +721,6 @@ footer {
 }
 
 .recommendation-meta span {
-  flex: 0 0 auto;
   color: var(--gold);
   font-family: var(--display);
   font-size: 0.75rem;
@@ -682,10 +729,20 @@ footer {
   text-transform: uppercase;
 }
 
+.recommendation-spotlight blockquote,
 .recommendation-card blockquote {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: rgba(246, 239, 230, 0.84);
   font-size: clamp(0.92rem, 1vw, 1.02rem);
+  line-height: 1.55;
+}
+
+.recommendation-spotlight blockquote {
+  max-width: 30rem;
+  color: rgba(255, 243, 231, 0.9);
+  font-size: clamp(1.1rem, 1.5vw, 1.38rem);
   line-height: 1.55;
 }
 
@@ -895,13 +952,17 @@ footer {
   .education-row,
   .education-credentials,
   .certifications,
-  .recommendations-grid {
+  .recommendations-flow {
     grid-template-columns: 1fr;
     gap: 0.85rem;
   }
 
-  .recommendation-card.featured {
-    grid-column: auto;
+  .recommendation-spotlight {
+    min-height: auto;
+  }
+
+  .recommendation-card {
+    grid-template-columns: 1fr;
   }
 
   .skills-grid {
