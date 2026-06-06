@@ -376,8 +376,8 @@ h1 {
 
 .section-heading {
   position: relative;
-  max-width: 54rem;
-  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  max-width: 48rem;
+  margin-bottom: clamp(1.4rem, 3.2vw, 2.5rem);
   padding-bottom: 0.9rem;
 }
 
@@ -408,8 +408,8 @@ h1 {
 
 h2 {
   margin: 0;
-  font-size: clamp(2rem, 3.5vw, 3.55rem);
-  line-height: 1.06;
+  font-size: clamp(2rem, 3vw, 3.05rem);
+  line-height: 1.08;
   letter-spacing: 0;
 }
 
@@ -460,9 +460,8 @@ footer {
 }
 
 .roles-section .section-heading h2 {
-  max-width: 18ch;
-  font-size: clamp(2.15rem, 3.35vw, 3.55rem);
-  line-height: 1.08;
+  max-width: 20ch;
+  font-size: clamp(2rem, 3vw, 3.05rem);
 }
 
 .roles-list,
@@ -513,9 +512,8 @@ footer {
 }
 
 .experience-section .section-heading h2 {
-  max-width: 19ch;
-  font-size: clamp(2.15rem, 3.35vw, 3.55rem);
-  line-height: 1.08;
+  max-width: 22ch;
+  font-size: clamp(2rem, 3vw, 3.05rem);
 }
 
 .experience-row {
@@ -564,15 +562,15 @@ footer {
 }
 
 .subsection-heading {
-  max-width: 58rem;
+  max-width: 42rem;
   margin-top: clamp(3rem, 6vw, 5rem);
   margin-bottom: 1.2rem;
 }
 
 .subsection-heading h2 {
-  max-width: 24ch;
-  font-size: clamp(1.85rem, 2.8vw, 2.9rem);
-  line-height: 1.08;
+  max-width: 22ch;
+  font-size: clamp(1.55rem, 2.25vw, 2.25rem);
+  line-height: 1.12;
 }
 
 .education-credentials {
@@ -622,8 +620,9 @@ footer {
 }
 
 .recommendations-section .section-heading h2 {
-  max-width: 18ch;
-  font-size: clamp(2.4rem, 6vw, 5.6rem);
+  max-width: 20ch;
+  font-size: clamp(2rem, 3vw, 3.05rem);
+  line-height: 1.1;
 }
 
 .recommendations-grid {
@@ -636,7 +635,7 @@ footer {
 }
 
 .recommendation-card {
-  min-height: 17rem;
+  min-height: 15.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -662,14 +661,14 @@ footer {
 .recommendation-meta h3 {
   margin: 0 0 0.35rem;
   color: var(--ink);
-  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
-  line-height: 1.05;
+  font-size: clamp(1.03rem, 1.2vw, 1.22rem);
+  line-height: 1.15;
 }
 
 .recommendation-meta p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   line-height: 1.35;
 }
 
@@ -686,8 +685,8 @@ footer {
 .recommendation-card blockquote {
   margin: 0;
   color: rgba(246, 239, 230, 0.84);
-  font-size: clamp(0.98rem, 1.25vw, 1.14rem);
-  line-height: 1.58;
+  font-size: clamp(0.92rem, 1vw, 1.02rem);
+  line-height: 1.55;
 }
 
 .timeline {
@@ -763,9 +762,8 @@ footer {
 }
 
 .research-section .section-heading h2 {
-  max-width: 22ch;
-  font-size: clamp(2rem, 3.25vw, 3.35rem);
-  line-height: 1.08;
+  max-width: 23ch;
+  font-size: clamp(2rem, 3vw, 3.05rem);
 }
 
 .skills-grid {
@@ -777,8 +775,7 @@ footer {
 
 .skills-section h2 {
   max-width: 23ch;
-  font-size: clamp(1.95rem, 2.9vw, 3rem);
-  line-height: 1.08;
+  font-size: clamp(2rem, 3vw, 3.05rem);
 }
 
 .skill-group {
@@ -847,8 +844,7 @@ footer {
 
 .contact h2 {
   max-width: 22ch;
-  font-size: clamp(2rem, 3.4vw, 3.45rem);
-  line-height: 1.08;
+  font-size: clamp(2rem, 3vw, 3.05rem);
   margin-bottom: 2rem;
 }
 
