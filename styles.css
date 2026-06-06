@@ -1,12 +1,12 @@
 :root {
   color-scheme: dark;
-  --bg: #07111d;
-  --bg-2: #102034;
+  --bg: #000000;
+  --bg-2: #06080c;
   --ink: #f7fbff;
   --muted: #b8c7d9;
   --line: rgba(255, 255, 255, 0.16);
-  --panel: rgba(9, 23, 38, 0.72);
-  --panel-strong: rgba(15, 34, 54, 0.88);
+  --panel: rgba(4, 6, 10, 0.72);
+  --panel-strong: rgba(8, 10, 15, 0.88);
   --cyan: #43d7ff;
   --mint: #65f4b8;
   --gold: #ffc857;
@@ -26,9 +26,9 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(circle at 18% 12%, rgba(67, 215, 255, 0.18), transparent 30rem),
-    radial-gradient(circle at 82% 20%, rgba(101, 244, 184, 0.14), transparent 28rem),
-    linear-gradient(135deg, var(--bg), var(--bg-2) 54%, #151922);
+    radial-gradient(circle at 18% 12%, rgba(67, 215, 255, 0.1), transparent 28rem),
+    radial-gradient(circle at 82% 20%, rgba(101, 244, 184, 0.08), transparent 26rem),
+    linear-gradient(135deg, var(--bg), var(--bg-2) 62%, #000000);
   color: var(--ink);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
@@ -71,7 +71,7 @@ a {
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem clamp(1rem, 4vw, 4.5rem);
-  background: rgba(5, 13, 23, 0.68);
+  background: rgba(0, 0, 0, 0.72);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(18px);
 }
@@ -110,7 +110,7 @@ main {
 .hero {
   min-height: 100svh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 31rem);
   align-items: end;
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: 8rem clamp(1rem, 5vw, 5.5rem) 5rem;
@@ -192,6 +192,52 @@ h1 {
 .button.ghost {
   background: rgba(255, 255, 255, 0.08);
   color: var(--ink);
+}
+
+.hero-showcase {
+  display: grid;
+  gap: 1rem;
+}
+
+.portrait-frame {
+  position: relative;
+  margin: 0;
+  min-height: clamp(19rem, 36vw, 28rem);
+  overflow: hidden;
+  border: 1px solid rgba(67, 215, 255, 0.35);
+  background: #000;
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.54),
+    0 0 64px rgba(67, 215, 255, 0.16);
+}
+
+.portrait-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  pointer-events: none;
+}
+
+.portrait-frame::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 34%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
+  pointer-events: none;
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  min-height: clamp(19rem, 36vw, 28rem);
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(1.04) contrast(1.08);
 }
 
 .hero-panel {
@@ -404,6 +450,12 @@ footer {
   margin-bottom: 2rem;
 }
 
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -432,6 +484,10 @@ footer {
   }
 
   .hero-panel {
+    max-width: 34rem;
+  }
+
+  .portrait-frame {
     max-width: 34rem;
   }
 
@@ -483,6 +539,11 @@ footer {
   .hero {
     min-height: auto;
     padding-top: 3rem;
+  }
+
+  .portrait-frame,
+  .portrait-frame img {
+    min-height: 22rem;
   }
 
   .button {
