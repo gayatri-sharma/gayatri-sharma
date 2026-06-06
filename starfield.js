@@ -163,7 +163,7 @@ function spawnShootingStar(elapsed, boosted = false) {
   meteor.angle = -0.42 - Math.random() * 0.26;
   meteor.sprite.visible = true;
   meteor.sprite.material.opacity = 0;
-  meteor.sprite.material.rotation = -meteor.angle;
+  meteor.sprite.material.rotation = meteor.angle;
   meteor.sprite.scale.set(meteor.length, meteor.length * 0.18, 1);
 }
 
