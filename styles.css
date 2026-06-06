@@ -574,9 +574,9 @@ footer {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
-  border-top: 1px solid rgba(255, 207, 107, 0.22);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: stretch;
 }
 
 .skills-section h2 {
@@ -586,47 +586,46 @@ footer {
 }
 
 .skill-group {
-  display: grid;
-  grid-template-columns: minmax(12rem, 0.38fr) minmax(0, 1fr);
-  gap: 1rem;
-  padding: 1.2rem 0;
-  border-bottom: 1px solid rgba(255, 250, 240, 0.13);
-}
-
-.skill-group:nth-child(odd) {
-  padding-right: 1.5rem;
-  border-right: 1px solid rgba(255, 250, 240, 0.1);
-}
-
-.skill-group:nth-child(even) {
-  padding-left: 1.5rem;
+  min-height: 13rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid rgba(255, 177, 0, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(255, 177, 0, 0.07), rgba(255, 255, 255, 0.025) 42%, rgba(0, 0, 0, 0.26)),
+    rgba(0, 0, 0, 0.26);
+  box-shadow: 0 18px 58px rgba(0, 0, 0, 0.28);
 }
 
 .skill-group h3 {
+  max-width: 18rem;
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 1.02rem;
   line-height: 1.25;
+  margin-bottom: 0.9rem;
 }
 
 .skill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
+  gap: 0.5rem;
   margin-top: 0;
 }
 
 .skill-list span {
-  padding: 0.34rem 0;
-  border: 0;
-  border-bottom: 1px solid rgba(255, 250, 240, 0.13);
-  background: transparent;
-  color: var(--muted);
-  font-size: 0.82rem;
+  padding: 0.4rem 0.62rem;
+  border: 1px solid rgba(255, 243, 231, 0.13);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 243, 231, 0.82);
+  font-size: 0.78rem;
   font-weight: 700;
+  line-height: 1;
 }
 
 .skill-list span:first-child,
 .skill-list span:nth-child(4n) {
+  border-color: rgba(255, 176, 0, 0.34);
+  background: rgba(255, 176, 0, 0.1);
   color: var(--ink);
 }
 
@@ -709,16 +708,11 @@ footer {
   }
 
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .skill-group,
-  .skill-group:nth-child(odd),
-  .skill-group:nth-child(even) {
-    grid-template-columns: minmax(11rem, 0.32fr) minmax(0, 1fr);
-    padding-left: 0;
-    padding-right: 0;
-    border-right: 0;
+  .skill-group {
+    min-height: auto;
   }
 
   .timeline::before {
@@ -800,8 +794,11 @@ footer {
   .skill-group,
   .skill-group:nth-child(odd),
   .skill-group:nth-child(even) {
+    padding: 1rem;
+  }
+
+  .skills-grid {
     grid-template-columns: 1fr;
-    gap: 0.65rem;
   }
 
   .role-card p,
