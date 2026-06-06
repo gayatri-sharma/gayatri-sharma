@@ -131,11 +131,11 @@ main {
 }
 
 .eyebrow {
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.55rem;
   color: var(--gold);
-  font-size: 0.78rem;
+  font-size: clamp(0.88rem, 1.1vw, 1rem);
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
@@ -258,7 +258,7 @@ h1 {
 }
 
 .section-heading {
-  max-width: 58rem;
+  max-width: 54rem;
   margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
@@ -268,8 +268,8 @@ h1 {
 
 h2 {
   margin: 0;
-  font-size: clamp(2rem, 4.2vw, 4.5rem);
-  line-height: 1.02;
+  font-size: clamp(2rem, 3.5vw, 3.55rem);
+  line-height: 1.06;
   letter-spacing: 0;
 }
 
@@ -316,14 +316,13 @@ footer {
 }
 
 .roles-section .eyebrow {
-  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
-  margin-bottom: 0.65rem;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
 }
 
 .roles-section .section-heading h2 {
-  max-width: 19ch;
-  font-size: clamp(2.1rem, 3.8vw, 4.15rem);
-  line-height: 1.03;
+  max-width: 18ch;
+  font-size: clamp(2.15rem, 3.35vw, 3.55rem);
+  line-height: 1.08;
 }
 
 .roles-list,
@@ -370,14 +369,13 @@ footer {
 }
 
 .experience-section .eyebrow {
-  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
-  margin-bottom: 0.65rem;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
 }
 
 .experience-section .section-heading h2 {
-  max-width: 20ch;
-  font-size: clamp(2.15rem, 4vw, 4.35rem);
-  line-height: 1.03;
+  max-width: 19ch;
+  font-size: clamp(2.15rem, 3.35vw, 3.55rem);
+  line-height: 1.08;
 }
 
 .experience-row {
@@ -432,7 +430,9 @@ footer {
 }
 
 .subsection-heading h2 {
-  font-size: clamp(1.75rem, 3vw, 3.1rem);
+  max-width: 24ch;
+  font-size: clamp(1.85rem, 2.8vw, 2.9rem);
+  line-height: 1.08;
 }
 
 .education-credentials {
@@ -553,6 +553,12 @@ footer {
   background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.055), transparent);
 }
 
+.research-section .section-heading h2 {
+  max-width: 22ch;
+  font-size: clamp(2rem, 3.25vw, 3.35rem);
+  line-height: 1.08;
+}
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -561,8 +567,9 @@ footer {
 }
 
 .skills-section h2 {
-  font-size: clamp(1.85rem, 3vw, 3.25rem);
-  max-width: 24ch;
+  max-width: 23ch;
+  font-size: clamp(1.95rem, 2.9vw, 3rem);
+  line-height: 1.08;
 }
 
 .skill-group {
@@ -624,7 +631,9 @@ footer {
 }
 
 .contact h2 {
-  max-width: 68rem;
+  max-width: 22ch;
+  font-size: clamp(2rem, 3.4vw, 3.45rem);
+  line-height: 1.08;
   margin-bottom: 2rem;
 }
 
