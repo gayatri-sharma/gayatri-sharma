@@ -938,7 +938,7 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(5rem, 8vw, 8rem) clamp(1rem, 5vw, 5.5rem) clamp(6rem, 10vw, 9rem);
+  padding: clamp(5rem, 8vw, 8rem) clamp(1rem, 5vw, 5.5rem) clamp(8rem, 13vw, 12rem);
   background: rgba(3, 10, 17, 0.36);
   transform: none;
 }
@@ -953,6 +953,10 @@ footer {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  transform: none !important;
+  opacity: 1;
+  filter: none;
 }
 
 footer {
@@ -960,8 +964,8 @@ footer {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
-  padding: 2rem clamp(1rem, 5vw, 5.5rem);
-  border-top: 1px solid rgba(255, 176, 0, 0.12);
+  padding: 2.4rem clamp(1rem, 5vw, 5.5rem);
+  border-top: 0;
   background: rgba(0, 0, 0, 0.68);
   font-size: 0.92rem;
 }
