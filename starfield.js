@@ -88,19 +88,21 @@ function createMeteorTexture() {
 }
 
 const meteorTexture = createMeteorTexture();
+const meteorGeometry = new THREE.PlaneGeometry(1, 1);
 const shootingStars = Array.from({ length: 5 }, () => {
-  const material = new THREE.SpriteMaterial({
+  const material = new THREE.MeshBasicMaterial({
     map: meteorTexture,
     transparent: true,
     opacity: 0,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
   });
-  const sprite = new THREE.Sprite(material);
-  sprite.visible = false;
-  scene.add(sprite);
+  const mesh = new THREE.Mesh(meteorGeometry, material);
+  mesh.visible = false;
+  scene.add(mesh);
   return {
-    sprite,
+    mesh,
     active: false,
     start: 0,
     duration: 1,
@@ -163,10 +165,10 @@ function spawnShootingStar(elapsed, boosted = false) {
   meteor.length = boosted ? 8 + Math.random() * 3 : 6 + Math.random() * 3;
   meteor.speed = boosted ? 13 + Math.random() * 5 : 10 + Math.random() * 4;
   meteor.angle = -0.42 - Math.random() * 0.26;
-  meteor.sprite.visible = true;
-  meteor.sprite.material.opacity = 0;
-  meteor.sprite.material.rotation = meteor.angle;
-  meteor.sprite.scale.set(meteor.length, meteor.length * 0.18, 1);
+  meteor.mesh.visible = true;
+  meteor.mesh.material.opacity = 0;
+  meteor.mesh.rotation.set(0, 0, meteor.angle);
+  meteor.mesh.scale.set(meteor.length, meteor.length * 0.18, 1);
 }
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -240,8 +242,8 @@ function animate() {
     const progress = age / meteor.duration;
     if (progress >= 1) {
       meteor.active = false;
-      meteor.sprite.visible = false;
-      meteor.sprite.material.opacity = 0;
+      meteor.mesh.visible = false;
+      meteor.mesh.material.opacity = 0;
       return;
     }
 
@@ -250,12 +252,12 @@ function animate() {
     const headY = meteor.y + Math.sin(meteor.angle) * distance;
     const opacity = Math.sin(progress * Math.PI) * (meteor.duration < 0.95 ? 0.82 : 0.68);
     const centerOffset = meteor.length * 0.42;
-    meteor.sprite.position.set(
+    meteor.mesh.position.set(
       headX - Math.cos(meteor.angle) * centerOffset,
       headY - Math.sin(meteor.angle) * centerOffset,
       meteor.z,
     );
-    meteor.sprite.material.opacity = opacity;
+    meteor.mesh.material.opacity = opacity;
   });
 
   updateDepthSections();
