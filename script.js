@@ -27,52 +27,125 @@ const starMaterial = new THREE.PointsMaterial({
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
-function makeRadialTexture(stops, size = 512) {
+function makeBlackHoleTexture(width = 1400, height = 760) {
   const textureCanvas = document.createElement("canvas");
-  textureCanvas.width = size;
-  textureCanvas.height = size;
+  textureCanvas.width = width;
+  textureCanvas.height = height;
   const ctx = textureCanvas.getContext("2d");
-  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-  stops.forEach(([offset, color]) => gradient.addColorStop(offset, color));
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, size, size);
+
+  const cx = width * 0.5;
+  const cy = height * 0.38;
+  const horizon = width * 0.105;
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.globalCompositeOperation = "lighter";
+
+  const halo = ctx.createRadialGradient(cx, cy, horizon * 0.7, cx, cy, width * 0.32);
+  halo.addColorStop(0, "rgba(255, 96, 0, 0.42)");
+  halo.addColorStop(0.28, "rgba(255, 34, 0, 0.22)");
+  halo.addColorStop(0.72, "rgba(180, 0, 0, 0.08)");
+  halo.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = halo;
+  ctx.fillRect(0, 0, width, height);
+
+  for (let i = 0; i < 38; i += 1) {
+    const t = i / 37;
+    const rx = width * (0.145 + t * 0.19);
+    const ry = height * (0.09 + t * 0.115);
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + height * 0.012, rx, ry, 0, Math.PI * 1.02, Math.PI * 1.98);
+    ctx.strokeStyle = `rgba(255, ${48 + t * 98}, ${t * 16}, ${0.52 - t * 0.25})`;
+    ctx.lineWidth = 4.5 - t * 2.4;
+    ctx.shadowColor = "rgba(255, 52, 0, 0.8)";
+    ctx.shadowBlur = 14;
+    ctx.stroke();
+  }
+
+  for (let i = 0; i < 62; i += 1) {
+    const t = i / 61;
+    const y = cy + (t - 0.5) * height * 0.095;
+    const thickness = 1.2 + Math.sin(i * 1.7) * 0.7;
+    const alpha = 0.16 + Math.sin(i * 0.8) * 0.08;
+    const gradient = ctx.createLinearGradient(width * 0.08, y, width * 0.92, y);
+    gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
+    gradient.addColorStop(0.14, `rgba(175, 12, 0, ${alpha})`);
+    gradient.addColorStop(0.34, `rgba(255, 70, 0, ${alpha + 0.18})`);
+    gradient.addColorStop(0.5, `rgba(255, 235, 105, ${alpha + 0.32})`);
+    gradient.addColorStop(0.66, `rgba(255, 70, 0, ${alpha + 0.18})`);
+    gradient.addColorStop(0.86, `rgba(175, 12, 0, ${alpha})`);
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+    ctx.beginPath();
+    ctx.moveTo(width * 0.04, y);
+    ctx.bezierCurveTo(width * 0.25, y - 26 * Math.sin(t * Math.PI), width * 0.74, y + 24 * Math.sin(t * Math.PI), width * 0.96, y);
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = thickness;
+    ctx.shadowColor = "rgba(255, 61, 0, 0.72)";
+    ctx.shadowBlur = 12;
+    ctx.stroke();
+  }
+
+  for (let i = 0; i < 34; i += 1) {
+    const t = i / 33;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + height * 0.255, width * (0.09 + t * 0.04), height * (0.19 + t * 0.055), 0, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255, ${48 + t * 92}, 0, ${0.28 - t * 0.12})`;
+    ctx.lineWidth = 2.5 - t * 1.1;
+    ctx.shadowColor = "rgba(255, 42, 0, 0.46)";
+    ctx.shadowBlur = 8;
+    ctx.stroke();
+  }
+
+  ctx.globalCompositeOperation = "source-over";
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "#000";
+  ctx.beginPath();
+  ctx.arc(cx, cy, horizon, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.strokeStyle = "rgba(255, 76, 0, 0.9)";
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.arc(cx, cy, horizon * 1.02, 0, Math.PI * 2);
+  ctx.stroke();
+
+  const mask = ctx.createRadialGradient(cx, cy, horizon * 0.9, cx, cy, width * 0.5);
+  mask.addColorStop(0, "rgba(0,0,0,0)");
+  mask.addColorStop(0.74, "rgba(0,0,0,0)");
+  mask.addColorStop(1, "rgba(0,0,0,0.98)");
+  ctx.fillStyle = mask;
+  ctx.fillRect(0, 0, width, height);
+
   const texture = new THREE.CanvasTexture(textureCanvas);
   texture.needsUpdate = true;
   return texture;
 }
 
-function makeDiskTexture(size = 1024) {
+function makeThinDiskTexture(width = 1400, height = 260) {
   const textureCanvas = document.createElement("canvas");
-  textureCanvas.width = size;
-  textureCanvas.height = size;
+  textureCanvas.width = width;
+  textureCanvas.height = height;
   const ctx = textureCanvas.getContext("2d");
-  const center = size / 2;
-  const outer = size * 0.46;
-  const inner = size * 0.15;
-  const image = ctx.createImageData(size, size);
+  const cy = height * 0.5;
 
-  for (let y = 0; y < size; y += 1) {
-    for (let x = 0; x < size; x += 1) {
-      const dx = x - center;
-      const dy = y - center;
-      const r = Math.sqrt(dx * dx + dy * dy);
-      const angle = Math.atan2(dy, dx);
-      const band = Math.max(0, 1 - Math.abs(r - size * 0.3) / (size * 0.16));
-      const hot = Math.max(0, 1 - Math.abs(r - size * 0.23) / (size * 0.07));
-      const swirl = 0.5 + 0.5 * Math.sin(angle * 7 + r * 0.035);
-      const alpha =
-        r > inner && r < outer
-          ? Math.min(255, (band * 165 + hot * 90) * (0.65 + swirl * 0.45))
-          : 0;
-      const idx = (y * size + x) * 4;
-      image.data[idx] = 255;
-      image.data[idx + 1] = 112 + hot * 95;
-      image.data[idx + 2] = 35 + swirl * 70;
-      image.data[idx + 3] = alpha;
-    }
+  for (let i = 0; i < 54; i += 1) {
+    const t = i / 53;
+    const y = cy + (t - 0.5) * height * 0.38;
+    const gradient = ctx.createLinearGradient(0, y, width, y);
+    gradient.addColorStop(0, "rgba(0,0,0,0)");
+    gradient.addColorStop(0.18, "rgba(180,16,0,0.22)");
+    gradient.addColorStop(0.42, "rgba(255,48,0,0.55)");
+    gradient.addColorStop(0.5, "rgba(255,150,0,0.54)");
+    gradient.addColorStop(0.58, "rgba(255,48,0,0.55)");
+    gradient.addColorStop(0.82, "rgba(180,16,0,0.22)");
+    gradient.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.beginPath();
+    ctx.moveTo(width * 0.04, y);
+    ctx.bezierCurveTo(width * 0.28, y - 22, width * 0.72, y + 20, width * 0.96, y);
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 0.8 + Math.sin(i) * 0.4;
+    ctx.stroke();
   }
 
-  ctx.putImageData(image, 0, 0);
   const texture = new THREE.CanvasTexture(textureCanvas);
   texture.needsUpdate = true;
   return texture;
@@ -82,65 +155,37 @@ const blackHoleGroup = new THREE.Group();
 blackHoleGroup.position.set(2.7, -0.2, -2.2);
 scene.add(blackHoleGroup);
 
-const glowTexture = makeRadialTexture([
-  [0, "rgba(255, 230, 158, 0.55)"],
-  [0.2, "rgba(255, 145, 61, 0.36)"],
-  [0.48, "rgba(168, 85, 247, 0.14)"],
-  [1, "rgba(0, 0, 0, 0)"],
-]);
-const glow = new THREE.Sprite(
-  new THREE.SpriteMaterial({
-    map: glowTexture,
-    transparent: true,
-    opacity: 0.72,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  }),
-);
-glow.scale.set(13.5, 13.5, 1);
-blackHoleGroup.add(glow);
-
-const disk = new THREE.Mesh(
-  new THREE.PlaneGeometry(13.5, 13.5, 1, 1),
+const blackHole = new THREE.Mesh(
+  new THREE.PlaneGeometry(12.8, 6.9, 1, 1),
   new THREE.MeshBasicMaterial({
-    map: makeDiskTexture(),
+    map: makeBlackHoleTexture(),
     transparent: true,
-    opacity: 0.92,
-    blending: THREE.AdditiveBlending,
+    opacity: 0.96,
+    blending: THREE.NormalBlending,
     depthWrite: false,
     side: THREE.DoubleSide,
   }),
 );
-disk.rotation.x = 1.22;
-disk.rotation.z = -0.1;
-disk.scale.y = 0.42;
-blackHoleGroup.add(disk);
+blackHoleGroup.add(blackHole);
 
-const horizon = new THREE.Mesh(
-  new THREE.SphereGeometry(1.68, 64, 32),
-  new THREE.MeshBasicMaterial({ color: 0x000000 }),
-);
-horizon.scale.set(1, 1, 0.95);
-horizon.position.z = 0.03;
-blackHoleGroup.add(horizon);
-
-const photonRing = new THREE.Mesh(
-  new THREE.TorusGeometry(1.82, 0.055, 14, 180),
+const thinDisk = new THREE.Mesh(
+  new THREE.PlaneGeometry(14.2, 2.4, 1, 1),
   new THREE.MeshBasicMaterial({
-    color: 0xffcf6b,
+    map: makeThinDiskTexture(),
     transparent: true,
-    opacity: 0.72,
+    opacity: 0.5,
     blending: THREE.AdditiveBlending,
-  }),
+    depthWrite: false,
+    side: THREE.DoubleSide,
+  })
 );
-photonRing.rotation.x = 1.22;
-photonRing.scale.y = 0.42;
-blackHoleGroup.add(photonRing);
+thinDisk.position.z = 0.05;
+blackHoleGroup.add(thinDisk);
 
 const group = new THREE.Group();
 scene.add(group);
 
-const palette = [0xffcf6b, 0xff8f3d, 0xff4d8d, 0xa855f7];
+const palette = [0xff3b00, 0xff6a00, 0xffb000, 0xb01200];
 const nodeCount = 92;
 const nodes = [];
 const positions = new Float32Array(nodeCount * 3);
@@ -164,9 +209,9 @@ pointGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
 const pointMaterial = new THREE.PointsMaterial({
   color: 0xfff0d0,
-  size: 0.075,
+  size: 0.06,
   transparent: true,
-  opacity: 0.78,
+  opacity: 0.48,
   depthWrite: false,
 });
 
@@ -188,7 +233,7 @@ lineGeometry.setAttribute("position", new THREE.Float32BufferAttribute(linePosit
 const lineMaterial = new THREE.LineBasicMaterial({
   color: 0xff8f3d,
   transparent: true,
-  opacity: 0.13,
+  opacity: 0.06,
 });
 group.add(new THREE.LineSegments(lineGeometry, lineMaterial));
 
@@ -197,7 +242,7 @@ const torusGeometry = new THREE.TorusGeometry(7.2, 0.014, 10, 180);
 palette.forEach((color, index) => {
   const ring = new THREE.Mesh(
     torusGeometry,
-    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: index === 0 ? 0.28 : 0.18 }),
+    new THREE.MeshBasicMaterial({ color, transparent: true, opacity: index === 0 ? 0.14 : 0.09 }),
   );
   ring.rotation.x = Math.PI / 2 + index * 0.22;
   ring.rotation.y = -0.42 + index * 0.31;
@@ -226,7 +271,7 @@ chips.forEach((label, index) => {
   ctx.fillText(label, 128, 50);
 
   const texture = new THREE.CanvasTexture(canvas2d);
-  const material = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.8 });
+  const material = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.66 });
   const sprite = new THREE.Sprite(material);
   const angle = (index / chips.length) * Math.PI * 2;
   sprite.position.set(Math.cos(angle) * 8.25, Math.sin(angle) * 3.65, -2 + (index % 3) * 1.2);
@@ -279,9 +324,10 @@ function animate() {
   blackHoleGroup.position.x = 2.6 + Math.sin(scrollOrbit * 0.8) * 0.65;
   blackHoleGroup.position.y = -0.15 + Math.cos(scrollOrbit * 0.62) * 0.32 - scrollProgress * 0.42;
   blackHoleGroup.rotation.z = Math.sin(scrollOrbit) * 0.12;
-  disk.rotation.z = -0.1 + elapsed * 0.028 * speed + scrollProgress * 2.3;
-  photonRing.rotation.z = elapsed * 0.04 * speed + scrollProgress * 2.8;
-  glow.material.opacity = 0.62 + Math.sin(elapsed * 0.65) * 0.08;
+  blackHole.rotation.z = Math.sin(elapsed * 0.18 + scrollProgress * 2.6) * 0.018;
+  blackHole.material.opacity = 0.9 + Math.sin(elapsed * 0.65) * 0.05;
+  thinDisk.rotation.z = Math.sin(elapsed * 0.22 + scrollProgress * 2.8) * 0.02;
+  thinDisk.material.opacity = 0.5 + Math.sin(elapsed * 0.78) * 0.08;
   group.rotation.y = elapsed * 0.045 * speed + pointerX * 0.12 + scrollProgress * 1.45;
   group.rotation.x = -0.13 + pointerY * 0.06 + Math.sin(scrollOrbit) * 0.16;
   points.rotation.z = elapsed * 0.024 * speed + scrollProgress * 0.52;
@@ -293,7 +339,7 @@ function animate() {
   stars.rotation.y = elapsed * 0.006 * speed + pointerX * 0.012 + scrollProgress * 0.36;
   stars.rotation.x = pointerY * 0.008 - scrollProgress * 0.08;
   starMaterial.opacity = 0.46 + Math.sin(elapsed * 0.9) * 0.08 + Math.sin(elapsed * 1.7 + scrollProgress * 8) * 0.04;
-  lineMaterial.opacity = 0.11 + Math.sin(elapsed * 0.6 + scrollProgress * 5) * 0.03;
+  lineMaterial.opacity = 0.045 + Math.sin(elapsed * 0.6 + scrollProgress * 5) * 0.015;
 
   const positionAttr = pointGeometry.attributes.position;
   for (let i = 0; i < nodeCount; i += 1) {

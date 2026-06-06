@@ -1,17 +1,17 @@
 :root {
   color-scheme: dark;
   --bg: #000000;
-  --bg-2: #070209;
-  --ink: #fff8eb;
-  --muted: #c8bbc9;
-  --line: rgba(255, 218, 169, 0.17);
-  --panel: rgba(8, 5, 10, 0.78);
-  --panel-strong: rgba(16, 8, 19, 0.92);
-  --cyan: #c084fc;
-  --mint: #ff8f3d;
-  --gold: #ffcf6b;
-  --coral: #ff4d8d;
-  --plasma: #a855f7;
+  --bg-2: #030000;
+  --ink: #fff3e7;
+  --muted: #c8b7ad;
+  --line: rgba(255, 89, 0, 0.22);
+  --panel: rgba(7, 2, 0, 0.76);
+  --panel-strong: rgba(14, 4, 0, 0.92);
+  --cyan: #ff6a00;
+  --mint: #ff8a00;
+  --gold: #ffb000;
+  --coral: #ff3b00;
+  --plasma: #b01200;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.58);
 }
 
@@ -55,8 +55,8 @@ a {
     radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.95) 0 1px, transparent 1.5px),
     radial-gradient(circle at 82% 24%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.6px),
     radial-gradient(circle at 46% 72%, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 64% 44%, rgba(255, 207, 107, 0.56) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 22% 86%, rgba(168, 85, 247, 0.48) 0 1px, transparent 1.4px);
+    radial-gradient(circle at 64% 44%, rgba(255, 82, 0, 0.42) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 22% 86%, rgba(255, 176, 0, 0.3) 0 1px, transparent 1.4px);
   background-position:
     0 0,
     34px 72px,
@@ -69,7 +69,7 @@ a {
     260px 260px,
     310px 310px,
     360px 360px;
-  opacity: 0.34;
+  opacity: 0.22;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.4));
 }
 
@@ -220,7 +220,7 @@ h1 {
 }
 
 .button.primary {
-  background: linear-gradient(135deg, #ffcf6b, #ff8f3d 54%, #ff4d8d);
+  background: linear-gradient(135deg, #ffd166, #ff6a00 54%, #ff2500);
   color: #090909;
   border-color: transparent;
 }
@@ -303,7 +303,7 @@ h1 {
 
 .metric {
   display: block;
-  color: #ffcf6b;
+  color: #ffb000;
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 800;
   line-height: 1;
