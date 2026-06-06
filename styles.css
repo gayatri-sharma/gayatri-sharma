@@ -262,6 +262,10 @@ h1 {
   margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
+.compact-heading {
+  margin-bottom: 1rem;
+}
+
 h2 {
   margin: 0;
   font-size: clamp(2rem, 4.2vw, 4.5rem);
@@ -319,9 +323,6 @@ footer {
 }
 
 .role-card {
-  display: grid;
-  grid-template-columns: 5rem minmax(0, 1fr);
-  gap: clamp(1rem, 3vw, 2.5rem);
   padding: clamp(1.1rem, 2.6vw, 1.8rem) 0;
   border-width: 1px 0 0;
   background: linear-gradient(90deg, rgba(255, 177, 0, 0.055), rgba(10, 8, 6, 0.22));
@@ -331,13 +332,6 @@ footer {
 .role-card:last-child,
 .experience-row:last-child {
   border-bottom-width: 1px;
-}
-
-.role-index {
-  color: var(--gold);
-  font-size: clamp(1.3rem, 2vw, 2rem);
-  font-weight: 900;
-  line-height: 1;
 }
 
 .role-card h3 {
@@ -408,6 +402,16 @@ footer {
   font-size: clamp(1.05rem, 1.8vw, 1.55rem);
 }
 
+.subsection-heading {
+  max-width: 58rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  margin-bottom: 1.2rem;
+}
+
+.subsection-heading h2 {
+  font-size: clamp(1.75rem, 3vw, 3.1rem);
+}
+
 .education-credentials {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: clamp(1.4rem, 3vw, 2rem);
@@ -415,7 +419,7 @@ footer {
 
 .recognition-intro {
   max-width: 72rem;
-  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  margin-top: 0;
   padding-left: clamp(1rem, 2vw, 1.4rem);
   border-left: 2px solid rgba(255, 177, 0, 0.72);
 }
@@ -534,8 +538,8 @@ footer {
 }
 
 .skills-section h2 {
-  font-size: clamp(2rem, 3.4vw, 3.8rem);
-  max-width: 22ch;
+  font-size: clamp(1.85rem, 3vw, 3.25rem);
+  max-width: 24ch;
 }
 
 .skill-group {
@@ -573,21 +577,14 @@ footer {
   border: 0;
   border-bottom: 1px solid rgba(255, 250, 240, 0.13);
   background: transparent;
-  color: #e8ecef;
+  color: var(--muted);
   font-size: 0.82rem;
   font-weight: 700;
 }
 
-.skill-group:nth-child(3n + 1) .skill-list span:nth-child(3n + 1) {
-  color: var(--gold);
-}
-
-.skill-group:nth-child(3n + 2) .skill-list span:nth-child(3n + 1) {
-  color: #ff8fbd;
-}
-
-.skill-group:nth-child(3n) .skill-list span:nth-child(3n + 1) {
-  color: #caa9ff;
+.skill-list span:first-child,
+.skill-list span:nth-child(4n) {
+  color: var(--ink);
 }
 
 .credentials h2 {
