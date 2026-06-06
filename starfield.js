@@ -160,6 +160,9 @@ function updateScrollProgress() {
   const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
   targetScrollProgress = Math.min(window.scrollY / maxScroll, 1);
   targetScrollY = window.scrollY;
+  document.body.style.setProperty("--scroll-progress", targetScrollProgress.toFixed(4));
+  document.body.style.setProperty("--scroll-glow-x", `${(35 + Math.sin(targetScrollProgress * Math.PI * 2) * 18).toFixed(2)}%`);
+  document.body.style.setProperty("--scroll-glow-y", `${(24 + targetScrollProgress * 58).toFixed(2)}%`);
 }
 
 window.addEventListener("scroll", updateScrollProgress, { passive: true });

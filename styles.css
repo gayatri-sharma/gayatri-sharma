@@ -33,6 +33,22 @@ body {
   overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at var(--scroll-glow-x, 50%) var(--scroll-glow-y, 35%),
+      rgba(255, 176, 0, 0.085),
+      transparent 24rem
+    );
+  opacity: 0.75;
+  transition: background-position 180ms linear;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -54,6 +70,19 @@ a {
   background:
     radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.035), transparent 28rem),
     linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 28%, rgba(0, 0, 0, 0.18));
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: calc(var(--scroll-progress, 0) * 100%);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 176, 0, 0.45), rgba(255, 243, 231, 0.9));
+  box-shadow: 0 0 18px rgba(255, 176, 0, 0.45);
+  transform-origin: left;
+  pointer-events: none;
 }
 
 .site-header {
@@ -149,6 +178,33 @@ main {
 
 .motion-item.is-in-focus {
   filter: drop-shadow(0 18px 42px rgba(255, 176, 0, 0.055));
+}
+
+.role-card,
+.experience-row,
+.research-grid article,
+.skill-group,
+.education-row,
+.credentials > div,
+.certifications article {
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease,
+    opacity 620ms ease,
+    filter 620ms ease,
+    transform 620ms cubic-bezier(0.2, 0.75, 0.18, 1);
+}
+
+.role-card:hover,
+.experience-row:hover,
+.research-grid article:hover,
+.skill-group:hover,
+.education-row:hover,
+.credentials > div:hover,
+.certifications article:hover {
+  border-color: rgba(255, 176, 0, 0.38);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34), 0 0 32px rgba(255, 176, 0, 0.045);
 }
 
 .hero {
@@ -317,8 +373,31 @@ h1 {
 }
 
 .section-heading {
+  position: relative;
   max-width: 54rem;
   margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: 0.9rem;
+}
+
+.section-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: min(18rem, 52vw);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 176, 0, 0.72), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition:
+    opacity 640ms ease,
+    transform 760ms cubic-bezier(0.2, 0.75, 0.18, 1);
+}
+
+.section-heading.is-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .compact-heading {
