@@ -315,6 +315,17 @@ footer {
   background: linear-gradient(180deg, transparent, rgba(255, 177, 0, 0.035), transparent);
 }
 
+.roles-section .eyebrow {
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  margin-bottom: 0.65rem;
+}
+
+.roles-section .section-heading h2 {
+  max-width: 19ch;
+  font-size: clamp(2.1rem, 3.8vw, 4.15rem);
+  line-height: 1.03;
+}
+
 .roles-list,
 .experience-list {
   display: grid;
@@ -323,10 +334,11 @@ footer {
 }
 
 .role-card {
-  padding: clamp(1.1rem, 2.6vw, 1.8rem) 0;
+  padding: clamp(1.25rem, 2.8vw, 2rem) 0;
   border-width: 1px 0 0;
-  background: linear-gradient(90deg, rgba(255, 177, 0, 0.055), rgba(10, 8, 6, 0.22));
+  background: transparent;
   box-shadow: none;
+  backdrop-filter: none;
 }
 
 .role-card:last-child,
