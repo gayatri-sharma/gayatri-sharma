@@ -413,6 +413,47 @@ footer {
   margin-top: clamp(1.4rem, 3vw, 2rem);
 }
 
+.recognition-intro {
+  max-width: 72rem;
+  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  padding-left: clamp(1rem, 2vw, 1.4rem);
+  border-left: 2px solid rgba(255, 177, 0, 0.72);
+}
+
+.recognition-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.65;
+}
+
+.certifications {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.certifications article {
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.3);
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.certifications h3 {
+  color: var(--ink);
+  margin-bottom: 0.85rem;
+}
+
+.certifications ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 .timeline {
   position: relative;
   display: grid;
@@ -612,7 +653,8 @@ footer {
   .role-card,
   .experience-row,
   .education-row,
-  .education-credentials {
+  .education-credentials,
+  .certifications {
     grid-template-columns: 1fr;
     gap: 0.85rem;
   }

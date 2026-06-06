@@ -44,12 +44,12 @@ const starMaterial = new THREE.PointsMaterial({
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
-const shootingStars = Array.from({ length: 5 }, () => {
+const shootingStars = Array.from({ length: 7 }, () => {
   const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(12), 3));
+  geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(18), 3));
   const material = new THREE.PointsMaterial({
     color: 0xfff3d6,
-    size: 0.055,
+    size: 0.09,
     transparent: true,
     opacity: 0,
     depthWrite: false,
@@ -70,7 +70,7 @@ const shootingStars = Array.from({ length: 5 }, () => {
   };
 });
 
-let nextShootingStarAt = 1.2;
+let nextShootingStarAt = 0.8;
 
 let pointerX = 0;
 let pointerY = 0;
@@ -113,12 +113,12 @@ function spawnShootingStar(elapsed, boosted = false) {
 
   meteor.active = true;
   meteor.start = elapsed;
-  meteor.duration = boosted ? 0.55 + Math.random() * 0.25 : 0.7 + Math.random() * 0.45;
+  meteor.duration = boosted ? 0.68 + Math.random() * 0.28 : 0.9 + Math.random() * 0.45;
   meteor.x = -28 + Math.random() * 50;
   meteor.y = 15 + Math.random() * 14;
   meteor.z = -12 - Math.random() * 12;
-  meteor.length = boosted ? 4.2 + Math.random() * 1.8 : 2.8 + Math.random() * 1.6;
-  meteor.speed = boosted ? 11 + Math.random() * 5 : 8 + Math.random() * 4;
+  meteor.length = boosted ? 5.8 + Math.random() * 2.4 : 4.4 + Math.random() * 2.2;
+  meteor.speed = boosted ? 12 + Math.random() * 5 : 9 + Math.random() * 4;
   meteor.angle = -0.52 - Math.random() * 0.32;
   meteor.points.material.opacity = 0;
 }
@@ -155,10 +155,10 @@ function animate() {
 
   if (!reducedMotion && elapsed > nextShootingStarAt) {
     spawnShootingStar(elapsed);
-    nextShootingStarAt = elapsed + 5.5 + Math.random() * 5.5;
+    nextShootingStarAt = elapsed + 2.8 + Math.random() * 3.6;
   }
 
-  if (!reducedMotion && Math.abs(scrollVelocity) > 10 && Math.random() < 0.018) {
+  if (!reducedMotion && Math.abs(scrollVelocity) > 10 && Math.random() < 0.038) {
     spawnShootingStar(elapsed, true);
   }
 
@@ -175,10 +175,10 @@ function animate() {
     const distance = meteor.speed * progress;
     const headX = meteor.x + Math.cos(meteor.angle) * distance;
     const headY = meteor.y + Math.sin(meteor.angle) * distance;
-    const opacity = Math.sin(progress * Math.PI) * (meteor.duration < 0.75 ? 0.2 : 0.16);
+    const opacity = Math.sin(progress * Math.PI) * (meteor.duration < 0.8 ? 0.42 : 0.34);
     const arr = meteor.points.geometry.attributes.position.array;
-    for (let i = 0; i < 4; i += 1) {
-      const fadeOffset = (i / 3) * meteor.length;
+    for (let i = 0; i < 6; i += 1) {
+      const fadeOffset = (i / 5) * meteor.length;
       arr[i * 3] = headX - Math.cos(meteor.angle) * fadeOffset;
       arr[i * 3 + 1] = headY - Math.sin(meteor.angle) * fadeOffset;
       arr[i * 3 + 2] = meteor.z;
