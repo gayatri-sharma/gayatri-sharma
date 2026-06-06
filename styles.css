@@ -116,7 +116,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem clamp(1rem, 4vw, 4.5rem);
+  padding: 0.8rem clamp(1rem, 4vw, 4.5rem);
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.94), rgba(0, 0, 0, 0.68) 72%, rgba(0, 0, 0, 0));
   border-bottom: 0;
@@ -238,9 +238,9 @@ main {
   min-height: 100svh;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(15rem, 23rem);
-  align-items: center;
+  align-items: start;
   gap: clamp(1.5rem, 4vw, 4rem);
-  padding: 7rem clamp(1rem, 5vw, 5.5rem) 4.5rem;
+  padding: clamp(9rem, 13vh, 10.25rem) clamp(1rem, 5vw, 5.5rem) 4.5rem;
   position: relative;
   isolation: isolate;
   transform: translate3d(0, calc(var(--depth-shift, 0) * 1px), calc(var(--depth-z, 0) * 1px))
@@ -384,7 +384,8 @@ h1 {
 .hero-showcase {
   display: grid;
   gap: 1rem;
-  align-self: center;
+  align-self: start;
+  margin-top: clamp(0.5rem, 2vh, 1.25rem);
 }
 
 .section {
@@ -987,7 +988,7 @@ footer {
   .hero {
     grid-template-columns: 1fr;
     align-items: start;
-    padding-top: 8.4rem;
+    padding-top: 9.5rem;
   }
 
   .hero-copy {
@@ -1061,7 +1062,7 @@ footer {
 
   .hero {
     min-height: auto;
-    padding: 3rem 1.25rem 5rem;
+    padding: 4.5rem 1.25rem 5rem;
     overflow: hidden;
   }
 
