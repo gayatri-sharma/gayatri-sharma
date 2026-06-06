@@ -738,15 +738,41 @@ footer {
   z-index: 1;
   margin: 0;
   color: rgba(246, 239, 230, 0.84);
-  font-size: clamp(0.92rem, 1vw, 1.02rem);
-  line-height: 1.55;
+  font-size: clamp(0.88rem, 0.95vw, 0.98rem);
+  line-height: 1.62;
 }
 
 .recommendation-spotlight blockquote {
   max-width: 46rem;
   color: rgba(255, 243, 231, 0.9);
-  font-size: clamp(1rem, 1.18vw, 1.14rem);
-  line-height: 1.58;
+  font-size: clamp(0.9rem, 1vw, 1.02rem);
+  line-height: 1.62;
+}
+
+.recommendation-card blockquote p,
+.recommendation-spotlight blockquote p {
+  margin: 0 0 0.85rem;
+}
+
+.recommendation-card blockquote p:last-child,
+.recommendation-spotlight blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.recommendation-card blockquote ul,
+.recommendation-spotlight blockquote ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem 0.65rem;
+  margin: 0 0 0.85rem;
+  padding: 0;
+  list-style: none;
+}
+
+.recommendation-card blockquote li,
+.recommendation-spotlight blockquote li {
+  color: rgba(255, 243, 231, 0.82);
+}
 }
 
 .timeline {
