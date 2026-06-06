@@ -455,7 +455,7 @@ footer {
 
 .recognition-intro {
   max-width: 72rem;
-  margin-top: 0;
+  margin-top: clamp(3rem, 6vw, 5rem);
   padding-left: clamp(1rem, 2vw, 1.4rem);
   border-left: 2px solid rgba(255, 177, 0, 0.72);
 }
