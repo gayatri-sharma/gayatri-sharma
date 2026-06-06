@@ -13,6 +13,7 @@ const positions = new Float32Array(starCount * 3);
 const basePositions = [];
 const twinkleSpeeds = [];
 const twinkleOffsets = [];
+const parallaxSpeeds = [];
 
 for (let i = 0; i < starCount; i += 1) {
   const zLayer = Math.random();
@@ -26,6 +27,7 @@ for (let i = 0; i < starCount; i += 1) {
   basePositions.push({ x, y, z, depth: zLayer });
   twinkleSpeeds.push(0.35 + Math.random() * 1.15);
   twinkleOffsets.push(Math.random() * Math.PI * 2);
+  parallaxSpeeds.push(0.004 + zLayer * 0.026);
 }
 
 const starGeometry = new THREE.BufferGeometry();
@@ -46,6 +48,10 @@ let pointerX = 0;
 let pointerY = 0;
 let scrollProgress = 0;
 let targetScrollProgress = 0;
+let scrollY = 0;
+let targetScrollY = 0;
+let lastScrollY = 0;
+let scrollVelocity = 0;
 
 window.addEventListener("pointermove", (event) => {
   pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
@@ -55,6 +61,7 @@ window.addEventListener("pointermove", (event) => {
 function updateScrollProgress() {
   const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
   targetScrollProgress = Math.min(window.scrollY / maxScroll, 1);
+  targetScrollY = window.scrollY;
 }
 
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
@@ -79,19 +86,25 @@ function animate() {
   const elapsed = clock.getElapsedTime();
   const speed = reducedMotion ? 0.15 : 1;
   scrollProgress += (targetScrollProgress - scrollProgress) * 0.075;
+  scrollY += (targetScrollY - scrollY) * 0.16;
+  scrollVelocity += (targetScrollY - lastScrollY - scrollVelocity) * 0.12;
+  lastScrollY = targetScrollY;
 
-  stars.rotation.y = pointerX * 0.018 + Math.sin(elapsed * 0.04) * 0.012;
-  stars.rotation.x = pointerY * 0.012;
-  stars.position.y = scrollProgress * 13 - 2.5;
-  stars.position.x = Math.sin(scrollProgress * Math.PI * 2) * 0.65;
-  starMaterial.opacity = 0.55 + Math.sin(elapsed * 0.65) * 0.08;
+  stars.rotation.y = pointerX * 0.018 + Math.sin(elapsed * 0.04) * 0.012 + scrollY * 0.00008;
+  stars.rotation.x = pointerY * 0.012 + scrollVelocity * 0.00018;
+  stars.position.x = Math.sin(scrollProgress * Math.PI * 2) * 1.5;
+  starMaterial.opacity = 0.58 + Math.sin(elapsed * 0.65) * 0.08 + Math.min(Math.abs(scrollVelocity) * 0.004, 0.16);
 
   const positionAttr = starGeometry.attributes.position;
+  const wrapHeight = 58;
   for (let i = 0; i < starCount; i += 1) {
     const base = basePositions[i];
     const twinkle = Math.sin(elapsed * twinkleSpeeds[i] * speed + twinkleOffsets[i]);
-    positionAttr.array[i * 3] = base.x + Math.sin(elapsed * 0.04 + i) * 0.025;
-    positionAttr.array[i * 3 + 1] = base.y + twinkle * 0.035 * (0.35 + base.depth);
+    const drift = scrollY * parallaxSpeeds[i];
+    const wrappedY = ((((base.y + drift + wrapHeight / 2) % wrapHeight) + wrapHeight) % wrapHeight) - wrapHeight / 2;
+    positionAttr.array[i * 3] =
+      base.x + Math.sin(elapsed * 0.04 + i) * 0.025 + Math.sin(scrollY * 0.0012 + base.depth * 8) * base.depth * 1.3;
+    positionAttr.array[i * 3 + 1] = wrappedY + twinkle * 0.045 * (0.35 + base.depth);
   }
   positionAttr.needsUpdate = true;
 
