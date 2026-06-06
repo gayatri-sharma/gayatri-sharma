@@ -159,9 +159,14 @@ h1 {
 
 .hero-summary {
   max-width: 50rem;
-  margin: 1.5rem 0 0;
+  margin: 1.05rem 0 0;
   color: var(--muted);
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.96rem, 1.22vw, 1.08rem);
+  line-height: 1.48;
+}
+
+.hero-summary:first-of-type {
+  margin-top: 1.45rem;
 }
 
 .hero-actions {
@@ -596,7 +601,7 @@ footer {
   }
 
   .hero-summary {
-    font-size: 0.96rem;
+    font-size: 0.92rem;
     line-height: 1.45;
     max-width: 96%;
   }
