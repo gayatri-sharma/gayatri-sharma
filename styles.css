@@ -268,37 +268,6 @@ h1 {
   align-self: center;
 }
 
-.hero-panel {
-  display: grid;
-  gap: 1rem;
-  padding: 1rem;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
-}
-
-.hero-panel div {
-  padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  background: rgba(255, 255, 255, 0.055);
-}
-
-.metric {
-  display: block;
-  color: #ffb000;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  line-height: 1;
-}
-
-.hero-panel span:last-child {
-  display: block;
-  margin-top: 0.45rem;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
 .section {
   padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 5.5rem);
   scroll-margin-top: 6rem;
@@ -362,25 +331,30 @@ footer {
 .stats-band {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  padding-top: 0;
-  padding-bottom: 0;
+  gap: 0;
+  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-bottom: clamp(2rem, 5vw, 4rem);
 }
 
 .stats-band div {
-  min-height: 11rem;
+  min-height: 8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.3rem;
-  border: 1px solid rgba(247, 201, 72, 0.18);
-  background: rgba(9, 9, 10, 0.92);
+  padding: 1rem 1.25rem;
+  border: 0;
+  border-left: 1px solid rgba(255, 106, 0, 0.24);
+  background: rgba(0, 0, 0, 0.28);
   color: var(--ink);
 }
 
+.stats-band div:last-child {
+  border-right: 1px solid rgba(255, 106, 0, 0.24);
+}
+
 .stats-band strong {
-  font-size: clamp(1.6rem, 3vw, 2.8rem);
-  line-height: 1;
+  font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+  line-height: 1.08;
 }
 
 .stats-band span {
@@ -565,10 +539,6 @@ footer {
 
   .hero-copy {
     max-width: 100%;
-  }
-
-  .hero-panel {
-    max-width: 34rem;
   }
 
   .impact-grid,
