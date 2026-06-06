@@ -44,21 +44,61 @@ const starMaterial = new THREE.PointsMaterial({
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
-const shootingStars = Array.from({ length: 7 }, () => {
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(24), 3));
-  const material = new THREE.PointsMaterial({
-    color: 0xfff3d6,
-    size: 0.22,
+function createMeteorTexture() {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = 640;
+  textureCanvas.height = 128;
+  const ctx = textureCanvas.getContext("2d");
+  const centerY = textureCanvas.height / 2;
+
+  const tail = ctx.createLinearGradient(0, 0, textureCanvas.width, 0);
+  tail.addColorStop(0, "rgba(255, 177, 0, 0)");
+  tail.addColorStop(0.42, "rgba(255, 186, 60, 0.12)");
+  tail.addColorStop(0.78, "rgba(255, 226, 170, 0.58)");
+  tail.addColorStop(1, "rgba(255, 255, 246, 0.96)");
+
+  ctx.save();
+  ctx.filter = "blur(8px)";
+  ctx.fillStyle = tail;
+  ctx.beginPath();
+  ctx.moveTo(0, centerY);
+  ctx.quadraticCurveTo(360, centerY - 38, 612, centerY - 8);
+  ctx.quadraticCurveTo(650, centerY, 612, centerY + 8);
+  ctx.quadraticCurveTo(360, centerY + 38, 0, centerY);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  const head = ctx.createRadialGradient(594, centerY, 0, 594, centerY, 54);
+  head.addColorStop(0, "rgba(255, 255, 255, 1)");
+  head.addColorStop(0.25, "rgba(255, 236, 185, 0.95)");
+  head.addColorStop(0.62, "rgba(255, 137, 24, 0.4)");
+  head.addColorStop(1, "rgba(255, 137, 24, 0)");
+  ctx.fillStyle = head;
+  ctx.beginPath();
+  ctx.arc(594, centerY, 54, 0, Math.PI * 2);
+  ctx.fill();
+
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const meteorTexture = createMeteorTexture();
+const shootingStars = Array.from({ length: 5 }, () => {
+  const material = new THREE.SpriteMaterial({
+    map: meteorTexture,
     transparent: true,
     opacity: 0,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
   });
-  const points = new THREE.Points(geometry, material);
-  scene.add(points);
+  const sprite = new THREE.Sprite(material);
+  sprite.visible = false;
+  scene.add(sprite);
   return {
-    points,
+    sprite,
     active: false,
     start: 0,
     duration: 1,
@@ -121,7 +161,10 @@ function spawnShootingStar(elapsed, boosted = false) {
   meteor.length = boosted ? 8 + Math.random() * 3 : 6 + Math.random() * 3;
   meteor.speed = boosted ? 13 + Math.random() * 5 : 10 + Math.random() * 4;
   meteor.angle = -0.42 - Math.random() * 0.26;
-  meteor.points.material.opacity = 0;
+  meteor.sprite.visible = true;
+  meteor.sprite.material.opacity = 0;
+  meteor.sprite.material.rotation = -meteor.angle;
+  meteor.sprite.scale.set(meteor.length, meteor.length * 0.18, 1);
 }
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -169,7 +212,8 @@ function animate() {
     const progress = age / meteor.duration;
     if (progress >= 1) {
       meteor.active = false;
-      meteor.points.material.opacity = 0;
+      meteor.sprite.visible = false;
+      meteor.sprite.material.opacity = 0;
       return;
     }
 
@@ -177,15 +221,13 @@ function animate() {
     const headX = meteor.x + Math.cos(meteor.angle) * distance;
     const headY = meteor.y + Math.sin(meteor.angle) * distance;
     const opacity = Math.sin(progress * Math.PI) * (meteor.duration < 0.95 ? 0.82 : 0.68);
-    const arr = meteor.points.geometry.attributes.position.array;
-    for (let i = 0; i < 8; i += 1) {
-      const fadeOffset = (i / 7) * meteor.length;
-      arr[i * 3] = headX - Math.cos(meteor.angle) * fadeOffset;
-      arr[i * 3 + 1] = headY - Math.sin(meteor.angle) * fadeOffset;
-      arr[i * 3 + 2] = meteor.z;
-    }
-    meteor.points.geometry.attributes.position.needsUpdate = true;
-    meteor.points.material.opacity = opacity;
+    const centerOffset = meteor.length * 0.42;
+    meteor.sprite.position.set(
+      headX - Math.cos(meteor.angle) * centerOffset,
+      headY - Math.sin(meteor.angle) * centerOffset,
+      meteor.z,
+    );
+    meteor.sprite.material.opacity = opacity;
   });
 
   renderer.render(scene, camera);
