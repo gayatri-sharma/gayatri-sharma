@@ -44,6 +44,8 @@ const starMaterial = new THREE.PointsMaterial({
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
+const depthSections = [...document.querySelectorAll(".hero, .section, .contact")];
+
 function createMeteorTexture() {
   const textureCanvas = document.createElement("canvas");
   textureCanvas.width = 640;
@@ -170,6 +172,23 @@ function spawnShootingStar(elapsed, boosted = false) {
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const clock = new THREE.Clock();
 
+function updateDepthSections() {
+  if (reducedMotion) return;
+  const viewportCenter = window.innerHeight * 0.52;
+  depthSections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    const sectionCenter = rect.top + rect.height * 0.5;
+    const distance = (sectionCenter - viewportCenter) / window.innerHeight;
+    const clamped = Math.max(-1.2, Math.min(1.2, distance));
+    const inView = rect.bottom > -120 && rect.top < window.innerHeight + 120;
+
+    section.style.setProperty("--depth-shift", (clamped * -18).toFixed(2));
+    section.style.setProperty("--depth-z", (inView ? (1 - Math.abs(clamped)) * 34 : -24).toFixed(2));
+    section.style.setProperty("--depth-tilt", (clamped * -1.8).toFixed(2));
+    section.style.opacity = inView ? String(Math.max(0.72, 1 - Math.abs(clamped) * 0.18)) : "0.7";
+  });
+}
+
 function animate() {
   const elapsed = clock.getElapsedTime();
   const speed = reducedMotion ? 0.15 : 1;
@@ -178,10 +197,19 @@ function animate() {
   scrollVelocity += (targetScrollY - lastScrollY - scrollVelocity) * 0.12;
   lastScrollY = targetScrollY;
 
-  stars.rotation.y = pointerX * 0.018 + Math.sin(elapsed * 0.04) * 0.012 + scrollY * 0.00008;
-  stars.rotation.x = pointerY * 0.012 + scrollVelocity * 0.00018;
-  stars.position.x = Math.sin(scrollProgress * Math.PI * 2) * 1.5;
-  stars.position.y = Math.sin(scrollProgress * Math.PI * 2) * 1.2;
+  const scrollWave = scrollProgress * Math.PI * 2;
+  const dolly = Math.sin(scrollWave) * 2.2 + Math.min(Math.abs(scrollVelocity) * 0.018, 2.6);
+  camera.position.x = pointerX * 0.9 + Math.sin(scrollWave * 0.65) * 1.8;
+  camera.position.y = -pointerY * 0.55 + Math.cos(scrollWave * 0.7) * 0.9;
+  camera.position.z = (window.innerWidth < 720 ? 25 : 22) - dolly;
+  camera.lookAt(0, 0, -20);
+  camera.rotation.z += pointerX * 0.008 + Math.sin(scrollWave) * 0.018;
+
+  stars.rotation.y = pointerX * 0.032 + Math.sin(elapsed * 0.04) * 0.012 + scrollY * 0.00022;
+  stars.rotation.x = pointerY * 0.02 + scrollVelocity * 0.00034;
+  stars.position.x = Math.sin(scrollWave) * 2.6 + pointerX * 0.8;
+  stars.position.y = Math.cos(scrollWave * 0.85) * 1.7 - pointerY * 0.55;
+  stars.scale.setScalar(1 + Math.min(Math.abs(scrollVelocity) * 0.0007, 0.08));
   starMaterial.opacity = 0.58 + Math.sin(elapsed * 0.65) * 0.08 + Math.min(Math.abs(scrollVelocity) * 0.004, 0.16);
 
   const positionAttr = starGeometry.attributes.position;
@@ -230,6 +258,7 @@ function animate() {
     meteor.sprite.material.opacity = opacity;
   });
 
+  updateDepthSections();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }

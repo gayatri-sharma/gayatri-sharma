@@ -101,6 +101,8 @@ nav a:hover {
 
 main {
   position: relative;
+  perspective: 1100px;
+  transform-style: preserve-3d;
 }
 
 .hero {
@@ -112,6 +114,10 @@ main {
   padding: 7rem clamp(1rem, 5vw, 5.5rem) 4.5rem;
   position: relative;
   isolation: isolate;
+  transform: translate3d(0, calc(var(--depth-shift, 0) * 1px), calc(var(--depth-z, 0) * 1px))
+    rotateX(calc(var(--depth-tilt, 0) * 1deg));
+  transition: transform 120ms linear;
+  will-change: transform;
 }
 
 .hero-copy {
@@ -255,6 +261,13 @@ h1 {
 .section {
   padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 5.5rem);
   scroll-margin-top: 6rem;
+  transform: translate3d(0, calc(var(--depth-shift, 0) * 1px), calc(var(--depth-z, 0) * 1px))
+    rotateX(calc(var(--depth-tilt, 0) * 1deg));
+  transform-origin: 50% 20%;
+  transition:
+    opacity 220ms ease,
+    transform 120ms linear;
+  will-change: transform, opacity;
 }
 
 .section-heading {
@@ -628,6 +641,13 @@ footer {
   justify-content: center;
   padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 5vw, 5.5rem);
   background: rgba(3, 10, 17, 0.36);
+  transform: translate3d(0, calc(var(--depth-shift, 0) * 1px), calc(var(--depth-z, 0) * 1px))
+    rotateX(calc(var(--depth-tilt, 0) * 1deg));
+  transform-origin: 50% 20%;
+  transition:
+    opacity 220ms ease,
+    transform 120ms linear;
+  will-change: transform, opacity;
 }
 
 .contact h2 {
