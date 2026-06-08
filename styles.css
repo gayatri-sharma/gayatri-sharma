@@ -804,6 +804,38 @@ footer {
   padding-bottom: clamp(5rem, 8vw, 7rem);
 }
 
+.beyond-section {
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+  padding-bottom: clamp(5rem, 8vw, 7rem);
+  margin-bottom: clamp(1rem, 2vw, 2rem);
+}
+
+.beyond-section .section-heading h2 {
+  max-width: 24ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
+}
+
+.beyond-panel {
+  max-width: 68rem;
+  padding: clamp(1.25rem, 2.7vw, 2rem);
+  border-left: 2px solid rgba(255, 176, 0, 0.55);
+  background:
+    linear-gradient(90deg, rgba(255, 176, 0, 0.07), transparent 46%),
+    rgba(0, 0, 0, 0.28);
+}
+
+.beyond-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  line-height: 1.7;
+}
+
+.beyond-panel span {
+  color: var(--ink);
+  font-weight: 800;
+}
+
 .timeline {
   position: relative;
   display: grid;
