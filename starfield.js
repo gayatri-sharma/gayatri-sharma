@@ -47,7 +47,7 @@ scene.add(stars);
 const depthSections = [...document.querySelectorAll(".hero, .section, .contact")];
 const motionItems = [
   ...document.querySelectorAll(
-    ".section-heading, .hero-identity, .hero-summary, .hero-actions, .hero-showcase, .impact-grid article, .role-card, .experience-row, .research-grid article, .skill-group, .education-summary, .education-row, .recognition-intro, .education-credentials > div, .certifications article, .beyond-panel",
+    ".section-heading, .hero-identity, .hero-summary, .hero-actions, .hero-showcase, .impact-grid article, .role-card, .experience-row, .research-grid article, .skill-group, .education-summary, .education-row, .honor-card, .certifications article, .beyond-panel",
   ),
 ];
 const navLinks = [...document.querySelectorAll("nav a[href^='#']")];

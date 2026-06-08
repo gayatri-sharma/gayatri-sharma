@@ -210,6 +210,7 @@ main {
 .education-row,
 .credentials > div,
 .certifications article,
+.honor-card,
 .recommendation-spotlight,
 .recommendation-card {
   transition:
@@ -228,6 +229,7 @@ main {
 .education-row:hover,
 .credentials > div:hover,
 .certifications article:hover,
+.honor-card:hover,
 .recommendation-spotlight:hover,
 .recommendation-card:hover {
   border-color: rgba(255, 176, 0, 0.38);
@@ -652,22 +654,68 @@ footer {
   line-height: 1.12;
 }
 
-.education-credentials {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: clamp(1.4rem, 3vw, 2rem);
-}
-
-.recognition-intro {
-  max-width: 72rem;
+.honors-block {
   margin-top: clamp(3rem, 6vw, 5rem);
-  padding-left: clamp(1rem, 2vw, 1.4rem);
-  border-left: 2px solid rgba(255, 177, 0, 0.72);
 }
 
-.recognition-intro p {
+.honors-heading {
+  max-width: 50rem;
+}
+
+.honors-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 1rem;
+  max-width: 76rem;
+}
+
+.honor-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 15rem;
+  padding: clamp(1.2rem, 2.4vw, 1.8rem);
+  border: 1px solid rgba(255, 176, 0, 0.18);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 176, 0, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(255, 176, 0, 0.055), rgba(255, 255, 255, 0.02) 42%, rgba(0, 0, 0, 0.34)),
+    rgba(0, 0, 0, 0.42);
+}
+
+.honor-card::after {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 1px solid rgba(255, 176, 0, 0.22);
+  border-radius: 50%;
+  box-shadow: 0 0 42px rgba(255, 176, 0, 0.08);
+}
+
+.honor-type {
+  margin: 0 0 0.8rem;
+  color: var(--gold);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.honor-card h3 {
+  max-width: 28rem;
+  margin-bottom: 1rem;
+  color: var(--ink);
+  font-size: clamp(1.2rem, 1.8vw, 1.65rem);
+  line-height: 1.15;
+}
+
+.honor-card p:last-child {
+  max-width: 42rem;
   margin: 0;
   color: var(--muted);
-  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  font-size: clamp(0.96rem, 1.18vw, 1.05rem);
   line-height: 1.65;
 }
 
@@ -1083,7 +1131,8 @@ footer {
   }
 
   .research-grid,
-  .credentials {
+  .credentials,
+  .honors-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1094,7 +1143,6 @@ footer {
   .role-card,
   .experience-row,
   .education-row,
-  .education-credentials,
   .certifications,
   .recommendations-flow {
     grid-template-columns: 1fr;
