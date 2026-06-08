@@ -421,6 +421,58 @@ h1 {
   transform: scaleX(1);
 }
 
+.impact-section {
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+}
+
+.impact-section .section-heading h2 {
+  max-width: 25ch;
+  font-size: clamp(1.65rem, 2.15vw, 2.35rem);
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  max-width: 76rem;
+  border: 1px solid rgba(255, 176, 0, 0.16);
+  background: rgba(255, 176, 0, 0.14);
+}
+
+.impact-grid article {
+  min-height: 13.5rem;
+  padding: clamp(1rem, 2vw, 1.45rem);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 176, 0, 0.08), transparent 38%),
+    rgba(0, 0, 0, 0.78);
+  transition:
+    background 220ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.impact-grid article:hover {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 176, 0, 0.14), transparent 42%),
+    rgba(0, 0, 0, 0.82);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.impact-grid h3 {
+  color: var(--ink);
+  font-size: clamp(1.02rem, 1.35vw, 1.28rem);
+  line-height: 1.18;
+  margin-bottom: 1rem;
+}
+
+.impact-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
 .compact-heading {
   margin-bottom: 1rem;
 }
@@ -1035,6 +1087,10 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .impact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .role-card,
   .experience-row,
   .education-row,
@@ -1141,6 +1197,10 @@ footer {
   .skill-group:nth-child(odd),
   .skill-group:nth-child(even) {
     padding: 1rem;
+  }
+
+  .impact-grid {
+    grid-template-columns: 1fr;
   }
 
   .skills-grid {
