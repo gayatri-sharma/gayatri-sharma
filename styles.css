@@ -282,9 +282,12 @@ p {
 
 h1 {
   margin: 0;
-  max-width: 14ch;
-  font-size: clamp(2.4rem, 4.1vw, 4.35rem);
-  line-height: 1.02;
+  max-width: 15ch;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.6rem, 4.55vw, 4.85rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.06;
   letter-spacing: 0;
   text-shadow:
     0 0 38px rgba(255, 207, 107, 0.12),
