@@ -388,14 +388,42 @@ h1 {
 }
 
 .portrait-quote {
+  position: relative;
   max-width: clamp(15rem, 28vw, 24rem);
-  margin: 0.35rem auto 0;
-  color: var(--ink);
-  font-size: clamp(0.95rem, 1.25vw, 1.08rem);
-  font-weight: 700;
-  line-height: 1.5;
+  margin: 0.55rem auto 0;
+  padding: 0.15rem 1.55rem;
+  color: rgba(255, 243, 231, 0.82);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.9rem, 1.08vw, 1rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.62;
   text-align: center;
-  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.82);
+  text-shadow: 0 10px 34px rgba(0, 0, 0, 0.76);
+}
+
+.portrait-quote::before,
+.portrait-quote::after {
+  position: absolute;
+  color: rgba(255, 176, 0, 0.62);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0.86;
+}
+
+.portrait-quote::before {
+  content: "\201C";
+  top: -0.12rem;
+  left: 0.15rem;
+}
+
+.portrait-quote::after {
+  content: "\201D";
+  right: 0.18rem;
+  bottom: -0.65rem;
 }
 
 .section {
@@ -1253,6 +1281,8 @@ footer {
   .portrait-quote {
     max-width: 100%;
     margin-left: 0;
+    padding-left: 1.35rem;
+    padding-right: 1.35rem;
     text-align: left;
   }
 
