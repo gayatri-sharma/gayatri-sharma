@@ -124,6 +124,13 @@ a {
   backdrop-filter: blur(18px);
 }
 
+.header-branding {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 0 0 auto;
+}
+
 .brand {
   display: grid;
   place-items: center;
@@ -133,6 +140,20 @@ a {
   background: rgba(255, 143, 61, 0.12);
   color: var(--ink);
   font-weight: 800;
+}
+
+.last-updated {
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(255, 176, 0, 0.2);
+  color: rgba(255, 243, 231, 0.68);
+  background: rgba(255, 176, 0, 0.055);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 nav {
@@ -1154,6 +1175,11 @@ footer {
 @media (max-width: 900px) {
   .site-header {
     align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .header-branding {
+    flex-wrap: wrap;
   }
 
   nav {
@@ -1237,6 +1263,17 @@ footer {
   .brand {
     width: 2.35rem;
     height: 2.35rem;
+  }
+
+  .header-branding {
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+
+  .last-updated {
+    font-size: 0.66rem;
+    line-height: 1.15;
+    white-space: normal;
   }
 
   nav {
