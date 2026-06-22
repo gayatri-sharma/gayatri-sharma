@@ -249,7 +249,7 @@ main {
 }
 
 .hero-copy {
-  max-width: 44rem;
+  max-width: min(62vw, 54rem);
 }
 
 .hero-kicker {
@@ -261,7 +261,7 @@ main {
 }
 
 .hero-identity {
-  max-width: 43rem;
+  max-width: 100%;
 }
 
 .eyebrow {
@@ -282,13 +282,14 @@ p {
 
 h1 {
   margin: 0;
-  max-width: 15ch;
+  max-width: none;
   font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(2.6rem, 4.55vw, 4.85rem);
+  font-size: clamp(2.6rem, 4.15vw, 4.55rem);
   font-style: italic;
   font-weight: 700;
   line-height: 1.06;
   letter-spacing: 0;
+  white-space: nowrap;
   text-shadow:
     0 0 38px rgba(255, 207, 107, 0.12),
     0 12px 56px rgba(0, 0, 0, 0.92);
@@ -1168,6 +1169,10 @@ footer {
 
   .hero-copy {
     max-width: 100%;
+  }
+
+  h1 {
+    white-space: normal;
   }
 
   .research-grid,
