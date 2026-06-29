@@ -364,6 +364,19 @@ h1 {
   color: var(--ink);
 }
 
+.back-to-top {
+  gap: 0.45rem;
+  border-color: rgba(255, 176, 0, 0.26);
+  background: rgba(255, 176, 0, 0.065);
+  color: rgba(255, 243, 231, 0.86);
+}
+
+.back-to-top span {
+  color: var(--gold);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
 .portrait-frame {
   position: relative;
   margin: 0 auto;
