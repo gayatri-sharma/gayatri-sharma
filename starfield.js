@@ -74,6 +74,82 @@ function createGalaxyDustTexture() {
   return texture;
 }
 
+function createPlanetTexture() {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = 900;
+  textureCanvas.height = 900;
+  const ctx = textureCanvas.getContext("2d");
+
+  const planet = ctx.createRadialGradient(360, 330, 80, 455, 450, 430);
+  planet.addColorStop(0, "rgba(255, 224, 170, 0.72)");
+  planet.addColorStop(0.28, "rgba(201, 118, 50, 0.38)");
+  planet.addColorStop(0.58, "rgba(73, 39, 34, 0.24)");
+  planet.addColorStop(0.78, "rgba(7, 4, 10, 0.55)");
+  planet.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = planet;
+  ctx.beginPath();
+  ctx.arc(450, 450, 410, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.save();
+  ctx.globalCompositeOperation = "screen";
+  ctx.filter = "blur(14px)";
+  const atmosphere = ctx.createRadialGradient(450, 450, 365, 450, 450, 445);
+  atmosphere.addColorStop(0, "rgba(255, 180, 82, 0)");
+  atmosphere.addColorStop(0.55, "rgba(255, 190, 96, 0.16)");
+  atmosphere.addColorStop(1, "rgba(255, 220, 150, 0)");
+  ctx.fillStyle = atmosphere;
+  ctx.beginPath();
+  ctx.arc(450, 450, 445, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  ctx.save();
+  ctx.globalCompositeOperation = "multiply";
+  ctx.filter = "blur(8px)";
+  for (let i = 0; i < 16; i += 1) {
+    ctx.strokeStyle = `rgba(22, 10, 8, ${0.05 + Math.random() * 0.06})`;
+    ctx.lineWidth = 18 + Math.random() * 40;
+    ctx.beginPath();
+    ctx.ellipse(450, 360 + i * 12 + Math.random() * 28, 360, 28 + Math.random() * 18, -0.18, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+function createArcTexture() {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = 1000;
+  textureCanvas.height = 420;
+  const ctx = textureCanvas.getContext("2d");
+  ctx.save();
+  ctx.translate(500, 330);
+  ctx.rotate(-0.16);
+  const ring = ctx.createLinearGradient(-430, 0, 430, 0);
+  ring.addColorStop(0, "rgba(255, 176, 0, 0)");
+  ring.addColorStop(0.28, "rgba(255, 218, 164, 0.2)");
+  ring.addColorStop(0.5, "rgba(255, 244, 222, 0.42)");
+  ring.addColorStop(0.72, "rgba(255, 218, 164, 0.2)");
+  ring.addColorStop(1, "rgba(255, 176, 0, 0)");
+  ctx.strokeStyle = ring;
+  ctx.lineWidth = 3;
+  ctx.filter = "blur(0.8px)";
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 430, 92, 0, Math.PI * 1.05, Math.PI * 1.96);
+  ctx.stroke();
+  ctx.restore();
+
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
 const galaxyMaterial = new THREE.MeshBasicMaterial({
   map: createGalaxyDustTexture(),
   transparent: true,
@@ -85,6 +161,29 @@ const galaxyDust = new THREE.Mesh(new THREE.PlaneGeometry(92, 58), galaxyMateria
 galaxyDust.position.set(-4, 1.8, -58);
 galaxyDust.rotation.z = -0.08;
 scene.add(galaxyDust);
+
+const planetMaterial = new THREE.MeshBasicMaterial({
+  map: createPlanetTexture(),
+  transparent: true,
+  opacity: 0.46,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+const planet = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), planetMaterial);
+planet.position.set(34, -8.5, -42);
+scene.add(planet);
+
+const arcMaterial = new THREE.MeshBasicMaterial({
+  map: createArcTexture(),
+  transparent: true,
+  opacity: 0.38,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+const orbitalArc = new THREE.Mesh(new THREE.PlaneGeometry(42, 17), arcMaterial);
+orbitalArc.position.set(24, -8.8, -37);
+orbitalArc.rotation.z = -0.1;
+scene.add(orbitalArc);
 
 const starCount = 2300;
 const positions = new Float32Array(starCount * 3);
@@ -276,9 +375,17 @@ function animate() {
   galaxyDust.rotation.z = -0.08 + scrollProgress * 0.16 + pointerX * 0.012;
   galaxyDust.position.x = -4 + Math.sin(scrollWave * 0.65) * 1.4 + pointerX * 0.5;
   galaxyDust.position.y = 1.8 + Math.cos(scrollWave * 0.5) * 0.55 - pointerY * 0.22;
+  planet.position.x = 34 - scrollProgress * 6 + pointerX * 0.25;
+  planet.position.y = -8 + Math.sin(scrollWave * 0.45) * 1.3 - pointerY * 0.2;
+  planet.rotation.z = scrollProgress * 0.12;
+  orbitalArc.position.x = 24 - scrollProgress * 4.4 + pointerX * 0.34;
+  orbitalArc.position.y = -8.4 + Math.sin(scrollWave * 0.45) * 1.2 - pointerY * 0.18;
+  orbitalArc.rotation.z = -0.1 + scrollProgress * 0.14;
   starMaterial.opacity = 0.94 + Math.sin(elapsed * 0.18) * 0.04;
   brightMaterial.opacity = 0.94 + Math.sin(elapsed * 0.32) * 0.04;
   galaxyMaterial.opacity = 0.62 + Math.sin(elapsed * 0.11) * 0.055;
+  planetMaterial.opacity = 0.3 + Math.sin(elapsed * 0.09) * 0.03;
+  arcMaterial.opacity = 0.22 + Math.sin(elapsed * 0.13) * 0.035;
 
   const positionAttr = starGeometry.attributes.position;
   const wrapHeight = 62;
