@@ -38,6 +38,11 @@ body {
   overflow-x: hidden;
 }
 
+body > *:not(#data-viz):not(.noise):not(.scroll-progress) {
+  position: relative;
+  z-index: 2;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -61,12 +66,12 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at var(--scroll-glow-x, 42%) var(--scroll-glow-y, 30%), rgba(255, 176, 0, 0.055), transparent 28rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 44%, rgba(0, 0, 0, 0.28));
-  opacity: 0.82;
+    radial-gradient(ellipse at var(--scroll-glow-x, 42%) var(--scroll-glow-y, 30%), rgba(255, 176, 0, 0.04), transparent 28rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 44%, rgba(0, 0, 0, 0.16));
+  opacity: 0.26;
   transition: background-position 420ms ease;
 }
 
@@ -78,22 +83,23 @@ a {
 #data-viz {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.72;
-  filter: saturate(0.94);
+  opacity: 1;
+  filter: saturate(1.08) contrast(1.08);
+  pointer-events: none;
 }
 
 .noise {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 44% 18%, rgba(255, 243, 231, 0.018), transparent 32rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 28%, rgba(0, 0, 0, 0.3));
-  opacity: 0.68;
+    radial-gradient(ellipse at 44% 18%, rgba(255, 243, 231, 0.01), transparent 32rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 28%, rgba(0, 0, 0, 0.12));
+  opacity: 0.12;
 }
 
 .scroll-progress {
