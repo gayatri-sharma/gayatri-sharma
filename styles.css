@@ -38,7 +38,7 @@ body {
   overflow-x: hidden;
 }
 
-body > *:not(#data-viz):not(.noise):not(.scroll-progress) {
+body > *:not(#data-viz):not(.space-wash):not(.noise):not(.scroll-progress) {
   position: relative;
   z-index: 2;
 }
@@ -69,9 +69,9 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at var(--scroll-glow-x, 42%) var(--scroll-glow-y, 30%), rgba(255, 176, 0, 0.04), transparent 28rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 44%, rgba(0, 0, 0, 0.16));
-  opacity: 0.26;
+    radial-gradient(ellipse at var(--scroll-glow-x, 42%) var(--scroll-glow-y, 30%), rgba(255, 176, 0, 0.025), transparent 28rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent 44%, rgba(0, 0, 0, 0.08));
+  opacity: 0.18;
   transition: background-position 420ms ease;
 }
 
@@ -91,15 +91,30 @@ a {
   pointer-events: none;
 }
 
+.space-wash {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 78% 28%, rgba(255, 184, 72, 0.22), transparent 18rem),
+    radial-gradient(ellipse at 82% 74%, rgba(119, 67, 190, 0.16), transparent 24rem),
+    radial-gradient(ellipse at 34% 42%, rgba(255, 120, 28, 0.16), transparent 27rem),
+    radial-gradient(ellipse at 58% 24%, rgba(115, 170, 230, 0.1), transparent 20rem);
+  mix-blend-mode: screen;
+  opacity: 0.86;
+  transform: translate3d(0, calc(var(--scroll-progress, 0) * -4rem), 0);
+}
+
 .noise {
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 44% 18%, rgba(255, 243, 231, 0.01), transparent 32rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 28%, rgba(0, 0, 0, 0.12));
-  opacity: 0.12;
+    radial-gradient(ellipse at 44% 18%, rgba(255, 243, 231, 0.006), transparent 32rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.01), transparent 28%, rgba(0, 0, 0, 0.07));
+  opacity: 0.08;
 }
 
 .scroll-progress {

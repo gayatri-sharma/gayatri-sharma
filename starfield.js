@@ -43,9 +43,9 @@ function createGalaxyDustTexture() {
   const ctx = textureCanvas.getContext("2d");
 
   const core = ctx.createRadialGradient(560, 390, 0, 560, 390, 520);
-  core.addColorStop(0, "rgba(255, 220, 162, 0.5)");
-  core.addColorStop(0.2, "rgba(255, 165, 70, 0.22)");
-  core.addColorStop(0.55, "rgba(108, 145, 190, 0.12)");
+  core.addColorStop(0, "rgba(255, 226, 176, 0.78)");
+  core.addColorStop(0.2, "rgba(255, 151, 47, 0.38)");
+  core.addColorStop(0.55, "rgba(118, 144, 230, 0.2)");
   core.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = core;
   ctx.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
@@ -60,7 +60,7 @@ function createGalaxyDustTexture() {
     const y = -110 + Math.random() * 220;
     const w = 90 + Math.random() * 300;
     const h = 10 + Math.random() * 42;
-    const alpha = 0.035 + Math.random() * 0.055;
+    const alpha = 0.06 + Math.random() * 0.08;
     ctx.fillStyle = `rgba(255, 230, 190, ${alpha})`;
     ctx.beginPath();
     ctx.ellipse(x, y, w, h, Math.random() * Math.PI, 0, Math.PI * 2);
@@ -153,11 +153,11 @@ function createArcTexture() {
 const galaxyMaterial = new THREE.MeshBasicMaterial({
   map: createGalaxyDustTexture(),
   transparent: true,
-  opacity: 0.66,
+  opacity: 0.95,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
-const galaxyDust = new THREE.Mesh(new THREE.PlaneGeometry(92, 58), galaxyMaterial);
+const galaxyDust = new THREE.Mesh(new THREE.PlaneGeometry(104, 66), galaxyMaterial);
 galaxyDust.position.set(-4, 1.8, -58);
 galaxyDust.rotation.z = -0.08;
 scene.add(galaxyDust);
@@ -165,23 +165,23 @@ scene.add(galaxyDust);
 const planetMaterial = new THREE.MeshBasicMaterial({
   map: createPlanetTexture(),
   transparent: true,
-  opacity: 0.46,
+  opacity: 0.74,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
-const planet = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), planetMaterial);
-planet.position.set(34, -8.5, -42);
+const planet = new THREE.Mesh(new THREE.PlaneGeometry(29, 29), planetMaterial);
+planet.position.set(32, -7, -40);
 scene.add(planet);
 
 const arcMaterial = new THREE.MeshBasicMaterial({
   map: createArcTexture(),
   transparent: true,
-  opacity: 0.38,
+  opacity: 0.58,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
-const orbitalArc = new THREE.Mesh(new THREE.PlaneGeometry(42, 17), arcMaterial);
-orbitalArc.position.set(24, -8.8, -37);
+const orbitalArc = new THREE.Mesh(new THREE.PlaneGeometry(56, 22), arcMaterial);
+orbitalArc.position.set(23, -7.6, -36);
 orbitalArc.rotation.z = -0.1;
 scene.add(orbitalArc);
 
@@ -220,7 +220,7 @@ starGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
 const starMaterial = new THREE.PointsMaterial({
   map: createStarTexture(),
-  size: 0.28,
+  size: 0.34,
   transparent: true,
   opacity: 0.96,
   vertexColors: true,
@@ -256,7 +256,7 @@ brightGeometry.setAttribute("position", new THREE.BufferAttribute(brightPosition
 brightGeometry.setAttribute("color", new THREE.BufferAttribute(brightColors, 3));
 const brightMaterial = new THREE.PointsMaterial({
   map: createStarTexture(),
-  size: 0.72,
+  size: 0.9,
   transparent: true,
   opacity: 0.94,
   vertexColors: true,
@@ -367,25 +367,25 @@ function animate() {
 
   stars.rotation.y = pointerX * 0.018 + scrollY * 0.00012 + elapsed * 0.004;
   stars.rotation.x = pointerY * 0.01 + scrollProgress * 0.08;
-  stars.position.x = Math.sin(scrollWave) * 1.2 + pointerX * 0.36;
-  stars.position.y = Math.cos(scrollWave * 0.85) * 0.75 - pointerY * 0.18;
+  stars.position.x = Math.sin(scrollWave) * 1.8 + pointerX * 0.44;
+  stars.position.y = Math.cos(scrollWave * 0.85) * 1.05 - pointerY * 0.24;
   brightStars.rotation.copy(stars.rotation);
   brightStars.position.x = stars.position.x * 1.22;
   brightStars.position.y = stars.position.y * 1.18;
   galaxyDust.rotation.z = -0.08 + scrollProgress * 0.16 + pointerX * 0.012;
-  galaxyDust.position.x = -4 + Math.sin(scrollWave * 0.65) * 1.4 + pointerX * 0.5;
-  galaxyDust.position.y = 1.8 + Math.cos(scrollWave * 0.5) * 0.55 - pointerY * 0.22;
-  planet.position.x = 34 - scrollProgress * 6 + pointerX * 0.25;
-  planet.position.y = -8 + Math.sin(scrollWave * 0.45) * 1.3 - pointerY * 0.2;
+  galaxyDust.position.x = -4 + Math.sin(scrollWave * 0.65) * 2.3 + pointerX * 0.64;
+  galaxyDust.position.y = 1.8 + Math.cos(scrollWave * 0.5) * 0.95 - pointerY * 0.28;
+  planet.position.x = 32 - scrollProgress * 10 + pointerX * 0.34;
+  planet.position.y = -7 + Math.sin(scrollWave * 0.45) * 2.1 - pointerY * 0.28;
   planet.rotation.z = scrollProgress * 0.12;
-  orbitalArc.position.x = 24 - scrollProgress * 4.4 + pointerX * 0.34;
-  orbitalArc.position.y = -8.4 + Math.sin(scrollWave * 0.45) * 1.2 - pointerY * 0.18;
+  orbitalArc.position.x = 23 - scrollProgress * 7.2 + pointerX * 0.42;
+  orbitalArc.position.y = -7.6 + Math.sin(scrollWave * 0.45) * 2 - pointerY * 0.22;
   orbitalArc.rotation.z = -0.1 + scrollProgress * 0.14;
   starMaterial.opacity = 0.94 + Math.sin(elapsed * 0.18) * 0.04;
   brightMaterial.opacity = 0.94 + Math.sin(elapsed * 0.32) * 0.04;
-  galaxyMaterial.opacity = 0.62 + Math.sin(elapsed * 0.11) * 0.055;
-  planetMaterial.opacity = 0.3 + Math.sin(elapsed * 0.09) * 0.03;
-  arcMaterial.opacity = 0.22 + Math.sin(elapsed * 0.13) * 0.035;
+  galaxyMaterial.opacity = 0.86 + Math.sin(elapsed * 0.11) * 0.075;
+  planetMaterial.opacity = 0.6 + Math.sin(elapsed * 0.09) * 0.055;
+  arcMaterial.opacity = 0.46 + Math.sin(elapsed * 0.13) * 0.06;
 
   const positionAttr = starGeometry.attributes.position;
   const wrapHeight = 62;
