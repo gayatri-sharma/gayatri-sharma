@@ -3,13 +3,15 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.m
 const canvas = document.querySelector("#data-viz");
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 120);
 camera.position.set(0, 0, 22);
 
-const starCount = 980;
+const starCount = 620;
 const positions = new Float32Array(starCount * 3);
+const colors = new Float32Array(starCount * 3);
 const basePositions = [];
 const twinkleSpeeds = [];
 const twinkleOffsets = [];
@@ -17,32 +19,120 @@ const parallaxSpeeds = [];
 
 for (let i = 0; i < starCount; i += 1) {
   const zLayer = Math.random();
-  const x = (Math.random() - 0.5) * (70 + zLayer * 55);
-  const y = (Math.random() - 0.5) * (44 + zLayer * 32);
+  const x = (Math.random() - 0.5) * (78 + zLayer * 58);
+  const y = (Math.random() - 0.5) * (48 + zLayer * 34);
   const z = -8 - Math.random() * 70;
+  const warmth = Math.random();
+  const color = new THREE.Color().setHSL(0.11 + warmth * 0.04, 0.28 + Math.random() * 0.18, 0.72 + Math.random() * 0.18);
 
   positions[i * 3] = x;
   positions[i * 3 + 1] = y;
   positions[i * 3 + 2] = z;
+  colors[i * 3] = color.r;
+  colors[i * 3 + 1] = color.g;
+  colors[i * 3 + 2] = color.b;
   basePositions.push({ x, y, z, depth: zLayer });
-  twinkleSpeeds.push(0.35 + Math.random() * 1.15);
+  twinkleSpeeds.push(0.12 + Math.random() * 0.42);
   twinkleOffsets.push(Math.random() * Math.PI * 2);
-  parallaxSpeeds.push(0.004 + zLayer * 0.026);
+  parallaxSpeeds.push(0.002 + zLayer * 0.012);
 }
 
 const starGeometry = new THREE.BufferGeometry();
 starGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+starGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+function createStarTexture() {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = 96;
+  textureCanvas.height = 96;
+  const ctx = textureCanvas.getContext("2d");
+  const glow = ctx.createRadialGradient(48, 48, 0, 48, 48, 48);
+  glow.addColorStop(0, "rgba(255, 255, 255, 0.92)");
+  glow.addColorStop(0.24, "rgba(255, 241, 216, 0.42)");
+  glow.addColorStop(0.62, "rgba(255, 184, 94, 0.13)");
+  glow.addColorStop(1, "rgba(255, 184, 94, 0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, 96, 96);
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
 
 const starMaterial = new THREE.PointsMaterial({
-  color: 0xffffff,
-  size: 0.045,
+  map: createStarTexture(),
+  size: 0.105,
   transparent: true,
-  opacity: 0.68,
+  opacity: 0.34,
+  vertexColors: true,
   depthWrite: false,
+  blending: THREE.AdditiveBlending,
 });
 
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
+
+function createNebulaTexture() {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = 1024;
+  textureCanvas.height = 640;
+  const ctx = textureCanvas.getContext("2d");
+
+  const paintGlow = (x, y, r, stops) => {
+    const glow = ctx.createRadialGradient(x, y, 0, x, y, r);
+    stops.forEach(([offset, color]) => glow.addColorStop(offset, color));
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
+  };
+
+  paintGlow(250, 180, 460, [
+    [0, "rgba(255, 178, 75, 0.34)"],
+    [0.34, "rgba(255, 128, 32, 0.12)"],
+    [1, "rgba(255, 128, 32, 0)"],
+  ]);
+  paintGlow(760, 230, 520, [
+    [0, "rgba(72, 176, 190, 0.13)"],
+    [0.44, "rgba(73, 111, 174, 0.065)"],
+    [1, "rgba(73, 111, 174, 0)"],
+  ]);
+  paintGlow(520, 520, 560, [
+    [0, "rgba(114, 66, 154, 0.12)"],
+    [0.48, "rgba(255, 176, 0, 0.045)"],
+    [1, "rgba(114, 66, 154, 0)"],
+  ]);
+
+  ctx.save();
+  ctx.globalCompositeOperation = "screen";
+  ctx.filter = "blur(26px)";
+  for (let i = 0; i < 22; i += 1) {
+    const alpha = 0.018 + Math.random() * 0.028;
+    const x = 90 + Math.random() * 860;
+    const y = 80 + Math.random() * 470;
+    const w = 140 + Math.random() * 260;
+    const h = 26 + Math.random() * 70;
+    ctx.fillStyle = `rgba(255, 218, 166, ${alpha})`;
+    ctx.beginPath();
+    ctx.ellipse(x, y, w, h, Math.random() * Math.PI, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const nebulaMaterial = new THREE.MeshBasicMaterial({
+  map: createNebulaTexture(),
+  transparent: true,
+  opacity: 0.42,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+const nebula = new THREE.Mesh(new THREE.PlaneGeometry(88, 56), nebulaMaterial);
+nebula.position.set(1.5, 0, -52);
+scene.add(nebula);
 
 const depthSections = [...document.querySelectorAll(".hero, .section, .contact")];
 const motionItems = [
@@ -114,7 +204,7 @@ function createMeteorTexture() {
 
 const meteorTexture = createMeteorTexture();
 const meteorGeometry = new THREE.PlaneGeometry(1, 1);
-const shootingStars = Array.from({ length: 5 }, () => {
+const shootingStars = Array.from({ length: 2 }, () => {
   const material = new THREE.MeshBasicMaterial({
     map: meteorTexture,
     transparent: true,
@@ -140,7 +230,7 @@ const shootingStars = Array.from({ length: 5 }, () => {
   };
 });
 
-let nextShootingStarAt = 0.35;
+let nextShootingStarAt = 3.5;
 
 let pointerX = 0;
 let pointerY = 0;
@@ -161,8 +251,8 @@ function updateScrollProgress() {
   targetScrollProgress = Math.min(window.scrollY / maxScroll, 1);
   targetScrollY = window.scrollY;
   document.body.style.setProperty("--scroll-progress", targetScrollProgress.toFixed(4));
-  document.body.style.setProperty("--scroll-glow-x", `${(35 + Math.sin(targetScrollProgress * Math.PI * 2) * 18).toFixed(2)}%`);
-  document.body.style.setProperty("--scroll-glow-y", `${(24 + targetScrollProgress * 58).toFixed(2)}%`);
+  document.body.style.setProperty("--scroll-glow-x", `${(40 + Math.sin(targetScrollProgress * Math.PI * 2) * 10).toFixed(2)}%`);
+  document.body.style.setProperty("--scroll-glow-y", `${(28 + targetScrollProgress * 44).toFixed(2)}%`);
 }
 
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
@@ -248,39 +338,43 @@ function animate() {
   lastScrollY = targetScrollY;
 
   const scrollWave = scrollProgress * Math.PI * 2;
-  const dolly = Math.sin(scrollWave) * 2.2 + Math.min(Math.abs(scrollVelocity) * 0.018, 2.6);
-  camera.position.x = pointerX * 0.9 + Math.sin(scrollWave * 0.65) * 1.8;
-  camera.position.y = -pointerY * 0.55 + Math.cos(scrollWave * 0.7) * 0.9;
+  const dolly = Math.sin(scrollWave) * 1.15 + Math.min(Math.abs(scrollVelocity) * 0.008, 1.15);
+  camera.position.x = pointerX * 0.42 + Math.sin(scrollWave * 0.65) * 0.8;
+  camera.position.y = -pointerY * 0.26 + Math.cos(scrollWave * 0.7) * 0.46;
   camera.position.z = (window.innerWidth < 720 ? 25 : 22) - dolly;
   camera.lookAt(0, 0, -20);
-  camera.rotation.z += pointerX * 0.008 + Math.sin(scrollWave) * 0.018;
+  camera.rotation.z = pointerX * 0.002 + Math.sin(scrollWave) * 0.004;
 
-  stars.rotation.y = pointerX * 0.032 + Math.sin(elapsed * 0.04) * 0.012 + scrollY * 0.00022;
-  stars.rotation.x = pointerY * 0.02 + scrollVelocity * 0.00034;
-  stars.position.x = Math.sin(scrollWave) * 2.6 + pointerX * 0.8;
-  stars.position.y = Math.cos(scrollWave * 0.85) * 1.7 - pointerY * 0.55;
-  stars.scale.setScalar(1 + Math.min(Math.abs(scrollVelocity) * 0.0007, 0.08));
-  starMaterial.opacity = 0.58 + Math.sin(elapsed * 0.65) * 0.08 + Math.min(Math.abs(scrollVelocity) * 0.004, 0.16);
+  stars.rotation.y = pointerX * 0.014 + Math.sin(elapsed * 0.025) * 0.006 + scrollY * 0.00008;
+  stars.rotation.x = pointerY * 0.009 + scrollVelocity * 0.00012;
+  stars.position.x = Math.sin(scrollWave) * 1.2 + pointerX * 0.34;
+  stars.position.y = Math.cos(scrollWave * 0.85) * 0.85 - pointerY * 0.22;
+  stars.scale.setScalar(1 + Math.min(Math.abs(scrollVelocity) * 0.00025, 0.035));
+  starMaterial.opacity = 0.28 + Math.sin(elapsed * 0.22) * 0.035 + Math.min(Math.abs(scrollVelocity) * 0.0012, 0.055);
+  nebula.rotation.z = Math.sin(elapsed * 0.028) * 0.025 + scrollProgress * 0.08;
+  nebula.position.x = 1.5 + pointerX * 0.28 + Math.sin(scrollWave * 0.7) * 0.55;
+  nebula.position.y = pointerY * -0.12 + Math.cos(scrollWave * 0.6) * 0.32;
+  nebula.material.opacity = 0.35 + Math.sin(elapsed * 0.12) * 0.045;
 
   const positionAttr = starGeometry.attributes.position;
   const wrapHeight = 58;
   for (let i = 0; i < starCount; i += 1) {
     const base = basePositions[i];
     const twinkle = Math.sin(elapsed * twinkleSpeeds[i] * speed + twinkleOffsets[i]);
-    const drift = scrollY * parallaxSpeeds[i] * 1.8;
+    const drift = scrollY * parallaxSpeeds[i] * 0.78;
     const wrappedY = ((((base.y + drift + wrapHeight / 2) % wrapHeight) + wrapHeight) % wrapHeight) - wrapHeight / 2;
     positionAttr.array[i * 3] =
-      base.x + Math.sin(elapsed * 0.04 + i) * 0.025 + Math.sin(scrollY * 0.0012 + base.depth * 8) * base.depth * 1.3;
-    positionAttr.array[i * 3 + 1] = wrappedY + twinkle * 0.045 * (0.35 + base.depth);
+      base.x + Math.sin(elapsed * 0.018 + i) * 0.014 + Math.sin(scrollY * 0.00055 + base.depth * 8) * base.depth * 0.46;
+    positionAttr.array[i * 3 + 1] = wrappedY + twinkle * 0.018 * (0.35 + base.depth);
   }
   positionAttr.needsUpdate = true;
 
   if (!reducedMotion && elapsed > nextShootingStarAt) {
     spawnShootingStar(elapsed);
-    nextShootingStarAt = elapsed + 1.25 + Math.random() * 1.7;
+    nextShootingStarAt = elapsed + 8 + Math.random() * 9;
   }
 
-  if (!reducedMotion && Math.abs(scrollVelocity) > 8 && Math.random() < 0.075) {
+  if (!reducedMotion && Math.abs(scrollVelocity) > 18 && Math.random() < 0.012) {
     spawnShootingStar(elapsed, true);
   }
 
