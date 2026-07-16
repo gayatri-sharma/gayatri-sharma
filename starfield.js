@@ -6,133 +6,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0x000000, 0);
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 120);
-camera.position.set(0, 0, 22);
-
-const starCount = 620;
-const positions = new Float32Array(starCount * 3);
-const colors = new Float32Array(starCount * 3);
-const basePositions = [];
-const twinkleSpeeds = [];
-const twinkleOffsets = [];
-const parallaxSpeeds = [];
-
-for (let i = 0; i < starCount; i += 1) {
-  const zLayer = Math.random();
-  const x = (Math.random() - 0.5) * (78 + zLayer * 58);
-  const y = (Math.random() - 0.5) * (48 + zLayer * 34);
-  const z = -8 - Math.random() * 70;
-  const warmth = Math.random();
-  const color = new THREE.Color().setHSL(0.11 + warmth * 0.04, 0.28 + Math.random() * 0.18, 0.72 + Math.random() * 0.18);
-
-  positions[i * 3] = x;
-  positions[i * 3 + 1] = y;
-  positions[i * 3 + 2] = z;
-  colors[i * 3] = color.r;
-  colors[i * 3 + 1] = color.g;
-  colors[i * 3 + 2] = color.b;
-  basePositions.push({ x, y, z, depth: zLayer });
-  twinkleSpeeds.push(0.12 + Math.random() * 0.42);
-  twinkleOffsets.push(Math.random() * Math.PI * 2);
-  parallaxSpeeds.push(0.002 + zLayer * 0.012);
-}
-
-const starGeometry = new THREE.BufferGeometry();
-starGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-starGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-
-function createStarTexture() {
-  const textureCanvas = document.createElement("canvas");
-  textureCanvas.width = 96;
-  textureCanvas.height = 96;
-  const ctx = textureCanvas.getContext("2d");
-  const glow = ctx.createRadialGradient(48, 48, 0, 48, 48, 48);
-  glow.addColorStop(0, "rgba(255, 255, 255, 0.92)");
-  glow.addColorStop(0.24, "rgba(255, 241, 216, 0.42)");
-  glow.addColorStop(0.62, "rgba(255, 184, 94, 0.13)");
-  glow.addColorStop(1, "rgba(255, 184, 94, 0)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, 96, 96);
-  const texture = new THREE.CanvasTexture(textureCanvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.needsUpdate = true;
-  return texture;
-}
-
-const starMaterial = new THREE.PointsMaterial({
-  map: createStarTexture(),
-  size: 0.105,
-  transparent: true,
-  opacity: 0.34,
-  vertexColors: true,
-  depthWrite: false,
-  blending: THREE.AdditiveBlending,
-});
-
-const stars = new THREE.Points(starGeometry, starMaterial);
-scene.add(stars);
-
-function createNebulaTexture() {
-  const textureCanvas = document.createElement("canvas");
-  textureCanvas.width = 1024;
-  textureCanvas.height = 640;
-  const ctx = textureCanvas.getContext("2d");
-
-  const paintGlow = (x, y, r, stops) => {
-    const glow = ctx.createRadialGradient(x, y, 0, x, y, r);
-    stops.forEach(([offset, color]) => glow.addColorStop(offset, color));
-    ctx.fillStyle = glow;
-    ctx.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
-  };
-
-  paintGlow(250, 180, 460, [
-    [0, "rgba(255, 178, 75, 0.34)"],
-    [0.34, "rgba(255, 128, 32, 0.12)"],
-    [1, "rgba(255, 128, 32, 0)"],
-  ]);
-  paintGlow(760, 230, 520, [
-    [0, "rgba(72, 176, 190, 0.13)"],
-    [0.44, "rgba(73, 111, 174, 0.065)"],
-    [1, "rgba(73, 111, 174, 0)"],
-  ]);
-  paintGlow(520, 520, 560, [
-    [0, "rgba(114, 66, 154, 0.12)"],
-    [0.48, "rgba(255, 176, 0, 0.045)"],
-    [1, "rgba(114, 66, 154, 0)"],
-  ]);
-
-  ctx.save();
-  ctx.globalCompositeOperation = "screen";
-  ctx.filter = "blur(26px)";
-  for (let i = 0; i < 22; i += 1) {
-    const alpha = 0.018 + Math.random() * 0.028;
-    const x = 90 + Math.random() * 860;
-    const y = 80 + Math.random() * 470;
-    const w = 140 + Math.random() * 260;
-    const h = 26 + Math.random() * 70;
-    ctx.fillStyle = `rgba(255, 218, 166, ${alpha})`;
-    ctx.beginPath();
-    ctx.ellipse(x, y, w, h, Math.random() * Math.PI, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.restore();
-
-  const texture = new THREE.CanvasTexture(textureCanvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.needsUpdate = true;
-  return texture;
-}
-
-const nebulaMaterial = new THREE.MeshBasicMaterial({
-  map: createNebulaTexture(),
-  transparent: true,
-  opacity: 0.42,
-  depthWrite: false,
-  blending: THREE.AdditiveBlending,
-});
-const nebula = new THREE.Mesh(new THREE.PlaneGeometry(88, 56), nebulaMaterial);
-nebula.position.set(1.5, 0, -52);
-scene.add(nebula);
+const camera = new THREE.PerspectiveCamera(54, window.innerWidth / window.innerHeight, 0.1, 120);
+camera.position.set(0, 0, 24);
 
 const depthSections = [...document.querySelectorAll(".hero, .section, .contact")];
 const motionItems = [
@@ -141,6 +16,67 @@ const motionItems = [
   ),
 ];
 const navLinks = [...document.querySelectorAll("nav a[href^='#']")];
+
+function createStarTexture() {
+  const textureCanvas = document.createElement("canvas");
+  textureCanvas.width = 96;
+  textureCanvas.height = 96;
+  const ctx = textureCanvas.getContext("2d");
+  const glow = ctx.createRadialGradient(48, 48, 0, 48, 48, 48);
+  glow.addColorStop(0, "rgba(255, 255, 255, 0.9)");
+  glow.addColorStop(0.22, "rgba(255, 236, 206, 0.34)");
+  glow.addColorStop(0.68, "rgba(255, 176, 0, 0.08)");
+  glow.addColorStop(1, "rgba(255, 176, 0, 0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, 96, 96);
+
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const starCount = 420;
+const positions = new Float32Array(starCount * 3);
+const colors = new Float32Array(starCount * 3);
+const basePositions = [];
+const twinkleSpeeds = [];
+const twinkleOffsets = [];
+
+for (let i = 0; i < starCount; i += 1) {
+  const depth = Math.random();
+  const x = (Math.random() - 0.5) * (86 + depth * 34);
+  const y = (Math.random() - 0.5) * (54 + depth * 28);
+  const z = -10 - Math.random() * 66;
+  const color = new THREE.Color().setHSL(0.105 + Math.random() * 0.035, 0.18, 0.76 + Math.random() * 0.16);
+
+  positions[i * 3] = x;
+  positions[i * 3 + 1] = y;
+  positions[i * 3 + 2] = z;
+  colors[i * 3] = color.r;
+  colors[i * 3 + 1] = color.g;
+  colors[i * 3 + 2] = color.b;
+  basePositions.push({ x, y, z, depth });
+  twinkleSpeeds.push(0.08 + Math.random() * 0.18);
+  twinkleOffsets.push(Math.random() * Math.PI * 2);
+}
+
+const starGeometry = new THREE.BufferGeometry();
+starGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+starGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+const starMaterial = new THREE.PointsMaterial({
+  map: createStarTexture(),
+  size: 0.095,
+  transparent: true,
+  opacity: 0.23,
+  vertexColors: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
 
 motionItems.forEach((item, index) => {
   item.classList.add("motion-item");
@@ -161,85 +97,12 @@ if ("IntersectionObserver" in window) {
   motionItems.forEach((item) => item.classList.add("is-visible"));
 }
 
-function createMeteorTexture() {
-  const textureCanvas = document.createElement("canvas");
-  textureCanvas.width = 640;
-  textureCanvas.height = 128;
-  const ctx = textureCanvas.getContext("2d");
-  const centerY = textureCanvas.height / 2;
-
-  const tail = ctx.createLinearGradient(0, 0, textureCanvas.width, 0);
-  tail.addColorStop(0, "rgba(255, 177, 0, 0)");
-  tail.addColorStop(0.42, "rgba(255, 186, 60, 0.12)");
-  tail.addColorStop(0.78, "rgba(255, 226, 170, 0.58)");
-  tail.addColorStop(1, "rgba(255, 255, 246, 0.96)");
-
-  ctx.save();
-  ctx.filter = "blur(8px)";
-  ctx.fillStyle = tail;
-  ctx.beginPath();
-  ctx.moveTo(0, centerY);
-  ctx.quadraticCurveTo(360, centerY - 38, 612, centerY - 8);
-  ctx.quadraticCurveTo(650, centerY, 612, centerY + 8);
-  ctx.quadraticCurveTo(360, centerY + 38, 0, centerY);
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-
-  const head = ctx.createRadialGradient(594, centerY, 0, 594, centerY, 54);
-  head.addColorStop(0, "rgba(255, 255, 255, 1)");
-  head.addColorStop(0.25, "rgba(255, 236, 185, 0.95)");
-  head.addColorStop(0.62, "rgba(255, 137, 24, 0.4)");
-  head.addColorStop(1, "rgba(255, 137, 24, 0)");
-  ctx.fillStyle = head;
-  ctx.beginPath();
-  ctx.arc(594, centerY, 54, 0, Math.PI * 2);
-  ctx.fill();
-
-  const texture = new THREE.CanvasTexture(textureCanvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.needsUpdate = true;
-  return texture;
-}
-
-const meteorTexture = createMeteorTexture();
-const meteorGeometry = new THREE.PlaneGeometry(1, 1);
-const shootingStars = Array.from({ length: 2 }, () => {
-  const material = new THREE.MeshBasicMaterial({
-    map: meteorTexture,
-    transparent: true,
-    opacity: 0,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    side: THREE.DoubleSide,
-  });
-  const mesh = new THREE.Mesh(meteorGeometry, material);
-  mesh.visible = false;
-  scene.add(mesh);
-  return {
-    mesh,
-    active: false,
-    start: 0,
-    duration: 1,
-    x: 0,
-    y: 0,
-    z: -14,
-    length: 7,
-    speed: 1,
-    angle: -0.45,
-  };
-});
-
-let nextShootingStarAt = 3.5;
-
 let pointerX = 0;
 let pointerY = 0;
 let scrollProgress = 0;
 let targetScrollProgress = 0;
 let scrollY = 0;
 let targetScrollY = 0;
-let lastScrollY = 0;
-let scrollVelocity = 0;
 
 window.addEventListener("pointermove", (event) => {
   pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
@@ -251,8 +114,8 @@ function updateScrollProgress() {
   targetScrollProgress = Math.min(window.scrollY / maxScroll, 1);
   targetScrollY = window.scrollY;
   document.body.style.setProperty("--scroll-progress", targetScrollProgress.toFixed(4));
-  document.body.style.setProperty("--scroll-glow-x", `${(40 + Math.sin(targetScrollProgress * Math.PI * 2) * 10).toFixed(2)}%`);
-  document.body.style.setProperty("--scroll-glow-y", `${(28 + targetScrollProgress * 44).toFixed(2)}%`);
+  document.body.style.setProperty("--scroll-glow-x", `${(42 + Math.sin(targetScrollProgress * Math.PI * 2) * 8).toFixed(2)}%`);
+  document.body.style.setProperty("--scroll-glow-y", `${(30 + targetScrollProgress * 38).toFixed(2)}%`);
 }
 
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
@@ -263,31 +126,12 @@ function resize() {
   const height = window.innerHeight;
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.position.z = width < 720 ? 25 : 22;
+  camera.position.z = width < 720 ? 26 : 24;
   camera.updateProjectionMatrix();
 }
 
 window.addEventListener("resize", resize);
 resize();
-
-function spawnShootingStar(elapsed, boosted = false) {
-  const meteor = shootingStars.find((item) => !item.active);
-  if (!meteor) return;
-
-  meteor.active = true;
-  meteor.start = elapsed;
-  meteor.duration = boosted ? 0.85 + Math.random() * 0.35 : 1.05 + Math.random() * 0.5;
-  meteor.x = -22 + Math.random() * 38;
-  meteor.y = 9 + Math.random() * 13;
-  meteor.z = -5 - Math.random() * 8;
-  meteor.length = boosted ? 8 + Math.random() * 3 : 6 + Math.random() * 3;
-  meteor.speed = boosted ? 13 + Math.random() * 5 : 10 + Math.random() * 4;
-  meteor.angle = -0.42 - Math.random() * 0.26;
-  meteor.mesh.visible = true;
-  meteor.mesh.material.opacity = 0;
-  meteor.mesh.rotation.set(0, 0, meteor.angle);
-  meteor.mesh.scale.set(meteor.length, meteor.length * 0.18, 1);
-}
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const clock = new THREE.Clock();
@@ -297,22 +141,15 @@ if (reducedMotion) {
 }
 
 function updateDepthSections() {
-  if (reducedMotion) return;
   const viewportCenter = window.innerHeight * 0.52;
-  depthSections.forEach((section) => {
-    const rect = section.getBoundingClientRect();
-    const inView = rect.bottom > -120 && rect.top < window.innerHeight + 120;
-    section.style.opacity = inView ? "1" : "0.92";
-  });
-
   motionItems.forEach((item) => {
     const rect = item.getBoundingClientRect();
     const itemCenter = rect.top + rect.height * 0.5;
     const distance = (itemCenter - viewportCenter) / window.innerHeight;
     const clamped = Math.max(-1, Math.min(1, distance));
     const focus = Math.abs(clamped) < 0.28 && rect.bottom > 0 && rect.top < window.innerHeight;
-    item.style.setProperty("--item-drift", (clamped * -10).toFixed(2));
-    item.style.setProperty("--item-depth", (focus ? 12 : -8).toFixed(2));
+    item.style.setProperty("--item-drift", reducedMotion ? "0" : (clamped * -8).toFixed(2));
+    item.style.setProperty("--item-depth", focus ? "8" : "-4");
     item.classList.toggle("is-in-focus", focus);
   });
 
@@ -331,76 +168,32 @@ function updateDepthSections() {
 
 function animate() {
   const elapsed = clock.getElapsedTime();
-  const speed = reducedMotion ? 0.15 : 1;
-  scrollProgress += (targetScrollProgress - scrollProgress) * 0.075;
-  scrollY += (targetScrollY - scrollY) * 0.16;
-  scrollVelocity += (targetScrollY - lastScrollY - scrollVelocity) * 0.12;
-  lastScrollY = targetScrollY;
+  scrollProgress += (targetScrollProgress - scrollProgress) * 0.06;
+  scrollY += (targetScrollY - scrollY) * 0.12;
 
   const scrollWave = scrollProgress * Math.PI * 2;
-  const dolly = Math.sin(scrollWave) * 1.15 + Math.min(Math.abs(scrollVelocity) * 0.008, 1.15);
-  camera.position.x = pointerX * 0.42 + Math.sin(scrollWave * 0.65) * 0.8;
-  camera.position.y = -pointerY * 0.26 + Math.cos(scrollWave * 0.7) * 0.46;
-  camera.position.z = (window.innerWidth < 720 ? 25 : 22) - dolly;
-  camera.lookAt(0, 0, -20);
-  camera.rotation.z = pointerX * 0.002 + Math.sin(scrollWave) * 0.004;
+  camera.position.x = pointerX * 0.24 + Math.sin(scrollWave * 0.6) * 0.42;
+  camera.position.y = -pointerY * 0.14 + Math.cos(scrollWave * 0.65) * 0.25;
+  camera.position.z = (window.innerWidth < 720 ? 26 : 24) - Math.sin(scrollWave) * 0.42;
+  camera.lookAt(0, 0, -22);
 
-  stars.rotation.y = pointerX * 0.014 + Math.sin(elapsed * 0.025) * 0.006 + scrollY * 0.00008;
-  stars.rotation.x = pointerY * 0.009 + scrollVelocity * 0.00012;
-  stars.position.x = Math.sin(scrollWave) * 1.2 + pointerX * 0.34;
-  stars.position.y = Math.cos(scrollWave * 0.85) * 0.85 - pointerY * 0.22;
-  stars.scale.setScalar(1 + Math.min(Math.abs(scrollVelocity) * 0.00025, 0.035));
-  starMaterial.opacity = 0.28 + Math.sin(elapsed * 0.22) * 0.035 + Math.min(Math.abs(scrollVelocity) * 0.0012, 0.055);
-  nebula.rotation.z = Math.sin(elapsed * 0.028) * 0.025 + scrollProgress * 0.08;
-  nebula.position.x = 1.5 + pointerX * 0.28 + Math.sin(scrollWave * 0.7) * 0.55;
-  nebula.position.y = pointerY * -0.12 + Math.cos(scrollWave * 0.6) * 0.32;
-  nebula.material.opacity = 0.35 + Math.sin(elapsed * 0.12) * 0.045;
+  stars.rotation.y = pointerX * 0.006 + scrollY * 0.000035 + elapsed * 0.003;
+  stars.rotation.x = pointerY * 0.004;
+  stars.position.x = Math.sin(scrollWave) * 0.35 + pointerX * 0.16;
+  stars.position.y = Math.cos(scrollWave * 0.85) * 0.22 - pointerY * 0.1;
+  starMaterial.opacity = 0.2 + Math.sin(elapsed * 0.16) * 0.018;
 
   const positionAttr = starGeometry.attributes.position;
-  const wrapHeight = 58;
+  const wrapHeight = 62;
   for (let i = 0; i < starCount; i += 1) {
     const base = basePositions[i];
-    const twinkle = Math.sin(elapsed * twinkleSpeeds[i] * speed + twinkleOffsets[i]);
-    const drift = scrollY * parallaxSpeeds[i] * 0.78;
+    const twinkle = Math.sin(elapsed * twinkleSpeeds[i] + twinkleOffsets[i]);
+    const drift = scrollY * (0.001 + base.depth * 0.006);
     const wrappedY = ((((base.y + drift + wrapHeight / 2) % wrapHeight) + wrapHeight) % wrapHeight) - wrapHeight / 2;
-    positionAttr.array[i * 3] =
-      base.x + Math.sin(elapsed * 0.018 + i) * 0.014 + Math.sin(scrollY * 0.00055 + base.depth * 8) * base.depth * 0.46;
-    positionAttr.array[i * 3 + 1] = wrappedY + twinkle * 0.018 * (0.35 + base.depth);
+    positionAttr.array[i * 3] = base.x + Math.sin(elapsed * 0.012 + i) * 0.01;
+    positionAttr.array[i * 3 + 1] = wrappedY + twinkle * 0.01;
   }
   positionAttr.needsUpdate = true;
-
-  if (!reducedMotion && elapsed > nextShootingStarAt) {
-    spawnShootingStar(elapsed);
-    nextShootingStarAt = elapsed + 8 + Math.random() * 9;
-  }
-
-  if (!reducedMotion && Math.abs(scrollVelocity) > 18 && Math.random() < 0.012) {
-    spawnShootingStar(elapsed, true);
-  }
-
-  shootingStars.forEach((meteor) => {
-    if (!meteor.active) return;
-    const age = elapsed - meteor.start;
-    const progress = age / meteor.duration;
-    if (progress >= 1) {
-      meteor.active = false;
-      meteor.mesh.visible = false;
-      meteor.mesh.material.opacity = 0;
-      return;
-    }
-
-    const distance = meteor.speed * progress;
-    const headX = meteor.x + Math.cos(meteor.angle) * distance;
-    const headY = meteor.y + Math.sin(meteor.angle) * distance;
-    const opacity = Math.sin(progress * Math.PI) * (meteor.duration < 0.95 ? 0.82 : 0.68);
-    const centerOffset = meteor.length * 0.42;
-    meteor.mesh.position.set(
-      headX - Math.cos(meteor.angle) * centerOffset,
-      headY - Math.sin(meteor.angle) * centerOffset,
-      meteor.z,
-    );
-    meteor.mesh.material.opacity = opacity;
-  });
 
   updateDepthSections();
   renderer.render(scene, camera);

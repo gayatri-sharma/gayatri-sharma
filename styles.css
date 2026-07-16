@@ -29,10 +29,9 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(ellipse at 18% 10%, rgba(255, 176, 0, 0.08), transparent 34rem),
-    radial-gradient(ellipse at 84% 16%, rgba(67, 167, 185, 0.045), transparent 38rem),
-    radial-gradient(ellipse at 50% 78%, rgba(80, 44, 125, 0.045), transparent 42rem),
-    #010101;
+    radial-gradient(ellipse at 24% 12%, rgba(255, 176, 0, 0.075), transparent 30rem),
+    radial-gradient(ellipse at 82% 34%, rgba(255, 103, 0, 0.035), transparent 34rem),
+    linear-gradient(180deg, #030201 0%, #000 42%, #030201 100%);
   color: var(--ink);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
@@ -65,10 +64,9 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at var(--scroll-glow-x, 44%) var(--scroll-glow-y, 30%), rgba(255, 176, 0, 0.075), transparent 30rem),
-    radial-gradient(ellipse at calc(var(--scroll-glow-x, 44%) + 30%) 72%, rgba(61, 160, 180, 0.035), transparent 34rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 42%, rgba(0, 0, 0, 0.32));
-  opacity: 0.9;
+    radial-gradient(ellipse at var(--scroll-glow-x, 42%) var(--scroll-glow-y, 30%), rgba(255, 176, 0, 0.055), transparent 28rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 44%, rgba(0, 0, 0, 0.28));
+  opacity: 0.82;
   transition: background-position 420ms ease;
 }
 
@@ -83,8 +81,8 @@ a {
   z-index: -2;
   width: 100%;
   height: 100%;
-  opacity: 0.86;
-  filter: saturate(1.05);
+  opacity: 0.72;
+  filter: saturate(0.94);
 }
 
 .noise {
@@ -93,10 +91,9 @@ a {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 42% 18%, rgba(255, 255, 255, 0.025), transparent 34rem),
-    radial-gradient(ellipse at 78% 66%, rgba(255, 176, 0, 0.03), transparent 32rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.06), transparent 30%, rgba(0, 0, 0, 0.24));
-  opacity: 0.78;
+    radial-gradient(ellipse at 44% 18%, rgba(255, 243, 231, 0.018), transparent 32rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 28%, rgba(0, 0, 0, 0.3));
+  opacity: 0.68;
 }
 
 .scroll-progress {
@@ -266,9 +263,9 @@ main {
 .hero {
   min-height: 100svh;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(15rem, 23rem);
-  align-items: start;
-  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
   padding: clamp(9rem, 13vh, 10.25rem) clamp(1rem, 5vw, 5.5rem) 4.5rem;
   position: relative;
   isolation: isolate;
@@ -276,7 +273,7 @@ main {
 }
 
 .hero-copy {
-  max-width: min(62vw, 54rem);
+  max-width: min(60vw, 52rem);
 }
 
 .hero-kicker {
@@ -386,7 +383,7 @@ h1 {
 .portrait-frame {
   position: relative;
   margin: 0 auto;
-  width: clamp(13rem, 24vw, 20rem);
+  width: clamp(13rem, 22vw, 19rem);
   aspect-ratio: 0.9;
   overflow: hidden;
   border: 0;
@@ -427,13 +424,14 @@ h1 {
 .hero-showcase {
   display: grid;
   gap: 1rem;
-  align-self: start;
-  margin-top: clamp(0.5rem, 2vh, 1.25rem);
+  align-self: center;
+  justify-items: center;
+  margin-top: 0;
 }
 
 .portrait-quote {
   position: relative;
-  max-width: clamp(15rem, 28vw, 24rem);
+  max-width: clamp(15rem, 25vw, 22rem);
   margin: 0.55rem auto 0;
   padding: 0.15rem 1.55rem;
   color: rgba(255, 243, 231, 0.82);
