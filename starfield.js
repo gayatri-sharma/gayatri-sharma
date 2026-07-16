@@ -36,7 +36,7 @@ function createStarTexture() {
   return texture;
 }
 
-const starCount = 850;
+const starCount = 1800;
 const positions = new Float32Array(starCount * 3);
 const colors = new Float32Array(starCount * 3);
 const basePositions = [];
@@ -77,6 +77,43 @@ const starMaterial = new THREE.PointsMaterial({
 
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
+
+const brightStarCount = 90;
+const brightPositions = new Float32Array(brightStarCount * 3);
+const brightColors = new Float32Array(brightStarCount * 3);
+const brightBases = [];
+
+for (let i = 0; i < brightStarCount; i += 1) {
+  const depth = Math.random();
+  const x = (Math.random() - 0.5) * 78;
+  const y = (Math.random() - 0.5) * 46;
+  const z = -8 - Math.random() * 46;
+  const color = new THREE.Color().setHSL(0.1 + Math.random() * 0.04, 0.24, 0.9 + Math.random() * 0.1);
+  brightPositions[i * 3] = x;
+  brightPositions[i * 3 + 1] = y;
+  brightPositions[i * 3 + 2] = z;
+  brightColors[i * 3] = color.r;
+  brightColors[i * 3 + 1] = color.g;
+  brightColors[i * 3 + 2] = color.b;
+  brightBases.push({ x, y, z, depth, phase: Math.random() * Math.PI * 2 });
+}
+
+const brightGeometry = new THREE.BufferGeometry();
+brightGeometry.setAttribute("position", new THREE.BufferAttribute(brightPositions, 3));
+brightGeometry.setAttribute("color", new THREE.BufferAttribute(brightColors, 3));
+
+const brightMaterial = new THREE.PointsMaterial({
+  map: createStarTexture(),
+  size: 0.58,
+  transparent: true,
+  opacity: 0.86,
+  vertexColors: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+
+const brightStars = new THREE.Points(brightGeometry, brightMaterial);
+scene.add(brightStars);
 
 motionItems.forEach((item, index) => {
   item.classList.add("motion-item");
@@ -170,28 +207,51 @@ function animate() {
   scrollY += (targetScrollY - scrollY) * 0.12;
 
   const scrollWave = scrollProgress * Math.PI * 2;
-  camera.position.x = pointerX * 0.32 + Math.sin(scrollWave * 0.6) * 0.7;
-  camera.position.y = -pointerY * 0.18 + Math.cos(scrollWave * 0.65) * 0.38;
-  camera.position.z = (window.innerWidth < 720 ? 26 : 24) - scrollProgress * 1.8;
+  const breathing = Math.sin(elapsed * 0.08);
+  const driftX = Math.sin(elapsed * 0.045 + scrollWave * 0.72) * 2.2 + scrollProgress * 9.8 + pointerX * 0.7;
+  const driftY = Math.cos(elapsed * 0.04 + scrollWave * 0.58) * 1.7 - scrollProgress * 13.5 - pointerY * 0.45;
+  document.body.style.setProperty("--space-drift-x", `${driftX.toFixed(3)}rem`);
+  document.body.style.setProperty("--space-drift-y", `${driftY.toFixed(3)}rem`);
+  document.body.style.setProperty("--space-scale", (1.045 + scrollProgress * 0.045 + breathing * 0.004).toFixed(4));
+  document.body.style.setProperty("--space-glow-x", `${(62 + Math.sin(elapsed * 0.06 + scrollWave) * 18).toFixed(2)}%`);
+  document.body.style.setProperty("--space-glow-y", `${(34 + Math.cos(elapsed * 0.05 + scrollWave * 0.7) * 15).toFixed(2)}%`);
+
+  camera.position.x = pointerX * 0.46 + Math.sin(scrollWave * 0.6 + elapsed * 0.05) * 0.98;
+  camera.position.y = -pointerY * 0.24 + Math.cos(scrollWave * 0.65 + elapsed * 0.04) * 0.54;
+  camera.position.z = (window.innerWidth < 720 ? 26 : 24) - scrollProgress * 2.8 + breathing * 0.35;
   camera.lookAt(0, 0, -22);
 
-  stars.rotation.y = pointerX * 0.012 + scrollY * 0.00008 + elapsed * 0.0035;
-  stars.rotation.x = pointerY * 0.006 + scrollProgress * 0.05;
-  stars.position.x = Math.sin(scrollWave) * 0.8 + pointerX * 0.22;
-  stars.position.y = Math.cos(scrollWave * 0.85) * 0.48 - pointerY * 0.12;
-  starMaterial.opacity = 0.7 + Math.sin(elapsed * 0.18) * 0.06;
+  stars.rotation.y = pointerX * 0.018 + scrollY * 0.00013 + elapsed * 0.0048;
+  stars.rotation.x = pointerY * 0.009 + scrollProgress * 0.075;
+  stars.position.x = Math.sin(scrollWave + elapsed * 0.04) * 1.4 + pointerX * 0.34;
+  stars.position.y = Math.cos(scrollWave * 0.85 + elapsed * 0.035) * 0.86 - pointerY * 0.18;
+  brightStars.rotation.copy(stars.rotation);
+  brightStars.position.x = stars.position.x * 1.28;
+  brightStars.position.y = stars.position.y * 1.2;
+  starMaterial.opacity = 0.78 + Math.sin(elapsed * 0.18) * 0.07;
+  brightMaterial.opacity = 0.74 + Math.sin(elapsed * 0.31) * 0.12;
 
   const positionAttr = starGeometry.attributes.position;
   const wrapHeight = 62;
   for (let i = 0; i < starCount; i += 1) {
     const base = basePositions[i];
     const twinkle = Math.sin(elapsed * twinkleSpeeds[i] + twinkleOffsets[i]);
-    const drift = scrollY * (0.002 + base.depth * 0.014);
+    const drift = scrollY * (0.0032 + base.depth * 0.021);
     const wrappedY = ((((base.y + drift + wrapHeight / 2) % wrapHeight) + wrapHeight) % wrapHeight) - wrapHeight / 2;
-    positionAttr.array[i * 3] = base.x + Math.sin(elapsed * 0.016 + i) * 0.014 + scrollProgress * base.depth * 2.6;
-    positionAttr.array[i * 3 + 1] = wrappedY + twinkle * 0.018;
+    positionAttr.array[i * 3] = base.x + Math.sin(elapsed * 0.018 + i) * 0.02 + scrollProgress * base.depth * 4.2;
+    positionAttr.array[i * 3 + 1] = wrappedY + twinkle * 0.028;
   }
   positionAttr.needsUpdate = true;
+
+  const brightAttr = brightGeometry.attributes.position;
+  for (let i = 0; i < brightStarCount; i += 1) {
+    const base = brightBases[i];
+    const drift = scrollY * (0.0048 + base.depth * 0.025);
+    const wrappedY = ((((base.y + drift + wrapHeight / 2) % wrapHeight) + wrapHeight) % wrapHeight) - wrapHeight / 2;
+    brightAttr.array[i * 3] = base.x + Math.sin(elapsed * 0.026 + base.phase) * 0.035 + scrollProgress * base.depth * 5.6;
+    brightAttr.array[i * 3 + 1] = wrappedY + Math.sin(elapsed * 0.22 + base.phase) * 0.05;
+  }
+  brightAttr.needsUpdate = true;
 
   updateDepthSections();
   renderer.render(scene, camera);

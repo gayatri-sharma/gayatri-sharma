@@ -28,6 +28,11 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  --space-drift-x: 0rem;
+  --space-drift-y: 0rem;
+  --space-scale: 1.045;
+  --space-glow-x: 72%;
+  --space-glow-y: 32%;
   background:
     radial-gradient(ellipse at 18% 12%, rgba(255, 176, 0, 0.1), transparent 28rem),
     linear-gradient(180deg, #020201 0%, #000 48%, #020201 100%);
@@ -82,11 +87,11 @@ a {
 #data-viz {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   opacity: 1;
-  filter: saturate(1.05) contrast(1.02);
+  filter: saturate(1.08) contrast(1.06);
   pointer-events: none;
 }
 
@@ -96,15 +101,21 @@ a {
   z-index: 0;
   pointer-events: none;
   background:
+    radial-gradient(ellipse at var(--space-glow-x) var(--space-glow-y), rgba(255, 176, 0, 0.16), transparent 16rem),
+    radial-gradient(ellipse at calc(100% - var(--space-glow-x)) calc(100% - var(--space-glow-y)), rgba(92, 123, 255, 0.1), transparent 20rem),
     linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.02) 46%, rgba(0, 0, 0, 0.3)),
     url("assets/hubble-deep-field.jpg");
-  background-size: cover, 115vmax 115vmax;
+  background-size: cover, cover, cover, 122vmax 122vmax;
   background-position:
     center,
-    calc(50% + (var(--scroll-progress, 0) * 10rem)) calc(50% - (var(--scroll-progress, 0) * 16rem));
-  opacity: 0.76;
-  filter: saturate(1.08) contrast(1.08) brightness(0.82);
-  transform: scale(1.04);
+    center,
+    center,
+    calc(50% + var(--space-drift-x)) calc(50% + var(--space-drift-y));
+  opacity: 0.84;
+  filter: saturate(1.16) contrast(1.12) brightness(0.88);
+  transform: scale(var(--space-scale));
+  transform-origin: center;
+  will-change: background-position, transform, filter;
 }
 
 .noise {
