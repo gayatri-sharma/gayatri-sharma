@@ -101,18 +101,18 @@ a {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at var(--space-glow-x) var(--space-glow-y), rgba(255, 176, 0, 0.16), transparent 16rem),
-    radial-gradient(ellipse at calc(100% - var(--space-glow-x)) calc(100% - var(--space-glow-y)), rgba(92, 123, 255, 0.1), transparent 20rem),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.02) 46%, rgba(0, 0, 0, 0.3)),
-    url("assets/hubble-deep-field.jpg");
-  background-size: cover, cover, cover, 122vmax 122vmax;
+    radial-gradient(ellipse at var(--space-glow-x) var(--space-glow-y), rgba(255, 176, 0, 0.2), transparent 18rem),
+    radial-gradient(ellipse at calc(100% - var(--space-glow-x)) calc(100% - var(--space-glow-y)), rgba(92, 123, 255, 0.12), transparent 22rem),
+    radial-gradient(ellipse at calc(38% + var(--space-drift-x)) calc(64% + var(--space-drift-y)), rgba(186, 88, 255, 0.08), transparent 30rem),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.12) 46%, rgba(0, 0, 0, 0.44));
+  background-size: cover, cover, cover, cover;
   background-position:
     center,
     center,
     center,
-    calc(50% + var(--space-drift-x)) calc(50% + var(--space-drift-y));
-  opacity: 0.84;
-  filter: saturate(1.16) contrast(1.12) brightness(0.88);
+    center;
+  opacity: 0.9;
+  filter: saturate(1.12) contrast(1.08) brightness(0.9);
   transform: scale(var(--space-scale));
   transform-origin: center;
   will-change: background-position, transform, filter;
