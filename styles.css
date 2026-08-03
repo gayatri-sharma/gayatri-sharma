@@ -156,7 +156,7 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 60;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -166,6 +166,7 @@ a {
     linear-gradient(180deg, rgba(2, 3, 4, 0.9), rgba(2, 3, 4, 0.68) 78%, rgba(2, 3, 4, 0));
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(20px);
+  pointer-events: auto;
 }
 
 .header-branding {
@@ -208,11 +209,14 @@ nav {
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 600;
+  pointer-events: auto;
 }
 
 nav a {
   position: relative;
   padding: 0.35rem 0;
+  cursor: pointer;
+  pointer-events: auto;
   transition: color 180ms ease;
 }
 
