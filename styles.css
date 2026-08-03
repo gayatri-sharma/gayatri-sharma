@@ -47,7 +47,8 @@ body {
   overflow-x: hidden;
 }
 
-body > *:not(#data-viz):not(.space-wash):not(.noise):not(.scroll-progress) {
+main,
+footer {
   position: relative;
   z-index: 2;
 }
