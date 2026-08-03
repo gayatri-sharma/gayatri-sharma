@@ -37,9 +37,10 @@ body {
   --cursor-x: 50%;
   --cursor-y: 50%;
   background:
-    radial-gradient(ellipse at 18% 8%, rgba(229, 173, 87, 0.12), transparent 26rem),
-    radial-gradient(ellipse at 88% 24%, rgba(121, 208, 199, 0.08), transparent 30rem),
-    linear-gradient(180deg, #020304 0%, #000 46%, #030403 100%);
+    radial-gradient(ellipse at 18% 8%, rgba(229, 173, 87, 0.2), transparent 28rem),
+    radial-gradient(ellipse at 88% 24%, rgba(121, 208, 199, 0.16), transparent 34rem),
+    radial-gradient(ellipse at 55% 72%, rgba(137, 103, 208, 0.14), transparent 38rem),
+    linear-gradient(180deg, #030506 0%, #010202 46%, #040403 100%);
   color: var(--ink);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
@@ -77,10 +78,10 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(229, 173, 87, 0.12), transparent 18rem),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.32) 48%, rgba(0, 0, 0, 0.6)),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.56), transparent 30%, rgba(0, 0, 0, 0.72));
-  opacity: 0.9;
+    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(229, 173, 87, 0.16), transparent 20rem),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.14) 48%, rgba(0, 0, 0, 0.44)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.42), transparent 34%, rgba(0, 0, 0, 0.5));
+  opacity: 0.78;
   transition: background-position 420ms ease;
 }
 
@@ -106,18 +107,22 @@ a {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at var(--space-glow-x) var(--space-glow-y), rgba(229, 173, 87, 0.13), transparent 18rem),
-    radial-gradient(ellipse at calc(100% - var(--space-glow-x)) calc(100% - var(--space-glow-y)), rgba(121, 208, 199, 0.08), transparent 24rem),
-    radial-gradient(ellipse at calc(38% + var(--space-drift-x)) calc(64% + var(--space-drift-y)), rgba(137, 103, 208, 0.06), transparent 32rem),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.24) 46%, rgba(0, 0, 0, 0.54));
-  background-size: cover, cover, cover, cover;
+    radial-gradient(ellipse at var(--space-glow-x) var(--space-glow-y), rgba(229, 173, 87, 0.26), transparent 20rem),
+    radial-gradient(ellipse at calc(100% - var(--space-glow-x)) calc(100% - var(--space-glow-y)), rgba(121, 208, 199, 0.18), transparent 28rem),
+    radial-gradient(ellipse at calc(38% + var(--space-drift-x)) calc(64% + var(--space-drift-y)), rgba(137, 103, 208, 0.16), transparent 36rem),
+    linear-gradient(118deg, transparent 0 16%, rgba(121, 208, 199, 0.08) 28%, transparent 42%),
+    linear-gradient(64deg, transparent 0 32%, rgba(229, 173, 87, 0.11) 46%, rgba(137, 103, 208, 0.08) 58%, transparent 72%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.08) 46%, rgba(0, 0, 0, 0.34));
+  background-size: cover, cover, cover, 140% 140%, 150% 150%, cover;
   background-position:
     center,
     center,
     center,
+    calc(50% + var(--space-drift-x)) calc(50% + var(--space-drift-y)),
+    calc(50% - var(--space-drift-x)) calc(50% - var(--space-drift-y)),
     center;
-  opacity: 0.82;
-  filter: saturate(1.02) contrast(1.02) brightness(0.78);
+  opacity: 0.96;
+  filter: saturate(1.28) contrast(1.08) brightness(1);
   transform: scale(var(--space-scale));
   transform-origin: center;
   will-change: background-position, transform, filter;
@@ -129,9 +134,9 @@ a {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 44% 18%, rgba(255, 243, 231, 0.008), transparent 32rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.05), transparent 28%, rgba(0, 0, 0, 0.2));
-  opacity: 0.22;
+    radial-gradient(ellipse at 44% 18%, rgba(255, 243, 231, 0.012), transparent 32rem),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 28%, rgba(0, 0, 0, 0.12));
+  opacity: 0.18;
 }
 
 .scroll-progress {

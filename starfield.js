@@ -51,10 +51,10 @@ function createNebulaTexture(seedOffset = 0) {
   ctx.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
 
   const base = ctx.createRadialGradient(780, 460, 40, 780, 460, 760);
-  base.addColorStop(0, "rgba(229, 173, 87, 0.26)");
-  base.addColorStop(0.23, "rgba(199, 120, 67, 0.11)");
-  base.addColorStop(0.48, "rgba(121, 208, 199, 0.08)");
-  base.addColorStop(0.75, "rgba(137, 103, 208, 0.045)");
+  base.addColorStop(0, "rgba(229, 173, 87, 0.44)");
+  base.addColorStop(0.23, "rgba(199, 120, 67, 0.22)");
+  base.addColorStop(0.48, "rgba(121, 208, 199, 0.18)");
+  base.addColorStop(0.75, "rgba(137, 103, 208, 0.12)");
   base.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
@@ -68,7 +68,7 @@ function createNebulaTexture(seedOffset = 0) {
     const y = -190 + Math.random() * 380;
     const w = 80 + Math.random() * 360;
     const h = 14 + Math.random() * 70;
-    const alpha = 0.012 + Math.random() * 0.03;
+    const alpha = 0.026 + Math.random() * 0.06;
     const hue = i % 3 === 0 ? "229, 173, 87" : i % 3 === 1 ? "121, 208, 199" : "137, 103, 208";
     ctx.filter = `blur(${10 + Math.random() * 28}px)`;
     ctx.fillStyle = `rgba(${hue}, ${alpha})`;
@@ -106,7 +106,7 @@ function createNebulaTexture(seedOffset = 0) {
 const nebulaMaterial = new THREE.MeshBasicMaterial({
   map: createNebulaTexture(0),
   transparent: true,
-  opacity: 0.58,
+  opacity: 0.78,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
@@ -119,7 +119,7 @@ scene.add(nebula);
 const farNebulaMaterial = new THREE.MeshBasicMaterial({
   map: createNebulaTexture(1),
   transparent: true,
-  opacity: 0.24,
+  opacity: 0.38,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
@@ -129,7 +129,7 @@ farNebula.position.set(8, -4, -82);
 farNebula.rotation.z = 0.18;
 scene.add(farNebula);
 
-const starCount = 1650;
+const starCount = 2200;
 const positions = new Float32Array(starCount * 3);
 const colors = new Float32Array(starCount * 3);
 const basePositions = [];
@@ -141,7 +141,7 @@ for (let i = 0; i < starCount; i += 1) {
   const x = (Math.random() - 0.5) * (96 + depth * 48);
   const y = (Math.random() - 0.5) * (58 + depth * 32);
   const z = -10 - Math.random() * 68;
-  const color = new THREE.Color().setHSL(Math.random() < 0.82 ? 0.105 + Math.random() * 0.035 : 0.48, 0.13, 0.78 + Math.random() * 0.16);
+  const color = new THREE.Color().setHSL(Math.random() < 0.78 ? 0.105 + Math.random() * 0.035 : 0.48 + Math.random() * 0.07, 0.2, 0.8 + Math.random() * 0.17);
 
   positions[i * 3] = x;
   positions[i * 3 + 1] = y;
@@ -160,7 +160,7 @@ starGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
 const starMaterial = new THREE.PointsMaterial({
   map: createStarTexture(),
-  size: 0.18,
+  size: 0.22,
   transparent: true,
   opacity: 0.78,
   vertexColors: true,
@@ -171,7 +171,7 @@ const starMaterial = new THREE.PointsMaterial({
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
 
-const brightStarCount = 70;
+const brightStarCount = 120;
 const brightPositions = new Float32Array(brightStarCount * 3);
 const brightColors = new Float32Array(brightStarCount * 3);
 const brightBases = [];
@@ -197,7 +197,7 @@ brightGeometry.setAttribute("color", new THREE.BufferAttribute(brightColors, 3))
 
 const brightMaterial = new THREE.PointsMaterial({
   map: createStarTexture(),
-  size: 0.48,
+  size: 0.58,
   transparent: true,
   opacity: 0.86,
   vertexColors: true,
@@ -345,16 +345,16 @@ function animate() {
   brightStars.rotation.copy(stars.rotation);
   brightStars.position.x = stars.position.x * 1.28;
   brightStars.position.y = stars.position.y * 1.2;
-  starMaterial.opacity = 0.58 + Math.sin(elapsed * 0.18) * 0.05;
-  brightMaterial.opacity = 0.56 + Math.sin(elapsed * 0.31) * 0.08;
+  starMaterial.opacity = 0.76 + Math.sin(elapsed * 0.18) * 0.06;
+  brightMaterial.opacity = 0.76 + Math.sin(elapsed * 0.31) * 0.1;
   nebula.position.x = -3 + Math.sin(scrollWave * 0.5 + elapsed * 0.035) * 2.8 + pointerX * 0.44;
   nebula.position.y = 1.8 + Math.cos(scrollWave * 0.45 + elapsed * 0.028) * 1.25 - pointerY * 0.24;
   nebula.rotation.z = -0.08 + scrollProgress * 0.16 + Math.sin(elapsed * 0.026) * 0.018;
-  nebulaMaterial.opacity = 0.32 + Math.sin(elapsed * 0.11 + scrollWave) * 0.045;
+  nebulaMaterial.opacity = 0.58 + Math.sin(elapsed * 0.11 + scrollWave) * 0.08;
   farNebula.position.x = 8 - Math.sin(scrollWave * 0.36 + elapsed * 0.023) * 2.2 + pointerX * 0.22;
   farNebula.position.y = -4 + Math.cos(scrollWave * 0.32 + elapsed * 0.02) * 0.9 - pointerY * 0.14;
   farNebula.rotation.z = 0.18 - scrollProgress * 0.11 + Math.cos(elapsed * 0.021) * 0.014;
-  farNebulaMaterial.opacity = 0.16 + Math.sin(elapsed * 0.09 + 1.4) * 0.03;
+  farNebulaMaterial.opacity = 0.32 + Math.sin(elapsed * 0.09 + 1.4) * 0.05;
 
   const positionAttr = starGeometry.attributes.position;
   const wrapHeight = 62;
