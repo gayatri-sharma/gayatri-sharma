@@ -253,6 +253,7 @@ nav a.is-active::after {
   display: grid;
   gap: 0.72rem;
   transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .section-orbit::before {
@@ -280,6 +281,7 @@ nav a.is-active::after {
     background 180ms ease,
     border-color 180ms ease,
     transform 180ms ease;
+  pointer-events: auto;
 }
 
 .section-orbit a span {
