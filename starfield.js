@@ -16,6 +16,12 @@ const motionItems = [
   ),
 ];
 const navLinks = [...document.querySelectorAll("nav a[href^='#']")];
+const orbitLinks = [...document.querySelectorAll(".section-orbit a[href^='#']")];
+const tiltCards = [
+  ...document.querySelectorAll(
+    ".impact-grid article, .role-card, .experience-row, .research-grid article, .skill-group, .education-row, .honor-card, .certifications article, .recommendation-card, .recommendation-spotlight, .beyond-panel",
+  ),
+];
 
 function createStarTexture() {
   const textureCanvas = document.createElement("canvas");
@@ -231,6 +237,27 @@ let targetScrollY = 0;
 window.addEventListener("pointermove", (event) => {
   pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
   pointerY = (event.clientY / window.innerHeight - 0.5) * 2;
+  document.body.style.setProperty("--cursor-x", `${event.clientX}px`);
+  document.body.style.setProperty("--cursor-y", `${event.clientY}px`);
+});
+
+tiltCards.forEach((card) => {
+  card.addEventListener("pointermove", (event) => {
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    card.style.setProperty("--tilt-x", `${((0.5 - y) * 4).toFixed(2)}deg`);
+    card.style.setProperty("--tilt-y", `${((x - 0.5) * 5).toFixed(2)}deg`);
+    card.style.setProperty("--glow-x", `${(x * 100).toFixed(1)}%`);
+    card.style.setProperty("--glow-y", `${(y * 100).toFixed(1)}%`);
+  });
+
+  card.addEventListener("pointerleave", () => {
+    card.style.setProperty("--tilt-x", "0deg");
+    card.style.setProperty("--tilt-y", "0deg");
+    card.style.setProperty("--glow-x", "50%");
+    card.style.setProperty("--glow-y", "0%");
+  });
 });
 
 function updateScrollProgress() {
@@ -284,6 +311,9 @@ function updateDepthSections() {
     }
   });
   navLinks.forEach((link) => {
+    link.classList.toggle("is-active", link.getAttribute("href") === `#${activeId}`);
+  });
+  orbitLinks.forEach((link) => {
     link.classList.toggle("is-active", link.getAttribute("href") === `#${activeId}`);
   });
 }
