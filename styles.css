@@ -987,12 +987,6 @@ footer {
   line-height: 1.12;
 }
 
-.honors-block {
-  margin-top: clamp(3rem, 6vw, 5rem);
-  padding-bottom: clamp(2.5rem, 5vw, 4rem);
-  border-bottom: 1px solid rgba(255, 176, 0, 0.16);
-}
-
 .honors-heading {
   max-width: 42rem;
 }
@@ -1046,7 +1040,6 @@ footer {
 }
 
 .certification-heading {
-  margin-top: clamp(2.6rem, 5vw, 4rem);
   max-width: 42rem;
 }
 
