@@ -492,36 +492,41 @@ h1 {
 }
 
 .hero-stats {
-  grid-column: 1;
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  max-width: 42rem;
-  margin: 1.7rem 0 0;
-  padding: 1px;
-  border: 1px solid rgba(229, 173, 87, 0.12);
+  gap: clamp(0.8rem, 1.8vw, 1.25rem);
+  max-width: none;
+  margin: 2.4rem 0 0;
+  padding: 0;
+  border: 0;
   border-radius: 8px;
-  background: rgba(229, 173, 87, 0.08);
+  background: transparent;
 }
 
 .hero-stats div {
-  min-height: 5rem;
-  padding: 0.85rem 0.95rem;
-  border-radius: 6px;
-  background: rgba(3, 4, 4, 0.72);
+  min-height: clamp(8.5rem, 12vw, 11rem);
+  padding: clamp(1.35rem, 2.5vw, 2rem);
+  border: 1px solid rgba(229, 173, 87, 0.22);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(229, 173, 87, 0.1), transparent 42%),
+    rgba(3, 4, 4, 0.78);
+  box-shadow: 0 18px 58px rgba(0, 0, 0, 0.24);
 }
 
 .hero-stats dt {
   color: var(--ink);
-  font-size: 0.9rem;
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
   font-weight: 800;
+  line-height: 1.1;
 }
 
 .hero-stats dd {
-  margin: 0.28rem 0 0;
+  margin: 0.7rem 0 0;
   color: rgba(205, 191, 180, 0.82);
-  font-size: 0.78rem;
-  line-height: 1.35;
+  font-size: clamp(1rem, 1.25vw, 1.16rem);
+  line-height: 1.4;
 }
 
 .button.ghost {
@@ -1666,6 +1671,15 @@ footer {
 
   .button {
     width: 100%;
+  }
+
+  .hero-stats {
+    gap: 0.6rem;
+  }
+
+  .hero-stats div {
+    min-height: 6.5rem;
+    padding: 1.05rem;
   }
 }
 
