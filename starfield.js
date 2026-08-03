@@ -50,11 +50,11 @@ function createNebulaTexture(seedOffset = 0) {
 
   ctx.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
 
-  const base = ctx.createRadialGradient(780, 460, 140, 780, 460, 780);
-  base.addColorStop(0, "rgba(229, 173, 87, 0.16)");
-  base.addColorStop(0.24, "rgba(199, 120, 67, 0.12)");
-  base.addColorStop(0.46, "rgba(121, 208, 199, 0.12)");
-  base.addColorStop(0.7, "rgba(137, 103, 208, 0.1)");
+  const base = ctx.createRadialGradient(780, 460, 180, 780, 460, 780);
+  base.addColorStop(0, "rgba(20, 28, 32, 0.02)");
+  base.addColorStop(0.25, "rgba(121, 208, 199, 0.06)");
+  base.addColorStop(0.48, "rgba(137, 103, 208, 0.08)");
+  base.addColorStop(0.72, "rgba(229, 173, 87, 0.055)");
   base.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
@@ -68,7 +68,7 @@ function createNebulaTexture(seedOffset = 0) {
     const y = -190 + Math.random() * 380;
     const w = 80 + Math.random() * 360;
     const h = 14 + Math.random() * 70;
-    const alpha = 0.018 + Math.random() * 0.04;
+    const alpha = 0.01 + Math.random() * 0.028;
     const hue = i % 3 === 0 ? "229, 173, 87" : i % 3 === 1 ? "121, 208, 199" : "137, 103, 208";
     ctx.filter = `blur(${10 + Math.random() * 28}px)`;
     ctx.fillStyle = `rgba(${hue}, ${alpha})`;
@@ -106,7 +106,7 @@ function createNebulaTexture(seedOffset = 0) {
 const nebulaMaterial = new THREE.MeshBasicMaterial({
   map: createNebulaTexture(0),
   transparent: true,
-  opacity: 0.78,
+  opacity: 0.42,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
@@ -119,7 +119,7 @@ scene.add(nebula);
 const farNebulaMaterial = new THREE.MeshBasicMaterial({
   map: createNebulaTexture(1),
   transparent: true,
-  opacity: 0.38,
+  opacity: 0.26,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
@@ -395,11 +395,11 @@ function animate() {
   nebula.position.x = -3 + Math.sin(scrollWave * 0.5 + elapsed * 0.035) * 2.8 + pointerX * 0.44;
   nebula.position.y = 1.8 + Math.cos(scrollWave * 0.45 + elapsed * 0.028) * 1.25 - pointerY * 0.24;
   nebula.rotation.z = -0.08 + scrollProgress * 0.16 + Math.sin(elapsed * 0.026) * 0.018;
-  nebulaMaterial.opacity = 0.58 + Math.sin(elapsed * 0.11 + scrollWave) * 0.08;
+  nebulaMaterial.opacity = 0.26 + Math.sin(elapsed * 0.11 + scrollWave) * 0.05;
   farNebula.position.x = 8 - Math.sin(scrollWave * 0.36 + elapsed * 0.023) * 2.2 + pointerX * 0.22;
   farNebula.position.y = -4 + Math.cos(scrollWave * 0.32 + elapsed * 0.02) * 0.9 - pointerY * 0.14;
   farNebula.rotation.z = 0.18 - scrollProgress * 0.11 + Math.cos(elapsed * 0.021) * 0.014;
-  farNebulaMaterial.opacity = 0.32 + Math.sin(elapsed * 0.09 + 1.4) * 0.05;
+  farNebulaMaterial.opacity = 0.18 + Math.sin(elapsed * 0.09 + 1.4) * 0.035;
   meteorMaterial.opacity = 0.38 + Math.sin(elapsed * 0.24) * 0.09;
 
   const meteorAttr = meteorGeometry.attributes.position;
