@@ -50,11 +50,11 @@ function createNebulaTexture(seedOffset = 0) {
 
   ctx.clearRect(0, 0, textureCanvas.width, textureCanvas.height);
 
-  const base = ctx.createRadialGradient(780, 460, 40, 780, 460, 760);
-  base.addColorStop(0, "rgba(229, 173, 87, 0.44)");
-  base.addColorStop(0.23, "rgba(199, 120, 67, 0.22)");
-  base.addColorStop(0.48, "rgba(121, 208, 199, 0.18)");
-  base.addColorStop(0.75, "rgba(137, 103, 208, 0.12)");
+  const base = ctx.createRadialGradient(780, 460, 140, 780, 460, 780);
+  base.addColorStop(0, "rgba(229, 173, 87, 0.16)");
+  base.addColorStop(0.24, "rgba(199, 120, 67, 0.12)");
+  base.addColorStop(0.46, "rgba(121, 208, 199, 0.12)");
+  base.addColorStop(0.7, "rgba(137, 103, 208, 0.1)");
   base.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, textureCanvas.width, textureCanvas.height);
@@ -68,7 +68,7 @@ function createNebulaTexture(seedOffset = 0) {
     const y = -190 + Math.random() * 380;
     const w = 80 + Math.random() * 360;
     const h = 14 + Math.random() * 70;
-    const alpha = 0.026 + Math.random() * 0.06;
+    const alpha = 0.018 + Math.random() * 0.04;
     const hue = i % 3 === 0 ? "229, 173, 87" : i % 3 === 1 ? "121, 208, 199" : "137, 103, 208";
     ctx.filter = `blur(${10 + Math.random() * 28}px)`;
     ctx.fillStyle = `rgba(${hue}, ${alpha})`;
@@ -128,6 +128,48 @@ const farNebula = new THREE.Mesh(new THREE.PlaneGeometry(142, 86), farNebulaMate
 farNebula.position.set(8, -4, -82);
 farNebula.rotation.z = 0.18;
 scene.add(farNebula);
+
+const meteorCount = 18;
+const meteorPositions = new Float32Array(meteorCount * 2 * 3);
+const meteorColors = new Float32Array(meteorCount * 2 * 3);
+const meteorBases = [];
+
+for (let i = 0; i < meteorCount; i += 1) {
+  const depth = Math.random();
+  const x = (Math.random() - 0.5) * 104;
+  const y = (Math.random() - 0.5) * 58;
+  const z = -12 - Math.random() * 48;
+  const length = 1.4 + Math.random() * 3.6;
+  const angle = -0.42 + Math.random() * 0.18;
+  const color = new THREE.Color().setHSL(Math.random() < 0.7 ? 0.105 : 0.5, 0.28, 0.78 + Math.random() * 0.14);
+
+  meteorBases.push({ x, y, z, length, angle, depth, phase: Math.random() * Math.PI * 2 });
+  for (let end = 0; end < 2; end += 1) {
+    const index = (i * 2 + end) * 3;
+    const alpha = end === 0 ? 0.05 : 1;
+    meteorPositions[index] = x;
+    meteorPositions[index + 1] = y;
+    meteorPositions[index + 2] = z;
+    meteorColors[index] = color.r * alpha;
+    meteorColors[index + 1] = color.g * alpha;
+    meteorColors[index + 2] = color.b * alpha;
+  }
+}
+
+const meteorGeometry = new THREE.BufferGeometry();
+meteorGeometry.setAttribute("position", new THREE.BufferAttribute(meteorPositions, 3));
+meteorGeometry.setAttribute("color", new THREE.BufferAttribute(meteorColors, 3));
+
+const meteorMaterial = new THREE.LineBasicMaterial({
+  transparent: true,
+  opacity: 0.54,
+  vertexColors: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+
+const meteors = new THREE.LineSegments(meteorGeometry, meteorMaterial);
+scene.add(meteors);
 
 const starCount = 2200;
 const positions = new Float32Array(starCount * 3);
@@ -345,6 +387,9 @@ function animate() {
   brightStars.rotation.copy(stars.rotation);
   brightStars.position.x = stars.position.x * 1.28;
   brightStars.position.y = stars.position.y * 1.2;
+  meteors.rotation.copy(stars.rotation);
+  meteors.position.x = stars.position.x * 1.08;
+  meteors.position.y = stars.position.y * 1.06;
   starMaterial.opacity = 0.76 + Math.sin(elapsed * 0.18) * 0.06;
   brightMaterial.opacity = 0.76 + Math.sin(elapsed * 0.31) * 0.1;
   nebula.position.x = -3 + Math.sin(scrollWave * 0.5 + elapsed * 0.035) * 2.8 + pointerX * 0.44;
@@ -355,6 +400,27 @@ function animate() {
   farNebula.position.y = -4 + Math.cos(scrollWave * 0.32 + elapsed * 0.02) * 0.9 - pointerY * 0.14;
   farNebula.rotation.z = 0.18 - scrollProgress * 0.11 + Math.cos(elapsed * 0.021) * 0.014;
   farNebulaMaterial.opacity = 0.32 + Math.sin(elapsed * 0.09 + 1.4) * 0.05;
+  meteorMaterial.opacity = 0.38 + Math.sin(elapsed * 0.24) * 0.09;
+
+  const meteorAttr = meteorGeometry.attributes.position;
+  const meteorWrapWidth = 112;
+  const meteorWrapHeight = 66;
+  for (let i = 0; i < meteorCount; i += 1) {
+    const base = meteorBases[i];
+    const travel = scrollY * (0.012 + base.depth * 0.04) + elapsed * (0.45 + base.depth * 1.2);
+    const headX = ((((base.x + travel * 1.15 + meteorWrapWidth / 2) % meteorWrapWidth) + meteorWrapWidth) % meteorWrapWidth) - meteorWrapWidth / 2;
+    const headY = ((((base.y - travel * 0.42 + meteorWrapHeight / 2) % meteorWrapHeight) + meteorWrapHeight) % meteorWrapHeight) - meteorWrapHeight / 2;
+    const tailX = headX - Math.cos(base.angle) * base.length;
+    const tailY = headY - Math.sin(base.angle) * base.length;
+    const tailIndex = i * 6;
+    meteorAttr.array[tailIndex] = tailX;
+    meteorAttr.array[tailIndex + 1] = tailY;
+    meteorAttr.array[tailIndex + 2] = base.z;
+    meteorAttr.array[tailIndex + 3] = headX;
+    meteorAttr.array[tailIndex + 4] = headY;
+    meteorAttr.array[tailIndex + 5] = base.z;
+  }
+  meteorAttr.needsUpdate = true;
 
   const positionAttr = starGeometry.attributes.position;
   const wrapHeight = 62;
