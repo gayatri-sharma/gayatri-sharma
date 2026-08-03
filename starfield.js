@@ -106,7 +106,7 @@ function createNebulaTexture(seedOffset = 0) {
 const nebulaMaterial = new THREE.MeshBasicMaterial({
   map: createNebulaTexture(0),
   transparent: true,
-  opacity: 0.42,
+  opacity: 0,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
@@ -119,7 +119,7 @@ scene.add(nebula);
 const farNebulaMaterial = new THREE.MeshBasicMaterial({
   map: createNebulaTexture(1),
   transparent: true,
-  opacity: 0.26,
+  opacity: 0,
   depthWrite: false,
   blending: THREE.AdditiveBlending,
 });
@@ -395,11 +395,11 @@ function animate() {
   nebula.position.x = -3 + Math.sin(scrollWave * 0.5 + elapsed * 0.035) * 2.8 + pointerX * 0.44;
   nebula.position.y = 1.8 + Math.cos(scrollWave * 0.45 + elapsed * 0.028) * 1.25 - pointerY * 0.24;
   nebula.rotation.z = -0.08 + scrollProgress * 0.16 + Math.sin(elapsed * 0.026) * 0.018;
-  nebulaMaterial.opacity = 0.26 + Math.sin(elapsed * 0.11 + scrollWave) * 0.05;
+  nebulaMaterial.opacity = 0;
   farNebula.position.x = 8 - Math.sin(scrollWave * 0.36 + elapsed * 0.023) * 2.2 + pointerX * 0.22;
   farNebula.position.y = -4 + Math.cos(scrollWave * 0.32 + elapsed * 0.02) * 0.9 - pointerY * 0.14;
   farNebula.rotation.z = 0.18 - scrollProgress * 0.11 + Math.cos(elapsed * 0.021) * 0.014;
-  farNebulaMaterial.opacity = 0.18 + Math.sin(elapsed * 0.09 + 1.4) * 0.035;
+  farNebulaMaterial.opacity = 0;
   meteorMaterial.opacity = 0.38 + Math.sin(elapsed * 0.24) * 0.09;
 
   const meteorAttr = meteorGeometry.attributes.position;
