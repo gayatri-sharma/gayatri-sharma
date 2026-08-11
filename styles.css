@@ -1335,6 +1335,36 @@ footer {
   text-transform: uppercase;
 }
 
+.experience-link {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 0.8rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid rgba(229, 173, 87, 0.24);
+  border-radius: 999px;
+  background: rgba(229, 173, 87, 0.075);
+  color: rgba(255, 247, 236, 0.86);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.experience-link:hover {
+  border-color: rgba(229, 173, 87, 0.62);
+  background: rgba(229, 173, 87, 0.16);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
 .research-section {
   background: transparent;
 }
