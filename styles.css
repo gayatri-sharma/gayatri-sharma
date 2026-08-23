@@ -1405,6 +1405,38 @@ footer {
   margin-bottom: 0.9rem;
 }
 
+.skill-note {
+  margin: -0.2rem 0 1rem;
+  color: rgba(255, 243, 231, 0.74);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.marketing-skill-card {
+  grid-column: span 2;
+  min-height: 14rem;
+  border-color: rgba(229, 173, 87, 0.28);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(229, 173, 87, 0.18), transparent 36%),
+    radial-gradient(circle at 88% 18%, rgba(121, 208, 199, 0.11), transparent 32%),
+    linear-gradient(135deg, rgba(229, 173, 87, 0.09), rgba(255, 255, 255, 0.02) 48%, rgba(0, 0, 0, 0.3)),
+    rgba(5, 6, 5, 0.78);
+}
+
+.marketing-skill-card h3 {
+  max-width: 24rem;
+  font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+}
+
+.marketing-skill-card .skill-list span:first-child,
+.marketing-skill-card .skill-list span:nth-child(2),
+.marketing-skill-card .skill-list span:nth-child(3),
+.marketing-skill-card .skill-list span:nth-child(4) {
+  border-color: rgba(229, 173, 87, 0.38);
+  background: rgba(229, 173, 87, 0.14);
+  color: var(--ink);
+}
+
 .skill-list {
   display: flex;
   flex-wrap: wrap;
@@ -1695,6 +1727,10 @@ footer {
 
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+
+  .marketing-skill-card {
+    grid-column: auto;
   }
 
   .role-card p,
