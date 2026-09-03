@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=recruiter-marketing-skills-20260823" />
+    <link rel="stylesheet" href="styles.css?v=astro-profile-bot-20260902" />
   </head>
   <body>
     <canvas id="data-viz" aria-hidden="true"></canvas>
@@ -847,11 +847,54 @@
       </section>
     </main>
 
+    <aside class="profile-bot" aria-label="Profile question assistant">
+      <button
+        class="bot-launcher"
+        type="button"
+        aria-label="Ask questions about Gayatri's profile"
+        aria-expanded="false"
+      >
+        <img src="assets/astro-profile-bot.png" alt="" />
+        <span>Ask my profile</span>
+      </button>
+      <section class="bot-panel" aria-live="polite" hidden>
+        <div class="bot-header">
+          <div>
+            <p class="bot-kicker">Profile assistant</p>
+            <h2>Ask Astro-GSK</h2>
+          </div>
+          <button class="bot-close" type="button" aria-label="Close profile assistant">x</button>
+        </div>
+        <div class="bot-messages" role="log" aria-label="Conversation with profile assistant">
+          <p class="bot-message bot-message-bot">
+            Hi, I can answer quick questions about Gayatri's experience, skills, research,
+            website work, education, and contact details.
+          </p>
+        </div>
+        <div class="bot-prompts" aria-label="Suggested profile questions">
+          <button type="button" data-question="What roles is Gayatri a fit for?">Best roles</button>
+          <button type="button" data-question="Tell me about the Belong website.">Belong site</button>
+          <button type="button" data-question="What are Gayatri's strongest skills?">Top skills</button>
+          <button type="button" data-question="How can I contact Gayatri?">Contact</button>
+        </div>
+        <form class="bot-form">
+          <input
+            type="text"
+            name="question"
+            autocomplete="off"
+            placeholder="Ask about my profile..."
+            aria-label="Ask about Gayatri's profile"
+          />
+          <button type="submit">Ask</button>
+        </form>
+      </section>
+    </aside>
+
     <footer>
       <span>Gayatri Sharma Kurmatey</span>
       <span>Data Engineering | AI/ML | Business Intelligence</span>
     </footer>
 
-    <script type="module" src="starfield.js?v=nav-clicks-20260802"></script>
+    <script type="module" src="starfield.js?v=astro-profile-bot-20260902"></script>
   </body>
 </html>

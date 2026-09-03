@@ -341,6 +341,126 @@ if (reducedMotion) {
   motionItems.forEach((item) => item.classList.add("is-visible"));
 }
 
+const profileBot = document.querySelector(".profile-bot");
+const botLauncher = document.querySelector(".bot-launcher");
+const botPanel = document.querySelector(".bot-panel");
+const botClose = document.querySelector(".bot-close");
+const botMessages = document.querySelector(".bot-messages");
+const botForm = document.querySelector(".bot-form");
+const botInput = document.querySelector(".bot-form input");
+const botPromptButtons = [...document.querySelectorAll(".bot-prompts button")];
+
+const profileAnswers = [
+  {
+    keys: ["role", "fit", "job", "hire", "position"],
+    answer:
+      "Gayatri is a strong fit for Data Engineer, Analytics Engineer, BI Developer, AI/ML Engineer, Data Scientist, and Data Analyst roles, especially where teams need someone who can build reliable data systems from zero to one.",
+  },
+  {
+    keys: ["belong", "website", "site", "automotive"],
+    answer:
+      "Gayatri built the Belong Automotive website and also leads data engineering, ERP workflow design, automation, and reporting work across supply chain, HR, inventory, purchasing, and demand planning.",
+  },
+  {
+    keys: ["skill", "stack", "tools", "technical", "technology"],
+    answer:
+      "Her core strengths include Python, SQL, PostgreSQL, Azure, Power BI, Tableau, ETL pipelines, automation, data modeling, BI dashboards, AI/ML workflows, and digital marketing analytics.",
+  },
+  {
+    keys: ["experience", "years", "background"],
+    answer:
+      "Gayatri has 6+ years of experience across data engineering, analytics, automation, dashboards, AI/ML, and research, with work spanning Belong Automotive, Tesla, PG&E, Amazon, ISRO, and NASA Ames-related research.",
+  },
+  {
+    keys: ["nasa", "research", "ml", "machine learning", "protein"],
+    answer:
+      "Her research work includes NASA Ames-related machine learning for graph-based protein structure analysis using BioPython, NetworkX, Graph2Vec, Weisfeiler-Lehman labeling, PCA, t-SNE, and clustering.",
+  },
+  {
+    keys: ["education", "degree", "school", "university"],
+    answer:
+      "Gayatri has an M.S. in Information Technology & Management from the University of Texas at Dallas and a B.Tech in Computer Science from Jawaharlal Nehru Technological University.",
+  },
+  {
+    keys: ["marketing", "seo", "growth", "analytics", "campaign"],
+    answer:
+      "She brings digital marketing skills across website strategy, SEO, Google Analytics, conversion tracking, landing page optimization, brand positioning, campaign performance, and marketing analytics.",
+  },
+  {
+    keys: ["contact", "linkedin", "reach", "email", "connect"],
+    answer:
+      "The fastest way to connect is through the Contact section or LinkedIn. Use the header Contact link, or jump to the bottom of the page to reach her profile link.",
+  },
+  {
+    keys: ["resume", "cv", "curriculum"],
+    answer:
+      "Her Curriculum Vitae is linked in the header. It opens the latest resume PDF directly from the portfolio.",
+  },
+];
+
+function addBotMessage(text, type = "bot") {
+  if (!botMessages) return;
+  const message = document.createElement("p");
+  message.className = `bot-message bot-message-${type}`;
+  message.textContent = text;
+  botMessages.append(message);
+  botMessages.scrollTop = botMessages.scrollHeight;
+}
+
+function answerProfileQuestion(question) {
+  const normalized = question.toLowerCase();
+  const matched = profileAnswers.find(({ keys }) => keys.some((key) => normalized.includes(key)));
+  return matched
+    ? matched.answer
+    : "Good question. Gayatri's profile centers on data engineering, BI, AI/ML, automation, applied research, and growth analytics. Try asking about roles, Belong, NASA research, skills, education, resume, or contact.";
+}
+
+function askProfileBot(question) {
+  const cleaned = question.trim();
+  if (!cleaned) return;
+  addBotMessage(cleaned, "user");
+  window.setTimeout(() => addBotMessage(answerProfileQuestion(cleaned)), reducedMotion ? 0 : 180);
+}
+
+function openProfileBot() {
+  if (!profileBot || !botLauncher || !botPanel) return;
+  profileBot.classList.add("is-open");
+  botPanel.hidden = false;
+  botLauncher.setAttribute("aria-expanded", "true");
+  window.setTimeout(() => botInput?.focus(), 80);
+}
+
+function closeProfileBot() {
+  if (!profileBot || !botLauncher || !botPanel) return;
+  profileBot.classList.remove("is-open");
+  botPanel.hidden = true;
+  botLauncher.setAttribute("aria-expanded", "false");
+  botLauncher.focus();
+}
+
+botLauncher?.addEventListener("click", () => {
+  if (botPanel?.hidden) {
+    openProfileBot();
+  } else {
+    closeProfileBot();
+  }
+});
+
+botClose?.addEventListener("click", closeProfileBot);
+
+botForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  askProfileBot(botInput.value);
+  botInput.value = "";
+});
+
+botPromptButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    openProfileBot();
+    askProfileBot(button.dataset.question || button.textContent);
+  });
+});
+
 function updateDepthSections() {
   const viewportCenter = window.innerHeight * 0.52;
   motionItems.forEach((item) => {
