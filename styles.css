@@ -1626,6 +1626,7 @@ footer {
   color: rgba(255, 243, 231, 0.86);
   font-size: 0.86rem;
   line-height: 1.45;
+  white-space: pre-line;
 }
 
 .bot-message-bot {

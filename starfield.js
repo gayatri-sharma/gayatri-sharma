@@ -350,51 +350,109 @@ const botForm = document.querySelector(".bot-form");
 const botInput = document.querySelector(".bot-form input");
 const botPromptButtons = [...document.querySelectorAll(".bot-prompts button")];
 
-const profileAnswers = [
+const roleProfiles = [
   {
-    keys: ["role", "fit", "job", "hire", "position"],
-    answer:
-      "Gayatri is a strong fit for Data Engineer, Analytics Engineer, BI Developer, AI/ML Engineer, Data Scientist, and Data Analyst roles, especially where teams need someone who can build reliable data systems from zero to one.",
+    label: "AI Engineer",
+    keys: ["ai engineer", "ai/ml", "machine learning engineer", "ml engineer", "genai", "llm"],
+    fit: "Yes - strong fit, especially for applied AI/ML roles that need engineering judgment.",
+    evidence: [
+      "Built ML workflows across research and business contexts, not only notebooks.",
+      "Has hands-on experience with LLMs, BERT, Transformers, PyTorch, TensorFlow, Scikit-Learn, graph ML, and computer vision.",
+      "NASA Ames-related research shows depth in graph-based protein structure analysis using BioPython, NetworkX, Graph2Vec, PCA, t-SNE, and clustering.",
+    ],
+    caveat:
+      "Best match: applied AI/ML, data+AI platforms, analytics automation, and research engineering. For a pure model-research role, ask about publication depth and production model ownership.",
+    next: "Review the Research and Skills sections, then open the CV.",
   },
   {
-    keys: ["belong", "website", "site", "automotive"],
-    answer:
-      "Gayatri built the Belong Automotive website and also leads data engineering, ERP workflow design, automation, and reporting work across supply chain, HR, inventory, purchasing, and demand planning.",
+    label: "Data Engineer",
+    keys: ["data engineer", "etl", "pipeline", "data platform", "analytics engineer"],
+    fit: "Yes - very strong fit.",
+    evidence: [
+      "6+ years across data pipelines, ETL/ELT, PostgreSQL, SQL Server, Azure Data Factory, dbt, dashboards, and automation.",
+      "Current Belong work includes ERP workflow design, supply chain, HR, inventory, purchasing, demand planning, and operational reporting.",
+      "She has repeatedly built systems from zero to one, which is useful for teams without mature data infrastructure.",
+    ],
+    caveat:
+      "Best match: data engineering roles with business impact, analytics engineering, BI platform work, and automation-heavy operations.",
+    next: "Start with Experience, then Skills, then CV.",
   },
   {
-    keys: ["skill", "stack", "tools", "technical", "technology"],
-    answer:
-      "Her core strengths include Python, SQL, PostgreSQL, Azure, Power BI, Tableau, ETL pipelines, automation, data modeling, BI dashboards, AI/ML workflows, and digital marketing analytics.",
+    label: "BI or Analytics Engineer",
+    keys: ["bi", "business intelligence", "dashboard", "analytics engineer", "power bi", "tableau"],
+    fit: "Yes - strong fit for BI and analytics engineering.",
+    evidence: [
+      "Built executive dashboards, KPI visibility tools, reporting workflows, and decision-ready analytics.",
+      "Uses Power BI, Tableau, SQL, DAX, Power Query, PostgreSQL, and data storytelling.",
+      "Recognized by senior leaders for automation and dashboard impact.",
+    ],
+    caveat:
+      "Best match: BI roles that need both technical backend work and leadership-ready reporting.",
+    next: "Review Experience and Honors & Recognition.",
   },
   {
-    keys: ["experience", "years", "background"],
-    answer:
-      "Gayatri has 6+ years of experience across data engineering, analytics, automation, dashboards, AI/ML, and research, with work spanning Belong Automotive, Tesla, PG&E, Amazon, ISRO, and NASA Ames-related research.",
+    label: "Data Scientist",
+    keys: ["data scientist", "data science", "experiment", "statistical", "forecast", "modeling"],
+    fit: "Yes - good fit, especially for practical data science tied to operations or research.",
+    evidence: [
+      "Experience includes statistical modeling, experimental design, hypothesis testing, ML workflows, forecasting, and research modeling.",
+      "Research background includes graph-based ML and clustering for protein structure analysis.",
+      "Business background helps translate models into dashboards, decisions, and automation.",
+    ],
+    caveat:
+      "Best match: applied data science, ML analytics, forecasting, research analytics, and cross-functional data science roles.",
+    next: "Review Research, Skills, and Experience.",
   },
   {
-    keys: ["nasa", "research", "ml", "machine learning", "protein"],
+    label: "Growth, Marketing Analytics, or Website Strategy",
+    keys: ["marketing", "growth", "seo", "website", "conversion", "campaign", "brand"],
+    fit: "Yes - good fit when the role connects website strategy with analytics and measurable growth.",
+    evidence: [
+      "Built the live Belong Automotive website.",
+      "Added digital marketing strengths in SEO, Google Analytics, conversion tracking, landing page optimization, content strategy, and campaign performance.",
+      "Her data background is useful for measuring what marketing work actually changes.",
+    ],
+    caveat:
+      "Best match: marketing analytics, growth analytics, website operations, and data-informed digital strategy rather than a purely creative brand role.",
+    next: "Review the Belong experience link and Digital Marketing & Growth skills.",
+  },
+];
+
+const topicAnswers = [
+  {
+    keys: ["interview", "why hire", "why should", "worth interviewing", "screen"],
     answer:
-      "Her research work includes NASA Ames-related machine learning for graph-based protein structure analysis using BioPython, NetworkX, Graph2Vec, Weisfeiler-Lehman labeling, PCA, t-SNE, and clustering.",
+      "Yes - she is worth interviewing if the team needs someone who can connect data engineering, analytics, automation, AI/ML, and business execution. The strongest signal is breadth with delivery: Belong, Tesla, PG&E, Amazon, ISRO, and NASA Ames-related research all point to someone who can work across messy real-world systems and turn them into usable reporting, workflows, or models.",
   },
   {
-    keys: ["education", "degree", "school", "university"],
+    keys: ["belong", "automotive"],
     answer:
-      "Gayatri has an M.S. in Information Technology & Management from the University of Texas at Dallas and a B.Tech in Computer Science from Jawaharlal Nehru Technological University.",
+      "Belong is a strong proof point because it combines two signals: she built the public website and she leads data/ERP/automation work behind the business. For a hiring manager, that says she can move between product presence, operational systems, and measurable reporting.",
   },
   {
-    keys: ["marketing", "seo", "growth", "analytics", "campaign"],
+    keys: ["zero to one", "startup", "founding", "early employee"],
     answer:
-      "She brings digital marketing skills across website strategy, SEO, Google Analytics, conversion tracking, landing page optimization, brand positioning, campaign performance, and marketing analytics.",
+      "Yes - her profile is especially strong for zero-to-one environments. She has experience being a zero-to-one employee, not only building zero-to-one features. That means she is comfortable creating systems, workflows, dashboards, and processes where the path is not already fully defined.",
   },
   {
     keys: ["contact", "linkedin", "reach", "email", "connect"],
     answer:
-      "The fastest way to connect is through the Contact section or LinkedIn. Use the header Contact link, or jump to the bottom of the page to reach her profile link.",
+      "Use the Contact section or the LinkedIn button at the bottom of the page. For recruiters, the fastest path is usually: review CV, scan Experience, then connect on LinkedIn with the role context.",
   },
   {
     keys: ["resume", "cv", "curriculum"],
     answer:
-      "Her Curriculum Vitae is linked in the header. It opens the latest resume PDF directly from the portfolio.",
+      "Open Curriculum Vitae from the header. If you are screening quickly, pair the CV with the Experience and Skills sections so the role fit is clear.",
+  },
+  {
+    keys: ["education", "degree", "school", "university"],
+    answer:
+      "She has an M.S. in Information Technology & Management from the University of Texas at Dallas and a B.Tech in Computer Science. That background supports her mix of engineering, analytics, AI/ML, and business systems work.",
+  },
+  {
+    keys: ["nasa", "research", "protein"],
+    answer:
+      "Her NASA Ames-related work is a good signal for AI/ML and research engineering roles. It shows she can work with graph-based representations, protein structure analysis, dimensionality reduction, clustering, and technical research workflows.",
   },
 ];
 
@@ -409,10 +467,38 @@ function addBotMessage(text, type = "bot") {
 
 function answerProfileQuestion(question) {
   const normalized = question.toLowerCase();
-  const matched = profileAnswers.find(({ keys }) => keys.some((key) => normalized.includes(key)));
-  return matched
-    ? matched.answer
-    : "Good question. Gayatri's profile centers on data engineering, BI, AI/ML, automation, applied research, and growth analytics. Try asking about roles, Belong, NASA research, skills, education, resume, or contact.";
+  const matchedRole = roleProfiles.find(({ keys }) => keys.some((key) => normalized.includes(key)));
+  if (matchedRole) {
+    return `${matchedRole.fit}
+
+Why:
+- ${matchedRole.evidence.join("\n- ")}
+
+Recruiter read: ${matchedRole.caveat}
+Next step: ${matchedRole.next}`;
+  }
+
+  const asksForFit = /\b(good|fit|qualified|hire|match|suitable|right)\b/.test(normalized);
+  if (asksForFit) {
+    return `Yes - she is strongest for roles that combine data engineering, analytics, BI, automation, and applied AI/ML.
+
+Why:
+- 6+ years across data pipelines, dashboards, workflow automation, and ML/research work.
+- Strong tools match: Python, SQL, PostgreSQL, Azure, Power BI, Tableau, ETL/ELT, AI/ML frameworks, and marketing analytics.
+- Clear zero-to-one signal: she has built teams, systems, workflows, websites, and reporting foundations where structure was still forming.
+
+Best-fit roles: Data Engineer, Analytics Engineer, BI Developer, AI/ML Engineer, Applied Data Scientist, and Marketing/Growth Analytics.`;
+  }
+
+  const matchedTopic = topicAnswers.find(({ keys }) => keys.some((key) => normalized.includes(key)));
+  if (matchedTopic) return matchedTopic.answer;
+
+  return `I can help screen Gayatri for a role. Try asking:
+- Is she a good fit for an AI Engineer role?
+- Is she strong for Data Engineering?
+- What makes her worth interviewing?
+- What proof does she have for zero-to-one work?
+- How does the Belong website connect to her skills?`;
 }
 
 function askProfileBot(question) {
