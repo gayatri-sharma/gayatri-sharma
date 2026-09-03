@@ -360,7 +360,7 @@ const roleProfiles = [
       "Has hands-on experience with LLMs, BERT, Transformers, PyTorch, TensorFlow, Scikit-Learn, graph ML, and computer vision.",
       "NASA Ames-related research shows depth in graph-based protein structure analysis using BioPython, NetworkX, Graph2Vec, PCA, t-SNE, and clustering.",
     ],
-    caveat:
+    note:
       "Best match: applied AI/ML, data+AI platforms, analytics automation, and research engineering. For a pure model-research role, ask about publication depth and production model ownership.",
     next: "Review the Research and Skills sections, then open the CV.",
   },
@@ -373,7 +373,7 @@ const roleProfiles = [
       "Current Belong work includes ERP workflow design, supply chain, HR, inventory, purchasing, demand planning, and operational reporting.",
       "She has repeatedly built systems from zero to one, which is useful for teams without mature data infrastructure.",
     ],
-    caveat:
+    note:
       "Best match: data engineering roles with business impact, analytics engineering, BI platform work, and automation-heavy operations.",
     next: "Start with Experience, then Skills, then CV.",
   },
@@ -386,7 +386,7 @@ const roleProfiles = [
       "Uses Power BI, Tableau, SQL, DAX, Power Query, PostgreSQL, and data storytelling.",
       "Recognized by senior leaders for automation and dashboard impact.",
     ],
-    caveat:
+    note:
       "Best match: BI roles that need both technical backend work and leadership-ready reporting.",
     next: "Review Experience and Honors & Recognition.",
   },
@@ -399,7 +399,7 @@ const roleProfiles = [
       "Research background includes graph-based ML and clustering for protein structure analysis.",
       "Business background helps translate models into dashboards, decisions, and automation.",
     ],
-    caveat:
+    note:
       "Best match: applied data science, ML analytics, forecasting, research analytics, and cross-functional data science roles.",
     next: "Review Research, Skills, and Experience.",
   },
@@ -412,7 +412,7 @@ const roleProfiles = [
       "Added digital marketing strengths in SEO, Google Analytics, conversion tracking, landing page optimization, content strategy, and campaign performance.",
       "Her data background is useful for measuring what marketing work actually changes.",
     ],
-    caveat:
+    note:
       "Best match: marketing analytics, growth analytics, website operations, and data-informed digital strategy rather than a purely creative brand role.",
     next: "Review the Belong experience link and Digital Marketing & Growth skills.",
   },
@@ -442,7 +442,7 @@ const topicAnswers = [
   {
     keys: ["resume", "cv", "curriculum"],
     answer:
-      "Open Curriculum Vitae from the header. If you are screening quickly, pair the CV with the Experience and Skills sections so the role fit is clear.",
+      "Open Curriculum Vitae from the header. For the quickest picture, pair the CV with the Experience and Skills sections.",
   },
   {
     keys: ["education", "degree", "school", "university"],
@@ -474,7 +474,7 @@ function answerProfileQuestion(question) {
 Why:
 - ${matchedRole.evidence.join("\n- ")}
 
-Recruiter read: ${matchedRole.caveat}
+My take: ${matchedRole.note}
 Next step: ${matchedRole.next}`;
   }
 
