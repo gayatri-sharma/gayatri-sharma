@@ -1513,46 +1513,83 @@ footer {
 .bot-launcher {
   display: flex;
   align-items: center;
-  gap: 0.72rem;
-  max-width: 13.5rem;
-  padding: 0.46rem 0.85rem 0.46rem 0.5rem;
-  border: 1px solid rgba(229, 173, 87, 0.34);
-  border-radius: 999px;
+  gap: 0.65rem;
+  max-width: 17rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
   background:
-    radial-gradient(circle at 24% 18%, rgba(121, 208, 199, 0.24), transparent 34%),
-    linear-gradient(135deg, rgba(255, 247, 236, 0.12), rgba(229, 173, 87, 0.08)),
-    rgba(2, 3, 4, 0.82);
+    radial-gradient(circle at 24% 22%, rgba(42, 102, 157, 0.22), transparent 40%),
+    rgba(5, 9, 20, 0.36);
   color: var(--ink);
-  box-shadow:
-    0 18px 58px rgba(0, 0, 0, 0.44),
-    0 0 28px rgba(229, 173, 87, 0.13);
+  box-shadow: none;
   cursor: pointer;
   font: inherit;
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
   transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
+    filter 180ms ease,
     transform 180ms ease;
 }
 
 .bot-launcher:hover {
-  border-color: rgba(229, 173, 87, 0.72);
-  box-shadow:
-    0 22px 70px rgba(0, 0, 0, 0.5),
-    0 0 36px rgba(229, 173, 87, 0.22);
+  filter: brightness(1.08);
   transform: translateY(-2px);
 }
 
-.bot-launcher img {
-  width: 3.2rem;
-  height: 3.2rem;
-  object-fit: contain;
+.bot-orbit {
+  display: grid;
+  place-items: center;
+  width: 4.9rem;
+  height: 4.9rem;
+  overflow: hidden;
+  border: 1px solid rgba(118, 162, 190, 0.28);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 48% 42%, rgba(29, 70, 113, 0.4), transparent 52%),
+    #071126;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(72, 130, 170, 0.12);
   animation: bot-float 3.8s ease-in-out infinite;
+}
+
+.bot-orbit img {
+  width: 8rem;
+  height: 6rem;
+  object-fit: cover;
+  object-position: 50% 48%;
   filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.42));
+}
+
+.bot-speech {
+  position: relative;
+  max-width: 11rem;
+  padding: 0.66rem 0.82rem;
+  border: 1px solid rgba(229, 173, 87, 0.3);
+  border-radius: 16px 16px 16px 4px;
+  background:
+    radial-gradient(circle at 16% 10%, rgba(121, 208, 199, 0.12), transparent 38%),
+    linear-gradient(135deg, rgba(9, 20, 42, 0.95), rgba(2, 4, 10, 0.92));
+  color: rgba(255, 247, 236, 0.92);
+  box-shadow:
+    0 16px 46px rgba(0, 0, 0, 0.46),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.bot-speech::before {
+  content: "";
+  position: absolute;
+  left: -0.38rem;
+  bottom: 0.78rem;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-left: 1px solid rgba(229, 173, 87, 0.3);
+  border-bottom: 1px solid rgba(229, 173, 87, 0.3);
+  background: #081329;
+  transform: rotate(45deg);
 }
 
 .bot-panel {
@@ -1991,7 +2028,7 @@ footer {
     scroll-behavior: auto;
   }
 
-  .bot-launcher img {
+  .bot-orbit {
     animation: none;
   }
 
