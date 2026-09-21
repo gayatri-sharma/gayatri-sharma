@@ -17,13 +17,30 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     steps:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Check JavaScript syntax
         run: node --check starfield.js
-      - name: Check site links and resume
-        run: python3 scripts/check_site.py
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: python -m pip install "pytest>=8,<10"
+      - name: Test portfolio
+        run: python -m pytest --verbose --junitxml=junit.xml
+      - name: Publish test report
+        if: (success() || failure()) && hashFiles('junit.xml') != ''
+        uses: mikepenz/action-junit-report@v6
+        with:
+          report_paths: junit.xml
+          detailed_summary: true
+          include_passed: true
+          annotate_only: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
 
   deploy:
     if: github.event_name != 'pull_request'
