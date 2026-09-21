@@ -1,0 +1,43 @@
+name: Monthly portfolio review
+
+on:
+  schedule:
+    - cron: "17 16 1 * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create monthly review issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const month = new Date().toISOString().slice(0, 7);
+            const title = `Portfolio content review: ${month}`;
+            const q = `repo:${context.repo.owner}/${context.repo.repo} is:issue in:title "${title}"`;
+            const { data } = await github.rest.search.issuesAndPullRequests({ q, per_page: 100 });
+            if (data.items.some(issue => issue.title === title)) {
+              core.info(`Review issue already exists: ${title}`);
+              return;
+            }
+
+            await github.rest.issues.create({
+              ...context.repo,
+              title,
+              assignees: [context.repo.owner],
+              body: [
+                'Review the portfolio and update anything that has changed:',
+                '',
+                '- [ ] Experience, dates, roles, and measurable outcomes',
+                '- [ ] Skills, projects, links, and contact details',
+                '- [ ] Resume PDF in `assets/` and its link in `index.html`',
+                '- [ ] "Last updated" date in the header after making content changes',
+                '- [ ] Check the live site after changes are published',
+                '',
+                'Close this issue when the review is complete. No changes are made automatically.'
+              ].join('\n')
+            });
