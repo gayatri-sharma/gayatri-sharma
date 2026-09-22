@@ -356,6 +356,7 @@ const roleProfiles = [
     keys: ["ai engineer", "ai/ml", "machine learning engineer", "ml engineer", "genai", "llm"],
     fit: "Yes - strong fit, especially for applied AI/ML roles that need engineering judgment.",
     evidence: [
+      "Built VoltX, a full-stack EV charging intelligence platform using the Tesla Fleet API, Python, FastAPI, React, OAuth 2.0, and geospatial logic.",
       "Built ML workflows across research and business contexts, not only notebooks.",
       "Has hands-on experience with LLMs, BERT, Transformers, PyTorch, TensorFlow, Scikit-Learn, graph ML, and computer vision.",
       "NASA Ames-related research shows depth in graph-based protein structure analysis using BioPython, NetworkX, Graph2Vec, PCA, t-SNE, and clustering.",
@@ -370,7 +371,7 @@ const roleProfiles = [
     fit: "Yes - very strong fit.",
     evidence: [
       "6+ years across data pipelines, ETL/ELT, PostgreSQL, SQL Server, Azure Data Factory, dbt, dashboards, and automation.",
-      "Current Belong work includes ERP workflow design, supply chain, HR, inventory, purchasing, demand planning, and operational reporting.",
+      "Belong work includes ERP workflow design, supply chain, HR, inventory, purchasing, demand planning, and operational reporting.",
       "She has repeatedly built systems from zero to one, which is useful for teams without mature data infrastructure.",
     ],
     note:
@@ -420,6 +421,11 @@ const roleProfiles = [
 
 const topicAnswers = [
   {
+    keys: ["voltx", "charging", "tesla fleet", "ev project", "supercharger"],
+    answer:
+      "VoltX is Gayatri's full-stack EV charging intelligence project. It uses the Tesla Fleet API Developer platform, Python, FastAPI, React, OAuth 2.0, and geospatial logic to retrieve vehicle state and nearby Superchargers, then deliver proactive browser and mobile alerts. She is extending it with historical rate analysis, cost optimization, and predictive charging recommendations. Open the Projects section to try the live demo.",
+  },
+  {
     keys: ["interview", "why hire", "why should", "worth interviewing", "screen"],
     answer:
       "Yes - she is worth interviewing if the team needs someone who can connect data engineering, analytics, automation, AI/ML, and business execution. The strongest signal is breadth with delivery: Belong, Tesla, PG&E, Amazon, ISRO, and NASA Ames-related research all point to someone who can work across messy real-world systems and turn them into usable reporting, workflows, or models.",
@@ -435,9 +441,9 @@ const topicAnswers = [
       "Yes - her profile is especially strong for zero-to-one environments. She has experience being a zero-to-one employee, not only building zero-to-one features. That means she is comfortable creating systems, workflows, dashboards, and processes where the path is not already fully defined.",
   },
   {
-    keys: ["contact", "linkedin", "reach", "email", "connect"],
+    keys: ["contact", "linkedin", "github", "reach", "email", "connect"],
     answer:
-      "Use the Contact section or the LinkedIn button at the bottom of the page. For recruiters, the fastest path is usually: review CV, scan Experience, then connect on LinkedIn with the role context.",
+      "Use the Contact section for Gayatri's LinkedIn and GitHub profiles. For recruiters, the fastest path is usually: review the CV, scan Experience and Projects, then connect on LinkedIn with the role context.",
   },
   {
     keys: ["resume", "cv", "curriculum"],
@@ -498,6 +504,7 @@ Best-fit roles: Data Engineer, Analytics Engineer, BI Developer, AI/ML Engineer,
 - Is she strong for Data Engineering?
 - What makes her worth interviewing?
 - What proof does she have for zero-to-one work?
+- What did she build with VoltX?
 - How does the Belong website connect to her skills?`;
 }
 

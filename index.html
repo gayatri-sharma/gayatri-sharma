@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=astronaut-bubble-bot-20260903" />
+    <link rel="stylesheet" href="styles.css?v=voltx-20260922" />
   </head>
   <body>
     <canvas id="data-viz" aria-hidden="true"></canvas>
@@ -25,15 +25,16 @@
     <header class="site-header">
       <div class="header-branding">
         <a class="brand" href="#top" aria-label="Gayatri Sharma Kurmatey home">GSK</a>
-        <p class="last-updated">Last updated September 3, 2026</p>
+        <p class="last-updated">Last updated September 22, 2026</p>
       </div>
       <nav aria-label="Primary navigation">
         <a href="#roles">Roles</a>
         <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
         <a href="#research">Research</a>
         <a href="#education">Education</a>
         <a href="#honors">Honors</a>
-        <a href="assets/Resume_GayatriSharmaKurmatey.pdf?v=20260903" target="_blank" rel="noreferrer">Curriculum Vitae</a>
+        <a href="assets/Resume_GayatriSharmaKurmatey.pdf?v=20260922" target="_blank" rel="noreferrer">Curriculum Vitae</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -42,6 +43,7 @@
       <a href="#impact"><span>Impact</span></a>
       <a href="#roles"><span>Roles</span></a>
       <a href="#experience"><span>Experience</span></a>
+      <a href="#projects"><span>Projects</span></a>
       <a href="#research"><span>Research</span></a>
       <a href="#skills"><span>Skills</span></a>
       <a href="#education"><span>Education</span></a>
@@ -138,6 +140,60 @@
             </p>
           </article>
         </div>
+      </section>
+
+      <section id="projects" class="section projects-section">
+        <div class="section-heading">
+          <p class="eyebrow">Featured Project</p>
+          <h2>Product thinking, full-stack engineering, and real-time EV intelligence.</h2>
+        </div>
+        <article class="featured-project">
+          <div class="project-overview">
+            <p class="project-status"><span aria-hidden="true"></span>In active development</p>
+            <h3>VoltX</h3>
+            <p class="project-subtitle">EV Charging Intelligence Agent</p>
+            <p>
+              A full-stack EV charging intelligence platform built on the Tesla Fleet API
+              Developer platform. VoltX retrieves vehicle state and nearby Superchargers, applies
+              geospatial logic, and sends proactive browser and mobile alerts so drivers spend less
+              time checking charging rates or repeatedly opening the Tesla app.
+            </p>
+            <div class="project-actions">
+              <a
+                class="button primary"
+                href="https://gayatri-sharma.github.io/voltx-demo/?fresh=ratecolors2"
+                target="_blank"
+                rel="noreferrer"
+              >View live demo</a>
+              <a
+                class="button ghost"
+                href="https://github.com/gayatri-sharma"
+                target="_blank"
+                rel="noreferrer"
+              >View GitHub</a>
+            </div>
+          </div>
+          <div class="project-details">
+            <div>
+              <p class="project-detail-label">Built with</p>
+              <ul class="project-stack" aria-label="VoltX technology stack">
+                <li>Python</li>
+                <li>FastAPI</li>
+                <li>React</li>
+                <li>Tesla Fleet API</li>
+                <li>OAuth 2.0</li>
+                <li>Geospatial logic</li>
+              </ul>
+            </div>
+            <div>
+              <p class="project-detail-label">Next intelligence layer</p>
+              <p>
+                Historical rate analysis, cost optimization, and predictive charging
+                recommendations with secure server-side credential handling.
+              </p>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section id="roles" class="section roles-section">
@@ -238,7 +294,7 @@
             <div>
               <h3>Belong Automotive Technologies</h3>
               <p class="company">Project Lead Data Engineer</p>
-              <p class="experience-date">Oct 2025 - Present</p>
+              <p class="experience-date">Oct 2025 - Jul 2026</p>
               <a
                 class="experience-link"
                 href="https://www.belong-usa.com/"
@@ -257,7 +313,7 @@
             <div>
               <h3>SkyTech Inc</h3>
               <p class="company">Data Analyst</p>
-              <p class="experience-date">Sep 2025 - Oct 2025</p>
+              <p class="experience-date">Oct 2024 - Sep 2025</p>
             </div>
             <p>
               Worked on HR data integration, dashboard adoption, RBAC automation, and Azure-based
@@ -470,6 +526,14 @@
               <span>A/B Testing</span><span>Experimental Design</span><span>Hypothesis Testing</span>
               <span>AML</span><span>Fraud Detection</span><span>Risk Dashboards</span><span>FP&A</span>
               <span>Advanced Excel</span><span>VBA</span><span>JIRA</span><span>Confluence</span>
+            </div>
+          </article>
+          <article class="skill-group">
+            <h3>APIs & Application Development</h3>
+            <div class="skill-list">
+              <span>Tesla Fleet API</span><span>REST APIs</span><span>OAuth 2.0</span>
+              <span>FastAPI</span><span>React</span><span>Geospatial Logic</span>
+              <span>Browser & Mobile Notifications</span><span>Event-Driven Architecture</span>
             </div>
           </article>
           <article class="skill-group marketing-skill-card">
@@ -839,6 +903,12 @@
             target="_blank"
             rel="noreferrer"
           >Connect with me</a>
+          <a
+            class="button ghost"
+            href="https://github.com/gayatri-sharma"
+            target="_blank"
+            rel="noreferrer"
+          >GitHub</a>
           <a class="button ghost back-to-top" href="#top" aria-label="Back to top">
             <span aria-hidden="true">&uarr;</span>
             Back to top
@@ -877,6 +947,7 @@
           <button type="button" data-question="Is Gayatri a good fit for an AI Engineer role?">AI fit</button>
           <button type="button" data-question="Is Gayatri a good fit for a Data Engineer role?">Data fit</button>
           <button type="button" data-question="Why should a hiring manager interview Gayatri?">Why interview</button>
+          <button type="button" data-question="Tell me about Gayatri's VoltX project.">VoltX</button>
           <button type="button" data-question="Tell me about the Belong website.">Belong site</button>
         </div>
         <form class="bot-form">
@@ -897,6 +968,6 @@
       <span>Data Engineering | AI/ML | Business Intelligence</span>
     </footer>
 
-    <script type="module" src="starfield.js?v=astronaut-bubble-bot-20260903"></script>
+    <script type="module" src="starfield.js?v=voltx-20260922"></script>
   </body>
 </html>
