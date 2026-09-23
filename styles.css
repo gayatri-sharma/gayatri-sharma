@@ -796,6 +796,23 @@ h1 {
   pointer-events: none;
 }
 
+.portfolio-project {
+  margin-top: 1.25rem;
+  border-color: rgba(121, 208, 199, 0.26);
+  background:
+    radial-gradient(circle at 82% 20%, rgba(121, 208, 199, 0.14), transparent 28%),
+    radial-gradient(circle at 8% 100%, rgba(137, 103, 208, 0.12), transparent 32%),
+    rgba(5, 8, 10, 0.9);
+}
+
+.portfolio-project::after {
+  content: "AI";
+}
+
+.portfolio-project h3 {
+  font-size: clamp(2.7rem, 5.8vw, 5.4rem);
+}
+
 .project-overview,
 .project-details {
   position: relative;

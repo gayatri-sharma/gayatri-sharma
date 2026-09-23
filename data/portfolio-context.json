@@ -90,6 +90,23 @@
       "demo": "https://gayatri-sharma.github.io/voltx-demo/?fresh=ratecolors2"
     },
     {
+      "name": "AI Portfolio",
+      "status": "Live and continuously deployed",
+      "description": "An interactive portfolio designed as a recruiter-facing data and AI/ML experience. It combines a responsive visual system, an AI assistant grounded in portfolio data, and a secure serverless backend.",
+      "implemented": [
+        "Responsive portfolio design with HTML, CSS, and JavaScript",
+        "Recruiter-facing AI assistant",
+        "Hugging Face Inference Providers",
+        "Cloudflare Workers backend",
+        "GitHub Pages hosting",
+        "GitHub Actions CI/CD",
+        "Automated tests and deployment",
+        "Open Graph link preview metadata"
+      ],
+      "url": "https://gayatri-sharma.github.io/gayatri-sharma/",
+      "source": "https://github.com/gayatri-sharma/gayatri-sharma"
+    },
+    {
       "name": "Belong Automotive website",
       "description": "Gayatri built the live public website for Belong Automotive and connected website strategy with SEO, analytics, conversion tracking, and content considerations.",
       "url": "https://www.belong-usa.com/"
