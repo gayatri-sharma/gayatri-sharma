@@ -94,7 +94,7 @@ export default {
       const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
         method: "POST",
         headers: { Authorization: `Bearer ${env.HF_TOKEN}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ model, messages, temperature: 0.2, max_tokens: 180, stream: false }),
+        body: JSON.stringify({ model, messages, temperature: 0.2, max_tokens: 400, reasoning_effort: "low", stream: false }),
       });
       const rawPayload = await response.text();
       let payload = {};
