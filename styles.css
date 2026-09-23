@@ -784,10 +784,6 @@ h1 {
   backdrop-filter: blur(16px);
 }
 
-.featured-project::after {
-  content: none;
-}
-
 .portfolio-project {
   margin-top: 1.25rem;
   border-color: rgba(121, 208, 199, 0.26);
@@ -795,10 +791,6 @@ h1 {
     radial-gradient(circle at 82% 20%, rgba(121, 208, 199, 0.14), transparent 28%),
     radial-gradient(circle at 8% 100%, rgba(137, 103, 208, 0.12), transparent 32%),
     rgba(5, 8, 10, 0.9);
-}
-
-.portfolio-project::after {
-  content: none;
 }
 
 .featured-project.portfolio-project h3 {
