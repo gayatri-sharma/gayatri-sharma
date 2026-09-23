@@ -1,6 +1,6 @@
 import portfolioContext from "../../data/portfolio-context.json";
 
-const DEFAULT_MODEL = "Qwen/Qwen3-14B";
+const DEFAULT_MODEL = "Qwen/Qwen2.5-7B-Instruct";
 const ALLOWED_ORIGIN = "https://gayatri-sharma.github.io";
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 20;
@@ -93,7 +93,7 @@ export default {
       const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
         method: "POST",
         headers: { Authorization: `Bearer ${env.HF_TOKEN}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ model: env.HF_MODEL || DEFAULT_MODEL, messages, temperature: 0.2, max_tokens: 500 }),
+        body: JSON.stringify({ model: env.HF_MODEL || DEFAULT_MODEL, messages, temperature: 0.2, max_tokens: 300 }),
       });
       const payload = await response.json();
       if (!response.ok) throw new Error(payload?.error || "Hugging Face request failed.");
