@@ -1,6 +1,6 @@
 import portfolioContext from "../../data/portfolio-context.json";
 
-const DEFAULT_MODEL = "Qwen/Qwen3-14B:nscale";
+const DEFAULT_MODEL = "Qwen/Qwen3-14B";
 const ALLOWED_ORIGIN = "https://gayatri-sharma.github.io";
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 20;
