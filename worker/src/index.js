@@ -108,7 +108,11 @@ export default {
         throw new Error(`Hugging Face ${response.status}: ${detail}`);
       }
       const message = payload?.choices?.[0]?.message || {};
-      const answer = (message.content || message.reasoning_content || "").trim();
+      const content = message.content || message.reasoning_content || payload?.choices?.[0]?.text || payload?.output_text || "";
+      const answer = (Array.isArray(content)
+        ? content.map((part) => typeof part === "string" ? part : part?.text || part?.content || "").join("")
+        : String(content)
+      ).trim();
       if (!answer) throw new Error("Hugging Face returned an empty answer.");
       return json({ answer }, 200, origin);
     } catch (error) {
