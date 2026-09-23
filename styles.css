@@ -810,7 +810,8 @@ h1 {
 }
 
 .portfolio-project h3 {
-  font-size: clamp(2.7rem, 5.8vw, 5.4rem);
+  font-size: clamp(2.35rem, 4.2vw, 4rem);
+  line-height: 0.98;
 }
 
 .project-overview,
