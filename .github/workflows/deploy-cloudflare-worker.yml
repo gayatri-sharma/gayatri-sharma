@@ -7,7 +7,6 @@ on:
       - "worker/**"
       - "data/portfolio-context.json"
       - ".github/workflows/deploy-cloudflare-worker.yml"
-  workflow_dispatch:
 
 permissions:
   contents: read
