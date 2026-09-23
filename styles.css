@@ -857,11 +857,17 @@ h1 {
   align-items: center;
   gap: 0.55rem;
   margin: 0;
-  color: rgba(255, 247, 236, 0.88);
+  overflow: hidden;
+  padding: 0.58rem 0.82rem;
+  border: 1px solid rgba(121, 208, 199, 0.28);
+  border-radius: 999px;
+  background: linear-gradient(105deg, rgba(121, 208, 199, 0.1), rgba(229, 173, 87, 0.08));
+  color: rgba(255, 247, 236, 0.92);
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   animation: project-current-in 700ms cubic-bezier(0.2, 0.75, 0.18, 1) both;
+  box-shadow: 0 0 0 rgba(121, 208, 199, 0), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .project-current::before {
@@ -876,7 +882,27 @@ h1 {
 }
 
 .project-current span {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(105deg, rgba(255, 247, 236, 0.72) 20%, #fff7ec 42%, #e5ad57 52%, rgba(255, 247, 236, 0.72) 70%);
+  background-size: 220% 100%;
+  background-position: 160% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
   animation: project-current-highlight 4.8s ease-in-out infinite;
+}
+
+.project-current::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35%;
+  width: 24%;
+  background: linear-gradient(90deg, transparent, rgba(255, 247, 236, 0.16), transparent);
+  transform: skewX(-18deg);
+  animation: project-current-sheen 4.8s ease-in-out infinite;
 }
 
 @keyframes project-current-in {
@@ -903,12 +929,21 @@ h1 {
 @keyframes project-current-highlight {
   0%,
   100% {
-    color: rgba(255, 247, 236, 0.78);
-    text-shadow: 0 0 0 rgba(229, 173, 87, 0);
+    background-position: 160% 0;
   }
   48% {
-    color: rgba(255, 247, 236, 0.98);
-    text-shadow: 0 0 1rem rgba(229, 173, 87, 0.18);
+    background-position: -30% 0;
+  }
+}
+
+@keyframes project-current-sheen {
+  0%,
+  34% {
+    left: -35%;
+  }
+  64%,
+  100% {
+    left: 125%;
   }
 }
 
@@ -2393,7 +2428,8 @@ footer {
 
   .project-current,
   .project-current::before,
-  .project-current span {
+  .project-current span,
+  .project-current::after {
     animation: none;
   }
 
