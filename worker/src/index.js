@@ -1,6 +1,6 @@
 import portfolioContext from "../../data/portfolio-context.json";
 
-const DEFAULT_MODEL = "Qwen/Qwen2.5-7B-Instruct";
+const DEFAULT_MODEL = "openai/gpt-oss-20b:fastest";
 const ALLOWED_ORIGIN = "https://gayatri-sharma.github.io";
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 20;
