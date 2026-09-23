@@ -1870,6 +1870,22 @@ footer {
   background: rgba(255, 255, 255, 0.055);
 }
 
+.bot-message-line {
+  display: block;
+}
+
+.bot-message-bullet {
+  margin-top: 0.3rem;
+  padding-left: 0.15rem;
+}
+
+.bot-message a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
 .bot-message-user {
   justify-self: end;
   border-color: rgba(229, 173, 87, 0.24);
