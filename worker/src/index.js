@@ -96,7 +96,13 @@ export default {
         headers: { Authorization: `Bearer ${env.HF_TOKEN}`, "Content-Type": "application/json" },
         body: JSON.stringify({ model, messages, temperature: 0.2, max_tokens: 180, stream: false }),
       });
-      const payload = await response.json();
+      const rawPayload = await response.text();
+      let payload = {};
+      try {
+        payload = rawPayload ? JSON.parse(rawPayload) : {};
+      } catch {
+        payload = { error: rawPayload.slice(0, 240) };
+      }
       if (!response.ok) {
         const detail = typeof payload?.error === "string" ? payload.error : JSON.stringify(payload?.error || payload);
         throw new Error(`Hugging Face ${response.status}: ${detail}`);
@@ -107,7 +113,10 @@ export default {
       return json({ answer }, 200, origin);
     } catch (error) {
       console.error("Portfolio assistant error:", error.message);
-      return json({ error: "The portfolio assistant is temporarily unavailable." }, 503, origin);
+      const diagnostic = error.message.startsWith("Hugging Face ")
+        ? `The AI provider returned an error: ${error.message}. Please try again shortly.`
+        : "The portfolio assistant is temporarily unavailable.";
+      return json({ error: diagnostic }, 503, origin);
     }
   },
 };
