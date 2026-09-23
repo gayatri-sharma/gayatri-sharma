@@ -11,7 +11,7 @@ Portfolio for Gayatri Sharma Kurmatey, a Data Engineer and AI/ML Engineer based 
 ```text
 GitHub Pages portfolio
   -> portfolio-chat.js
-  -> secure Node API
+  -> Hugging Face Docker Space (secure Node API)
   -> LangChain prompt chain
   -> Hugging Face Inference Providers
        + data/portfolio-context.json
@@ -40,23 +40,23 @@ Requirements: Node.js 20+ and Python 3.12+.
 
 ## Deployment
 
-The frontend remains on GitHub Pages through `.github/workflows/pages.yml`.
+The frontend remains on GitHub Pages through `.github/workflows/pages.yml`. The backend is deployed as a Hugging Face Docker Space using `hf-space/Dockerfile` and synchronized by `.github/workflows/deploy-huggingface-space.yml`.
 
-Deploy the repository as a Node web service on a host that supports Node 20+ (for example Render, Railway, Fly.io, or a container host):
+Create a new Hugging Face Space with the Docker SDK, then configure:
 
-- Build command: `pnpm install --frozen-lockfile`
-- Start command: `pnpm start`
-- Health check: `/health`
-- Add `HF_TOKEN` as a secret in the backend host
-- Set `ALLOWED_ORIGINS=https://gayatri-sharma.github.io`
+- Repository variable: `HF_SPACE_ID`, in the form `username/space-name`
+- Repository secret: `HF_TOKEN`, with permission to write to the Space and call Inference Providers
+- Space secret: `HF_TOKEN`, with permission to call Inference Providers
+- Space variable: `HF_MODEL=Qwen/Qwen3-14B:nscale`
+- Space variable: `ALLOWED_ORIGINS=https://gayatri-sharma.github.io`
 
-For Render, `render.yaml` supplies these settings and prompts for `HF_TOKEN` during Blueprint creation. Since the service has already been created, add or update `HF_TOKEN` in its Environment settings; changing `sync: false` in the Blueprint does not prompt again.
+The deployment workflow copies only the API runtime, portfolio context, package files, and Docker metadata into the Space. The token is never committed or sent to the browser. Hugging Face exposes the running API at `https://username-space-name.hf.space`.
 
 After the backend is live, set its public endpoint in `chat-config.js`:
 
 ```js
 window.GAYATRI_AI_CONFIG = {
-  apiUrl: "https://your-secure-backend.example/api/chat",
+  apiUrl: "https://username-space-name.hf.space/api/chat",
 };
 ```
 

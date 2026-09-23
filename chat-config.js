@@ -1,3 +1,4 @@
 window.GAYATRI_AI_CONFIG = {
-  apiUrl: "https://gayatri-portfolio-ai.onrender.com/api/chat",
+  // Set this to the public URL of the Hugging Face Space after it is created.
+  apiUrl: "",
 };
