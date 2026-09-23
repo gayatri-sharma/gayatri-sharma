@@ -24,7 +24,7 @@ jobs:
 
   deploy:
     if: needs.check.result == 'success'
-    needs: check:
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout portfolio
