@@ -12,19 +12,19 @@ Portfolio for Gayatri Sharma Kurmatey, a Data Engineer and AI/ML Engineer based 
 GitHub Pages portfolio
   -> portfolio-chat.js
   -> secure Node API
-  -> LangChain ChatOpenAI chain
-  -> OpenAI API
+  -> LangChain prompt chain
+  -> Hugging Face Inference Providers
        + data/portfolio-context.json
 ```
 
-The browser never receives the OpenAI key. The API uses one constrained LangChain prompt and the structured portfolio context; it does not use web search, embeddings, a vector database, or tools. Questions without documented support are answered with a clear not-documented response.
+The browser never receives the Hugging Face token. The API uses one constrained LangChain prompt and the structured portfolio context; it does not use web search, embeddings, a vector database, or tools. Questions without documented support are answered with a clear not-documented response.
 
 ## Local setup
 
 Requirements: Node.js 20+ and Python 3.12+.
 
 1. Install JavaScript dependencies: `pnpm install`
-2. Create a local environment file from `.env.example` and set `OPENAI_API_KEY`.
+2. Create a local environment file from `.env.example` and set `HF_TOKEN`. Create a Hugging Face token with permission to call Inference Providers.
 3. Start the LangChain API: `pnpm start`
 4. In another terminal, serve the static portfolio: `python -m http.server 8000`
 5. Open `http://localhost:8000`. On localhost, the widget calls `http://localhost:3000/api/chat`.
@@ -33,8 +33,8 @@ Requirements: Node.js 20+ and Python 3.12+.
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `OPENAI_API_KEY` | Yes | Server-side OpenAI credential. Never add it to Git. |
-| `OPENAI_MODEL` | No | Model used by LangChain. Defaults to `gpt-5-mini`. |
+| `HF_TOKEN` | Yes | Server-side Hugging Face access token with Inference Providers permission. Never add it to Git. |
+| `HF_MODEL` | No | Hugging Face model/provider. Defaults to `Qwen/Qwen3-14B:nscale`. |
 | `ALLOWED_ORIGINS` | No | Comma-separated extra browser origins allowed by CORS. |
 | `PORT` | No | API port. Defaults to `3000`. |
 
@@ -47,10 +47,10 @@ Deploy the repository as a Node web service on a host that supports Node 20+ (fo
 - Build command: `pnpm install --frozen-lockfile`
 - Start command: `pnpm start`
 - Health check: `/health`
-- Add `OPENAI_API_KEY` as a secret in the backend host
+- Add `HF_TOKEN` as a secret in the backend host
 - Set `ALLOWED_ORIGINS=https://gayatri-sharma.github.io`
 
-For Render, `render.yaml` supplies these settings and prompts for `OPENAI_API_KEY` during Blueprint creation.
+For Render, `render.yaml` supplies these settings and prompts for `HF_TOKEN` during Blueprint creation. Since the service has already been created, add or update `HF_TOKEN` in its Environment settings; changing `sync: false` in the Blueprint does not prompt again.
 
 After the backend is live, set its public endpoint in `chat-config.js`:
 
@@ -74,7 +74,7 @@ pnpm test
 python -m pytest --verbose
 ```
 
-The Node tests use a mocked answer function and do not call OpenAI or require an API key.
+The Node tests use a mocked answer function and do not call Hugging Face or require a token.
 
 ## Production hardening
 

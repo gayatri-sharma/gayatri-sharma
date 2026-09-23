@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@huggingface/inference':
+        specifier: ^4.13.30
+        version: 4.13.30
       '@langchain/core':
         specifier: 1.2.12
         version: 1.2.12(openai@7.21.0(zod@4.6.5))
-      '@langchain/openai':
-        specifier: 1.5.13
-        version: 1.5.13(@langchain/core@1.2.12(openai@7.21.0(zod@4.6.5)))
       dotenv:
         specifier: 17.2.3
         version: 17.2.3
@@ -26,15 +26,20 @@ packages:
   '@cfworker/json-schema@4.1.1':
     resolution: {integrity: sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og==}
 
+  '@huggingface/inference@4.13.30':
+    resolution: {integrity: sha512-d5iD7UxHFH5X4ndNhwn3eFT/P9M08RRcsWDoko40//9lgNCCCn87TziwcKWf7ztvoKOm8d29W+lrYO4ZZvyAnA==}
+    engines: {node: '>=18'}
+
+  '@huggingface/jinja@0.5.10':
+    resolution: {integrity: sha512-SgS1D1bglQ94ceD4ZCL6eayUDy9uV1xuyk61OjgSxU5GJh7upqZCKII0JoTYMc6wWsg3JUgaPRX0ElQzXPk3Cw==}
+    engines: {node: '>=18'}
+
+  '@huggingface/tasks@0.21.47':
+    resolution: {integrity: sha512-xqMVJuk2nZRT/Nn8Hi4ZGZLHZTQ8i9Ft7xBCqp3iflgwRTaO+42AVZTmfDN+Vz9w9kbB3QKcjOtUSMkvbuxKbw==}
+
   '@langchain/core@1.2.12':
     resolution: {integrity: sha512-DvNsrN5Gz+bgEy/B/kK1AvxxcrwdrflI8hZJxqo/DtA17FMUeWM5k0o1c6G8ChH8+sIakV2UsDudFmNZJp1ugQ==}
     engines: {node: '>=20'}
-
-  '@langchain/openai@1.5.13':
-    resolution: {integrity: sha512-SA1QWNgM/p8xhdwU82CJ7OofhHEExpAaIwJ7j9ELIyVW795Mn0jDRQO/5yChawLcPhuLkeL+jMesi0FnXbImSg==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      '@langchain/core': ^1.2.11
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -377,6 +382,15 @@ snapshots:
 
   '@cfworker/json-schema@4.1.1': {}
 
+  '@huggingface/inference@4.13.30':
+    dependencies:
+      '@huggingface/jinja': 0.5.10
+      '@huggingface/tasks': 0.21.47
+
+  '@huggingface/jinja@0.5.10': {}
+
+  '@huggingface/tasks@0.21.47': {}
+
   '@langchain/core@1.2.12(openai@7.21.0(zod@4.6.5))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
@@ -391,19 +405,6 @@ snapshots:
       - '@opentelemetry/exporter-trace-otlp-proto'
       - '@opentelemetry/sdk-trace-base'
       - openai
-      - ws
-
-  '@langchain/openai@1.5.13(@langchain/core@1.2.12(openai@7.21.0(zod@4.6.5)))':
-    dependencies:
-      '@langchain/core': 1.2.12(openai@7.21.0(zod@4.6.5))
-      js-tiktoken: 1.0.21
-      openai: 7.21.0(zod@4.6.5)
-      zod: 4.6.5
-    transitivePeerDependencies:
-      - '@aws-sdk/credential-provider-node'
-      - '@smithy/hash-node'
-      - '@smithy/signature-v4'
-      - undici
       - ws
 
   '@standard-schema/spec@1.1.0': {}
@@ -620,6 +621,7 @@ snapshots:
   openai@7.21.0(zod@4.6.5):
     optionalDependencies:
       zod: 4.6.5
+    optional: true
 
   p-finally@1.0.0: {}
 

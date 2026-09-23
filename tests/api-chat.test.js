@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { after, before, test } from "node:test";
 
 import { createApp } from "../server/app.js";
+import { createPortfolioChain } from "../server/portfolio-chain.js";
 
 let baseUrl;
 let server;
@@ -21,7 +22,11 @@ after(() => new Promise((resolve) => server.close(resolve)));
 test("health endpoint identifies LangChain", async () => {
   const response = await fetch(`${baseUrl}/health`);
   assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { status: "ok", framework: "LangChain" });
+  assert.deepEqual(await response.json(), {
+    status: "ok",
+    framework: "LangChain",
+    modelProvider: "Hugging Face",
+  });
 });
 
 test("chat endpoint returns an answer", async () => {
@@ -61,4 +66,28 @@ test("job description is passed to the chain", async () => {
   });
   assert.equal(response.status, 200);
   assert.match((await response.json()).answer, /role context/);
+});
+
+test("LangChain passes portfolio grounding and conversation to Hugging Face", async () => {
+  let inferenceRequest;
+  const chain = createPortfolioChain({
+    chatCompletion: async (request) => {
+      inferenceRequest = request;
+      return "Gayatri has documented data engineering experience.";
+    },
+    model: "Qwen/Qwen3-14B:nscale",
+  });
+  const answer = await chain.invoke({
+    context: '{"experience":[{"organization":"Belong Automotive Technologies"}]}',
+    question: "What data engineering experience does Gayatri have?",
+    jobDescription: "SQL and pipelines",
+    history: [],
+  });
+
+  assert.match(answer, /documented data engineering experience/);
+  assert.equal(inferenceRequest.model, "Qwen/Qwen3-14B:nscale");
+  assert.equal(inferenceRequest.messages[0].role, "system");
+  assert.equal(inferenceRequest.messages[1].role, "user");
+  assert.match(inferenceRequest.messages[1].content, /Belong Automotive Technologies/);
+  assert.match(inferenceRequest.messages[1].content, /SQL and pipelines/);
 });

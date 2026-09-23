@@ -69,7 +69,9 @@ export function createApp({ answerQuestion = answerPortfolioQuestion } = {}) {
     return next();
   });
 
-  app.get("/health", (_req, res) => res.json({ status: "ok", framework: "LangChain" }));
+  app.get("/health", (_req, res) =>
+    res.json({ status: "ok", framework: "LangChain", modelProvider: "Hugging Face" }),
+  );
 
   app.post("/api/chat", async (req, res) => {
     const { question, jobDescription = "", history = [] } = req.body || {};

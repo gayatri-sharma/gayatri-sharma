@@ -1,10 +1,12 @@
 import { readFile } from "node:fs/promises";
 
-import { MessagesPlaceholder, ChatPromptTemplate } from "@langchain/core/prompts";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
-import { ChatOpenAI } from "@langchain/openai";
+import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
+import { RunnableLambda } from "@langchain/core/runnables";
+import { InferenceClient } from "@huggingface/inference";
 
 const contextUrl = new URL("../data/portfolio-context.json", import.meta.url);
+const DEFAULT_MODEL = "Qwen/Qwen3-14B:nscale";
 
 const SYSTEM_PROMPT = `You are Gayatri Sharma Kurmatey's portfolio assistant for recruiters and hiring managers.
 
@@ -57,27 +59,53 @@ function messageText(content) {
   return "";
 }
 
-export async function answerPortfolioQuestion({ question, jobDescription = "Not supplied.", history = [] }) {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error("OPENAI_API_KEY is not configured");
+export function createPortfolioChain({ chatCompletion, model = process.env.HF_MODEL || DEFAULT_MODEL }) {
+  if (typeof chatCompletion !== "function") {
+    throw new TypeError("A Hugging Face chat completion function is required");
   }
 
-  const model = new ChatOpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    model: process.env.OPENAI_MODEL || "gpt-5-mini",
-    maxRetries: 2,
+  const modelRunnable = new RunnableLambda({
+    func: async (promptValue) => {
+      const messages = promptValue.toChatMessages().map((message) => {
+        const type = message.getType();
+        const role = type === "ai" ? "assistant" : type === "human" ? "user" : "system";
+        return { role, content: messageText(message.content) };
+      });
+
+      const response = await chatCompletion({
+        model,
+        messages,
+        max_tokens: 700,
+        temperature: 0.2,
+      });
+      return messageText(response);
+    },
   });
-  const chain = prompt.pipe(model);
-  const response = await chain.invoke({
+
+  return prompt.pipe(modelRunnable);
+}
+
+export async function answerPortfolioQuestion({ question, jobDescription = "Not supplied.", history = [] }) {
+  if (!process.env.HF_TOKEN) {
+    throw new Error("HF_TOKEN is not configured");
+  }
+
+  const client = new InferenceClient(process.env.HF_TOKEN);
+  const chain = createPortfolioChain({
+    chatCompletion: async (request) => {
+      const response = await client.chatCompletion(request);
+      return response.choices?.[0]?.message?.content || "";
+    },
+  });
+  const answer = await chain.invoke({
     context: await loadContext(),
     question,
     jobDescription: jobDescription || "Not supplied.",
     history: toMessages(history),
   });
-  const answer = messageText(response.content);
 
   if (!answer) throw new Error("The model returned an empty response");
   return answer;
 }
 
-export { SYSTEM_PROMPT };
+export { DEFAULT_MODEL, SYSTEM_PROMPT };

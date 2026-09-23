@@ -13,8 +13,8 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.13.30",
     "@langchain/core": "1.2.12",
-    "@langchain/openai": "1.5.13",
     "dotenv": "17.2.3",
     "express": "5.2.1"
   }
