@@ -785,15 +785,7 @@ h1 {
 }
 
 .featured-project::after {
-  content: "VX";
-  position: absolute;
-  right: clamp(1rem, 4vw, 3rem);
-  bottom: -0.14em;
-  color: rgba(255, 247, 236, 0.035);
-  font-size: clamp(7rem, 19vw, 16rem);
-  font-weight: 900;
-  line-height: 0.8;
-  pointer-events: none;
+  content: none;
 }
 
 .portfolio-project {
@@ -806,11 +798,11 @@ h1 {
 }
 
 .portfolio-project::after {
-  content: "AI";
+  content: none;
 }
 
-.portfolio-project h3 {
-  font-size: clamp(2.35rem, 4.2vw, 4rem);
+.featured-project.portfolio-project h3 {
+  font-size: clamp(2.2rem, 3.7vw, 3.5rem);
   line-height: 0.98;
 }
 
@@ -842,7 +834,7 @@ h1 {
 
 .featured-project h3 {
   color: var(--ink);
-  font-size: clamp(3.2rem, 7vw, 6.5rem);
+  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
   line-height: 0.9;
 }
 
