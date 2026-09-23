@@ -19,19 +19,43 @@ function apiUrl() {
   return "";
 }
 
-function formatAssistantText(text) {
-  return text
+function cleanAssistantLine(line) {
+  return line
     .replace(/\*\*(.*?)\*\*/g, "$1")
-    .replace(/\*([^*\\n]+)\*/g, "$1")
-    .replace(/^#{1,6}\s*/gm, "")
-    .replace(/^\s*[-*]\s+/gm, "• ");
+    .replace(/\*([^*\n]+)\*/g, "$1")
+    .replace(/^#{1,6}\s*/, "")
+    .trim();
+}
+
+function appendAssistantContent(message, text) {
+  text.split(/\n+/).map(cleanAssistantLine).filter(Boolean).forEach((line) => {
+    const bullet = line.replace(/^[-•]\s+/, "");
+    const row = document.createElement("span");
+    row.className = line === bullet ? "bot-message-line" : "bot-message-line bot-message-bullet";
+    const url = bullet.match(/^https?:\/\/\S+$/);
+    if (url) {
+      const link = document.createElement("a");
+      link.href = url[0];
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Open project demo";
+      row.append(link);
+    } else {
+      row.textContent = line === bullet ? bullet : `• ${bullet}`;
+    }
+    message.append(row);
+  });
 }
 
 function addMessage(text, type = "bot") {
   if (!messages) return;
   const message = document.createElement("p");
   message.className = `bot-message bot-message-${type}`;
-  message.textContent = type === "bot" ? formatAssistantText(text) : text;
+  if (type === "bot") {
+    appendAssistantContent(message, text);
+  } else {
+    message.textContent = text;
+  }
   messages.append(message);
   messages.scrollTop = messages.scrollHeight;
 }
