@@ -22,11 +22,18 @@ function apiUrl() {
   return "";
 }
 
+function formatAssistantText(text) {
+  return text
+    .replace(/\\*\\*(.*?)\\*\\*/g, "$1")
+    .replace(/^#{1,6}\\s*/gm, "")
+    .replace(/^\\s*[-*]\\s+/gm, "• ");
+}
+
 function addMessage(text, type = "bot") {
   if (!messages) return;
   const message = document.createElement("p");
   message.className = `bot-message bot-message-${type}`;
-  message.textContent = text;
+  message.textContent = type === "bot" ? formatAssistantText(text) : text;
   messages.append(message);
   messages.scrollTop = messages.scrollHeight;
 }
