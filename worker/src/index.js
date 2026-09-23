@@ -90,14 +90,19 @@ export default {
     ];
 
     try {
+      const model = env.HF_MODEL || DEFAULT_MODEL;
       const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
         method: "POST",
         headers: { Authorization: `Bearer ${env.HF_TOKEN}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ model: env.HF_MODEL || DEFAULT_MODEL, messages, temperature: 0.2, max_tokens: 300 }),
+        body: JSON.stringify({ model, messages, temperature: 0.2, max_tokens: 180, stream: false }),
       });
       const payload = await response.json();
-      if (!response.ok) throw new Error(payload?.error || "Hugging Face request failed.");
-      const answer = payload?.choices?.[0]?.message?.content?.trim();
+      if (!response.ok) {
+        const detail = typeof payload?.error === "string" ? payload.error : JSON.stringify(payload?.error || payload);
+        throw new Error(`Hugging Face ${response.status}: ${detail}`);
+      }
+      const message = payload?.choices?.[0]?.message || {};
+      const answer = (message.content || message.reasoning_content || "").trim();
       if (!answer) throw new Error("Hugging Face returned an empty answer.");
       return json({ answer }, 200, origin);
     } catch (error) {
