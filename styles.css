@@ -875,6 +875,10 @@ h1 {
   animation: project-current-pulse 2.8s ease-in-out infinite;
 }
 
+.project-current span {
+  animation: project-current-highlight 4.8s ease-in-out infinite;
+}
+
 @keyframes project-current-in {
   from {
     opacity: 0;
@@ -893,6 +897,18 @@ h1 {
   }
   50% {
     box-shadow: 0 0 0.7rem rgba(121, 208, 199, 0.52);
+  }
+}
+
+@keyframes project-current-highlight {
+  0%,
+  100% {
+    color: rgba(255, 247, 236, 0.78);
+    text-shadow: 0 0 0 rgba(229, 173, 87, 0);
+  }
+  48% {
+    color: rgba(255, 247, 236, 0.98);
+    text-shadow: 0 0 1rem rgba(229, 173, 87, 0.18);
   }
 }
 
@@ -2376,7 +2392,8 @@ footer {
   }
 
   .project-current,
-  .project-current::before {
+  .project-current::before,
+  .project-current span {
     animation: none;
   }
 
