@@ -128,6 +128,7 @@
     "research": ["BioPython", "NetworkX", "Graph2Vec", "PCA", "t-SNE", "KMeans", "statistical modeling", "experimental design", "hypothesis testing"],
     "cloud_and_automation": ["Azure", "Google Cloud", "AWS", "Amazon SageMaker", "Docker", "Kubernetes", "Power Apps", "Power Automate", "Power Pages", "Dataverse", "SharePoint", "RBAC"],
     "application_development": ["FastAPI", "React", "REST APIs", "OAuth 2.0", "Tesla Fleet API", "geospatial logic", "event-driven architecture"],
+    "ai_assistant_and_delivery": ["Prompt engineering", "conversation history", "Hugging Face", "Inference Providers", "Cloudflare Workers", "Wrangler", "GitHub Actions", "GitHub Pages", "CI/CD automation", "API secrets management", "Open Graph metadata", "Git"],
     "digital_marketing": ["Website strategy", "SEO", "Google Analytics", "conversion tracking", "landing page optimization", "content strategy", "brand positioning", "campaign performance", "marketing analytics"]
   },
   "achievements": [
