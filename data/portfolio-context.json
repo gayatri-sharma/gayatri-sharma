@@ -80,7 +80,8 @@
         "Browser and mobile alerts",
         "OAuth 2.0",
         "Python and FastAPI backend",
-        "React frontend"
+        "React frontend",
+        "GitHub Actions CI/CD"
       ],
       "planned_not_implemented": [
         "Historical rate analysis",
