@@ -24,15 +24,23 @@ function cleanAssistantLine(line) {
     .replace(/\*\*(.*?)\*\*/g, "$1")
     .replace(/\*([^*\n]+)\*/g, "$1")
     .replace(/^#{1,6}\s*/, "")
+    .replace(/^[-•]\s*/, "")
     .trim();
 }
 
 function appendAssistantContent(message, text) {
-  text.split(/\n+/).map(cleanAssistantLine).filter(Boolean).forEach((line) => {
-    const bullet = line.replace(/^[-•]\s+/, "");
+  const normalized = text
+    .replace(/\r/g, "")
+    .replace(/\s+•\s+/g, "\n• ")
+    .replace(/\s+-\s+(?=[A-Z])/g, "\n- ");
+
+  normalized.split(/\n+/).map((line) => {
+    const isBullet = /^[-•]\s+/.test(line.trim());
+    return { isBullet, text: cleanAssistantLine(line) };
+  }).filter(({ text }) => text).forEach(({ isBullet, text: line }) => {
     const row = document.createElement("span");
-    row.className = line === bullet ? "bot-message-line" : "bot-message-line bot-message-bullet";
-    const url = bullet.match(/^https?:\/\/\S+$/);
+    row.className = isBullet ? "bot-message-line bot-message-bullet" : "bot-message-line";
+    const url = line.match(/^https?:\/\/\S+$/);
     if (url) {
       const link = document.createElement("a");
       link.href = url[0];
@@ -41,7 +49,7 @@ function appendAssistantContent(message, text) {
       link.textContent = "Open project demo";
       row.append(link);
     } else {
-      row.textContent = line === bullet ? bullet : `• ${bullet}`;
+      row.textContent = isBullet ? `• ${line}` : line;
     }
     message.append(row);
   });
