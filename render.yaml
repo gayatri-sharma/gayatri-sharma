@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: gayatri-portfolio-ai
+    runtime: node
+    plan: free
+    buildCommand: corepack enable && pnpm install --frozen-lockfile
+    startCommand: pnpm start
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5-mini
+      - key: ALLOWED_ORIGINS
+        value: https://gayatri-sharma.github.io

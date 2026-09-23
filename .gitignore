@@ -2,3 +2,7 @@
 __pycache__/
 junit.xml
 tmp/
+node_modules/
+.env
+.env.*
+!.env.example

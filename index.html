@@ -945,24 +945,35 @@
       <section class="bot-panel" aria-live="polite" hidden>
         <div class="bot-header">
           <div>
-            <p class="bot-kicker">Personal AI</p>
-            <h2>Ask Gaya AI</h2>
+            <p class="bot-kicker">Portfolio assistant</p>
+            <h2>Ask Gayatri AI</h2>
           </div>
           <button class="bot-close" type="button" aria-label="Close profile assistant">x</button>
         </div>
         <div class="bot-messages" role="log" aria-label="Conversation with profile assistant">
           <p class="bot-message bot-message-bot">
-            Hi, I know Gayatri's work, strengths, and story. Ask me what kind of roles
-            she fits best, what she has built, or why her background stands out.
+            Hi! I'm Gayatri's portfolio assistant. Ask me about her experience, projects,
+            research, or technical skills.
           </p>
         </div>
         <div class="bot-prompts" aria-label="Suggested profile questions">
-          <button type="button" data-question="Is Gayatri a good fit for an AI Engineer role?">AI fit</button>
-          <button type="button" data-question="Is Gayatri a good fit for a Data Engineer role?">Data fit</button>
-          <button type="button" data-question="Why should a hiring manager interview Gayatri?">Why interview</button>
           <button type="button" data-question="Tell me about Gayatri's VoltX project.">VoltX</button>
-          <button type="button" data-question="Tell me about the Belong website.">Belong site</button>
+          <button type="button" data-question="What AI and machine learning experience does Gayatri have?">AI/ML experience</button>
+          <button type="button" data-question="Tell me about Gayatri's NASA research.">NASA research</button>
+          <button type="button" data-question="What data engineering experience does Gayatri have?">Data engineering</button>
+          <button type="button" data-question="Why might Gayatri be relevant for this role?">Role relevance</button>
         </div>
+        <button class="bot-role-toggle" type="button" aria-expanded="false">Compare a role</button>
+        <div class="bot-role-field" hidden>
+          <label for="bot-job-description">Optional job description</label>
+          <textarea
+            id="bot-job-description"
+            rows="4"
+            maxlength="12000"
+            placeholder="Paste the role requirements here..."
+          ></textarea>
+        </div>
+        <p class="bot-status" role="status" aria-live="polite"></p>
         <form class="bot-form">
           <input
             type="text"
@@ -981,6 +992,8 @@
       <span>Data Engineering | AI/ML | Business Intelligence</span>
     </footer>
 
+    <script src="chat-config.js"></script>
+    <script type="module" src="portfolio-chat.js"></script>
     <script type="module" src="starfield.js?v=voltx-20260922"></script>
   </body>
 </html>

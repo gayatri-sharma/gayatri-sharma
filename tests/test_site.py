@@ -68,3 +68,10 @@ def test_resume_link_points_to_pdf():
         for _, attribute, value in site.references
     ), "Resume link is missing"
     assert (ROOT / RESUME_PATH).read_bytes().startswith(b"%PDF-"), "Resume is not a PDF"
+
+
+def test_recruiter_assistant_assets_exist():
+    assert (ROOT / "portfolio-chat.js").is_file()
+    assert (ROOT / "chat-config.js").is_file()
+    assert (ROOT / "data" / "portfolio-context.json").is_file()
+    assert "Ask Gayatri AI" in (ROOT / "index.html").read_text(encoding="utf-8")

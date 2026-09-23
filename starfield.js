@@ -341,6 +341,7 @@ if (reducedMotion) {
   motionItems.forEach((item) => item.classList.add("is-visible"));
 }
 
+/* The portfolio assistant now lives in portfolio-chat.js and uses the LangChain API.
 const profileBot = document.querySelector(".profile-bot");
 const botLauncher = document.querySelector(".bot-launcher");
 const botPanel = document.querySelector(".bot-panel");
@@ -553,6 +554,7 @@ botPromptButtons.forEach((button) => {
     askProfileBot(button.dataset.question || button.textContent);
   });
 });
+*/
 
 function updateDepthSections() {
   const viewportCenter = window.innerHeight * 0.52;

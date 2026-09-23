@@ -1,0 +1,153 @@
+{
+  "summary": {
+    "name": "Gayatri Sharma Kurmatey",
+    "location": "San Francisco, California",
+    "headline": "Data Engineer and AI/ML Engineer",
+    "overview": "Gayatri has 6+ years of experience building data pipelines, automation systems, executive dashboards, and machine learning workflows across automotive, energy, education, logistics, supply chain, and research domains.",
+    "working_style": "She has experience as a zero-to-one employee, not only building zero-to-one features, and works across technical, business, and operational teams."
+  },
+  "experience": [
+    {
+      "organization": "Belong Automotive Technologies",
+      "role": "Project Lead Data Engineer",
+      "dates": "October 2025 - July 2026",
+      "details": "Led data engineering, ERP workflow design, automation, and reporting across supply chain, HR, inventory, purchasing, and demand planning. Built Python ETL pipelines, PostgreSQL data models, and operational reporting workflows. Also built the public Belong Automotive website."
+    },
+    {
+      "organization": "SkyTech Inc",
+      "role": "Data Analyst",
+      "dates": "October 2024 - September 2025",
+      "details": "Worked on HR data integration, dashboard adoption, RBAC automation, and Azure-based compliance workflows. Connected MSSQL, APIs, Tableau, and Power BI data."
+    },
+    {
+      "organization": "Fremont Unified School District",
+      "role": "Data Science Engineer",
+      "dates": "March 2024 - January 2025",
+      "details": "Built SQL, Azure Synapse, and Power Platform pipelines for student database migration, asset workflows, access-control dashboards, and district reporting. Automated reporting and supported Power BI, Tableau, and Power Platform adoption."
+    },
+    {
+      "organization": "Pacific Gas and Electric Company",
+      "role": "Business Intelligence Analyst",
+      "dates": "May 2023 - August 2023",
+      "details": "Developed and optimized Spark SQL, Tableau, Power BI, and Python reporting workflows for operational analytics, dashboard refresh performance, and recurring reporting automation."
+    },
+    {
+      "organization": "Tesla",
+      "role": "Data Science Engineer Intern",
+      "dates": "May 2022 - December 2022",
+      "details": "Built Power BI, Tableau, Power Platform, and Dynamics 365 solutions for space planning, people analytics, CAPEX visibility, and forecasting, including executive-level portfolio monitoring."
+    },
+    {
+      "organization": "Tango Analytics",
+      "role": "Data Scientist Intern",
+      "dates": "January 2022 - May 2022",
+      "details": "Developed computer vision and deep learning workflows using OpenCV and Mask R-CNN for floor plan object detection, image annotation, dataset validation, and semantic segmentation."
+    },
+    {
+      "organization": "Amazon",
+      "role": "Associate Logistics Data Analyst",
+      "dates": "August 2018 - August 2019",
+      "details": "Analyzed last-mile logistics, delivery performance, customer feedback, pilot operations, onboarding workflows, and escalation patterns."
+    },
+    {
+      "organization": "Indian Space Research Organization",
+      "role": "Data Science Intern",
+      "dates": "May 2017 - March 2018",
+      "details": "Built procurement analytics and internal workflow systems using Sybase, MySQL, SQLdbx, HTML, CSS, and Java for query visualization, procurement analysis, and booking automation."
+    },
+    {
+      "organization": "NASA Ames Research Center",
+      "role": "Open-Source Researcher",
+      "dates": "February 2024 - Present",
+      "details": "Worked on graph-based machine learning for protein structure representation using BioPython parsing, NetworkX graphs, Graph2Vec embeddings, clustering, and geometry-aware deep learning exploration."
+    },
+    {
+      "organization": "NASA Jet Propulsion Laboratory",
+      "role": "Volunteer Research Assistant",
+      "dates": "May 2023 - August 2023",
+      "details": "Supported research involving Generative AI, LLMs, BERT, Haystack, semantic modeling, knowledge extraction, and advanced research analytics."
+    }
+  ],
+  "projects": [
+    {
+      "name": "VoltX",
+      "status": "In active development",
+      "description": "A full-stack EV charging intelligence platform built on the Tesla Fleet API Developer platform. It retrieves vehicle state and nearby Superchargers, applies geospatial logic, and sends proactive browser and mobile alerts.",
+      "implemented": [
+        "Tesla Fleet API integration",
+        "Vehicle-state and nearby-Supercharger retrieval",
+        "Geospatial logic",
+        "Browser and mobile alerts",
+        "OAuth 2.0",
+        "Python and FastAPI backend",
+        "React frontend"
+      ],
+      "planned_not_implemented": [
+        "Historical rate analysis",
+        "Cost optimization",
+        "Predictive charging recommendations"
+      ],
+      "demo": "https://gayatri-sharma.github.io/voltx-demo/?fresh=ratecolors2"
+    },
+    {
+      "name": "Belong Automotive website",
+      "description": "Gayatri built the live public website for Belong Automotive and connected website strategy with SEO, analytics, conversion tracking, and content considerations.",
+      "url": "https://www.belong-usa.com/"
+    }
+  ],
+  "research": [
+    {
+      "organization": "NASA Ames Research Center",
+      "details": "Tested graph-based ML for protein structure clustering with BioPython, NetworkX, Graph2Vec, Weisfeiler-Lehman labeling, PCA, t-SNE, and KMeans."
+    },
+    {
+      "organization": "NASA Jet Propulsion Laboratory",
+      "details": "Compiled Generative AI, LLM, BERT, and Haystack approaches for semantic modeling, knowledge extraction, and research analytics."
+    },
+    {
+      "organization": "University of Texas at Dallas",
+      "details": "Built Dockerized Open Data Cube workflows for NASA satellite image ingestion and tested ML models for road accident severity prediction."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Science in Information Technology and Management",
+      "institution": "University of Texas at Dallas",
+      "dates": "January 2021 - December 2022"
+    },
+    {
+      "degree": "Bachelor of Technology in Computer Science",
+      "institution": "Jawaharlal Nehru Technological University",
+      "dates": "September 2014 - June 2018"
+    }
+  ],
+  "skills": {
+    "data_engineering": ["Python", "SQL", "PostgreSQL", "Microsoft SQL Server", "MySQL", "MongoDB", "BigQuery", "Snowflake", "Azure Data Factory", "SSIS", "dbt", "ETL/ELT pipelines", "data modeling", "Airflow"],
+    "bi_and_analytics": ["Power BI", "Tableau", "Qlik Sense", "Google Analytics", "DAX", "Power Query", "KPI dashboards", "executive reporting", "data storytelling"],
+    "ai_ml": ["LLMs", "BERT", "Transformers", "foundation models", "CNNs", "Mask R-CNN", "graph neural networks", "geometric deep learning", "PyTorch", "TensorFlow", "Scikit-Learn", "OpenCV"],
+    "research": ["BioPython", "NetworkX", "Graph2Vec", "PCA", "t-SNE", "KMeans", "statistical modeling", "experimental design", "hypothesis testing"],
+    "cloud_and_automation": ["Azure", "Google Cloud", "AWS", "Amazon SageMaker", "Docker", "Kubernetes", "Power Apps", "Power Automate", "Power Pages", "Dataverse", "SharePoint", "RBAC"],
+    "application_development": ["FastAPI", "React", "REST APIs", "OAuth 2.0", "Tesla Fleet API", "geospatial logic", "event-driven architecture"],
+    "digital_marketing": ["Website strategy", "SEO", "Google Analytics", "conversion tracking", "landing page optimization", "content strategy", "brand positioning", "campaign performance", "marketing analytics"]
+  },
+  "achievements": [
+    "Recognized by senior leaders for automation and dashboard solutions that improved operational visibility and decision-making at Tesla and Fremont Unified School District.",
+    "Ranked among the top three by GPA in the M.S. Information Technology and Management program at the University of Texas at Dallas."
+  ],
+  "certifications": [
+    "Introduction to Generative AI - Google Cloud",
+    "Introduction to Large Language Models - Google Cloud",
+    "Applying AI Principles - Google Cloud",
+    "Databricks Generative AI Foundation",
+    "Semantic Segmentation with Amazon SageMaker - AWS",
+    "Kubernetes - LinkedIn Learning",
+    "Advanced Window Functions - LinkedIn Learning",
+    "Tableau for Data Scientists - LinkedIn Learning"
+  ],
+  "contact": {
+    "linkedin": "https://www.linkedin.com/in/gayatrikurmatey/",
+    "github": "https://github.com/gayatri-sharma",
+    "portfolio": "https://gayatri-sharma.github.io/gayatri-sharma/",
+    "resume": "https://gayatri-sharma.github.io/gayatri-sharma/assets/Resume_GayatriSharmaKurmatey.pdf"
+  }
+}

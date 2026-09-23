@@ -1877,6 +1877,75 @@ footer {
   color: var(--ink);
 }
 
+.bot-message-error {
+  border-color: rgba(229, 116, 87, 0.28);
+  color: #f2c2b6;
+}
+
+.bot-role-toggle {
+  width: calc(100% - 2rem);
+  margin: 0 1rem 0.55rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(229, 173, 87, 0.2);
+  background: rgba(229, 173, 87, 0.05);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.bot-role-toggle:hover,
+.bot-role-toggle:focus-visible {
+  border-color: rgba(229, 173, 87, 0.48);
+  color: var(--text);
+}
+
+.bot-role-field {
+  margin: 0 1rem 0.75rem;
+}
+
+.bot-role-field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.bot-role-field textarea {
+  width: 100%;
+  min-height: 5rem;
+  resize: vertical;
+  border: 1px solid rgba(229, 173, 87, 0.22);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  padding: 0.7rem;
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.bot-role-field textarea:focus {
+  outline: 1px solid rgba(229, 173, 87, 0.55);
+  border-color: transparent;
+}
+
+.bot-status {
+  min-height: 1.1rem;
+  margin: 0 1rem 0.4rem;
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+
+.bot-form button:disabled,
+.bot-prompts button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.profile-bot.is-loading .bot-orbit {
+  animation-duration: 1.35s;
+}
+
 .bot-prompts {
   display: flex;
   flex-wrap: wrap;
