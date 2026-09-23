@@ -1,6 +1,7 @@
 name = "gayatri-portfolio-ai"
 main = "src/index.js"
 compatibility_date = "2026-09-22"
+workers_dev = true
 
 [vars]
 HF_MODEL = "Qwen/Qwen3-14B:nscale"
