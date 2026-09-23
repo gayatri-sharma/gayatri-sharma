@@ -12,7 +12,19 @@ permissions:
   contents: read
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout portfolio
+        uses: actions/checkout@v4
+      - name: Check Worker JavaScript syntax
+        run: node --check worker/src/index.js
+      - name: Validate portfolio context JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('data/portfolio-context.json', 'utf8'))"
+
   deploy:
+    if: needs.check.result == 'success'
+    needs: check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout portfolio
