@@ -851,6 +851,14 @@ h1 {
   margin-top: 1rem;
 }
 
+.project-current {
+  margin: 0;
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
 .hero-feature {
   grid-column: 1;
   display: grid;
