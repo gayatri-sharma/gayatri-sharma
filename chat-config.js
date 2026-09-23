@@ -1,4 +1,4 @@
 window.GAYATRI_AI_CONFIG = {
-  // Set this to the public URL of the Hugging Face Space after it is created.
+  // Set this to the public URL of the Cloudflare Worker after its first deploy.
   apiUrl: "",
 };

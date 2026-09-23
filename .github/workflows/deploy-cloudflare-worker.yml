@@ -1,0 +1,36 @@
+name: Deploy recruiter assistant API
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "worker/**"
+      - "data/portfolio-context.json"
+      - ".github/workflows/deploy-cloudflare-worker.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout portfolio
+        uses: actions/checkout@v4
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker
+          command: deploy
+
+      - name: Set Hugging Face token as Worker secret
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: printf '%s' "$HF_TOKEN" | npx wrangler secret put HF_TOKEN

@@ -11,8 +11,8 @@ Portfolio for Gayatri Sharma Kurmatey, a Data Engineer and AI/ML Engineer based 
 ```text
 GitHub Pages portfolio
   -> portfolio-chat.js
-  -> Hugging Face Docker Space (secure Node API)
-  -> LangChain prompt chain
+  -> Cloudflare Worker (secure API)
+  -> constrained portfolio prompt
   -> Hugging Face Inference Providers
        + data/portfolio-context.json
 ```
@@ -40,23 +40,23 @@ Requirements: Node.js 20+ and Python 3.12+.
 
 ## Deployment
 
-The frontend remains on GitHub Pages through `.github/workflows/pages.yml`. The backend is deployed as a Hugging Face Docker Space using `hf-space/Dockerfile` and synchronized by `.github/workflows/deploy-huggingface-space.yml`.
+The frontend remains on GitHub Pages through `.github/workflows/pages.yml`. The secure API runs on a Cloudflare Worker through `.github/workflows/deploy-cloudflare-worker.yml`. Hugging Face remains the model provider.
 
-Create a new Hugging Face Space with the Docker SDK, then configure:
+Configure these GitHub repository secrets:
 
-- Repository variable: `HF_SPACE_ID`, in the form `username/space-name`
-- Repository secret: `HF_TOKEN`, with permission to write to the Space and call Inference Providers
-- Space secret: `HF_TOKEN`, with permission to call Inference Providers
-- Space variable: `HF_MODEL=Qwen/Qwen3-14B:nscale`
-- Space variable: `ALLOWED_ORIGINS=https://gayatri-sharma.github.io`
+- `CLOUDFLARE_API_TOKEN`: a Cloudflare API token with Workers Scripts edit permission
+- `CLOUDFLARE_ACCOUNT_ID`: your Cloudflare account ID
+- `HF_TOKEN`: a Hugging Face token with permission to call Inference Providers
 
-The deployment workflow copies only the API runtime, portfolio context, package files, and Docker metadata into the Space. The token is never committed or sent to the browser. Hugging Face exposes the running API at `https://username-space-name.hf.space`.
+The Worker stores `HF_TOKEN` as a server-side secret and sends only the recruiter question and documented portfolio context to Hugging Face. No API key is sent to the browser. This avoids the paid Docker Space requirement.
+
+After the Worker deploys, set its public URL in `chat-config.js`:
 
 After the backend is live, set its public endpoint in `chat-config.js`:
 
 ```js
 window.GAYATRI_AI_CONFIG = {
-  apiUrl: "https://username-space-name.hf.space/api/chat",
+  apiUrl: "https://gayatri-portfolio-ai.<your-subdomain>.workers.dev/api/chat",
 };
 ```
 

@@ -3,6 +3,7 @@ __pycache__/
 junit.xml
 tmp/
 node_modules/
+.wrangler/
 .env
 .env.*
 !.env.example
