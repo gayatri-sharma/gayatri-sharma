@@ -7,9 +7,6 @@ const form = document.querySelector(".bot-form");
 const input = document.querySelector(".bot-form input");
 const submitButton = document.querySelector(".bot-form button");
 const promptButtons = [...document.querySelectorAll(".bot-prompts button[data-question]")];
-const roleToggle = document.querySelector(".bot-role-toggle");
-const roleField = document.querySelector(".bot-role-field");
-const jobDescription = document.querySelector(".bot-role-field textarea");
 const status = document.querySelector(".bot-status");
 const history = [];
 
@@ -84,7 +81,6 @@ async function ask(question) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         question: cleaned,
-        jobDescription: jobDescription?.value.trim() || "",
         history: requestHistory,
       }),
     });
@@ -112,12 +108,4 @@ form?.addEventListener("submit", (event) => {
 
 promptButtons.forEach((button) => {
   button.addEventListener("click", () => ask(button.dataset.question || button.textContent));
-});
-
-roleToggle?.addEventListener("click", () => {
-  const willOpen = roleField.hidden;
-  roleField.hidden = !willOpen;
-  roleToggle.setAttribute("aria-expanded", String(willOpen));
-  roleToggle.textContent = willOpen ? "Hide role description" : "Compare a role";
-  if (willOpen) jobDescription.focus();
 });
