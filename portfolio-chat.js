@@ -22,6 +22,7 @@ function apiUrl() {
 function formatAssistantText(text) {
   return text
     .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*([^*\\n]+)\*/g, "$1")
     .replace(/^#{1,6}\s*/gm, "")
     .replace(/^\s*[-*]\s+/gm, "• ");
 }
